@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lineage | Vidvān D. Balakrishna</title>
+
+<style>
+/* 🔴 CRITICAL - BASE RESET - DON'T MODIFY */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* 🟢 BODY SETTINGS */
+body {
+    font-family: "Palatino Linotype", Palatino, Georgia, serif;
+    background-color: #fffff0; /* 🟢 Page background - ivory */
+    color: #2f2f2f;
+    line-height: 1.65;
+}
+
+/* 🔵 ========== NAVIGATION BAR ========== */
+.nav-main {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    display: flex;
+    gap: 3rem;
+    padding: 1.2rem 3.5rem;
+    background-color: rgba(255,255,240,0.95);
+}
+.nav-main a {
+    font-size: 1.05rem; /* 🟢 UPDATED - was 0.95rem */
+    font-style: italic;
+    letter-spacing: 0.18em;
+    text-decoration: none;
+    color: #5a3a3a;
+    transition: color 0.3s ease;
+}
+.nav-main a:hover {
+    color: #8B0000; /* 🟢 Hover color - maroon */
+}
+.nav-main a.active {
+    color: #8B0000;
+    border-bottom: 1px solid #8B0000;
+}
+
+/* 🔵 ========== BACKGROUND CANVAS ========== */
+
+/* 🔵 ========== GURU IMAGE DISPLAY (LEFT SIDE) ========== */
+.guru-display {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    bottom: 0;
+    width: 38%; /* 🟢 Image area width - increase to make wider */
+    padding: 2rem 0; /* 🟢 Top/bottom padding around image */
+    z-index: 5;
+}
+
+.guru-display img {
+    position: absolute; /* 🔴 CRITICAL - stacks images on top of each other */
+    top: 0; /* 🔴 CRITICAL - positions from top */
+    left: 0; /* 🔴 CRITICAL - positions from left */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 🟡 Options: cover | contain */
+    object-position: left center; /* 🟡 Image alignment: left/center/right | top/center/bottom */
+    opacity: 0; /* 🔴 Hidden by default */
+    transition: opacity 0.5s ease; /* 🔴 Smooth fade effect */
+}
+
+.guru-display img.active {
+    opacity: 1; /* 🔴 Visible when active */
+}
+
+/* 🔵 ========== PREVIOUS/NEXT NAVIGATION ========== */
+.guru-nav {
+    position: fixed;
+    top: 100px; /* 🟢 UPDATED - Distance from top (clears main nav) */
+    left: 40%; /* 🟢 Starting position from left */
+    right: 8%; /* 🟢 Distance from right edge */
+    z-index: 10;
+    background: #fffff0; /* 🟢 Navigation background */
+    padding: 1rem 0; /* 🟢 Top/bottom padding */
+    display: flex;
+    gap: 2rem; /* 🟢 Space between Previous and Next */
+    font-style: italic;
+}
+
+.guru-nav a {
+    text-decoration: none;
+    color: #8B0000; /* 🟢 UPDATED - Darker maroon for visibility */
+    font-size: 1.2rem; /* 🟢 UPDATED - Bigger text */
+    font-weight: 600; /* 🟢 UPDATED - Bold */
+    background: rgba(139, 0, 0, 0.08); /* 🟢 UPDATED - Subtle background */
+    padding: 0.6rem 1.5rem; /* 🟢 UPDATED - Button padding */
+    border-radius: 5px; /* 🟢 UPDATED - Rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease; /* 🔴 Smooth transitions */
+}
+
+.guru-nav a:hover {
+    color: #ffffff; /* 🟢 UPDATED - White text on hover */
+    background: rgba(139, 0, 0, 0.25); /* 🟢 UPDATED - Darker background on hover */
+}
+
+.guru-nav .disabled {
+    color: #c0c0c0; /* 🟢 Disabled button color (gray) */
+    pointer-events: none; /* 🔴 Prevents clicking */
+    cursor: not-allowed;
+    background: rgba(192, 192, 192, 0.08); /* 🟢 Gray background for disabled */
+}
+
+/* 🔵 ========== TEXT CONTENT AREA (RIGHT SIDE) ========== */
+.lineage-content {
+    position: relative;
+    margin-top: 64px;
+    padding: 160px 8% 4rem 40%; /* 🟢 UPDATED - Top padding clears buttons */
+    min-height: calc(100vh - 64px);
+}
+
+/* 🔵 ========== GURU INFORMATION SECTIONS ========== */
+.guru-section {
+    display: none; /* 🔴 Hidden by default */
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.guru-section.active {
+    display: block; /* 🔴 Visible when active */
+    opacity: 1;
+}
+
+.guru-title {
+    font-size: 2.8rem; /* 🟢 Guru name size */
+    font-weight: 600;
+    letter-spacing: 0.01.2em;
+    color: #8B0000; /* 🟢 Title color - maroon */
+    margin-bottom: 0.5rem;
+}
+
+.guru-tagline {
+    font-size: 1.4rem; /* 🟢 Tagline size */
+    font-weight: 500;
+    color: #8B0000; /* 🟢 Tagline color - maroon */
+    margin-bottom: 2.5rem; /* 🟢 Space below tagline */
+}
+
+.guru-body p {
+    font-size: 1.26rem; /* 🟢 Paragraph text size */
+    font-style: italic;
+    color: #5a3a3a; /* 🟢 Body text color */
+    line-height: 1.78; /* 🟢 Line spacing */
+    margin-bottom: 2rem; /* 🟢 Space between paragraphs */
+}
+
+/* 🔵 ========== MOBILE RESPONSIVE ========== */
+
+@media (max-width: 960px) {
+    .lineage-canvas { 
+        background-image: url("images/bg06.png"); /* YOUR IMAGE */
+        background-size: cover; /* CRITICAL */
+        background-position: center; /* CRITICAL */
+        background-attachment: fixed; /* KEEP FIXED */
+        background-color: #fffff0; 
+    }
+
+    .guru-display { 
+        position: relative; 
+        top: auto; 
+        left: auto; 
+        width: 100%; 
+        height: 50vh; 
+        padding: 1rem 0; 
+    }
+    .guru-display img {
+        position: relative; /* 🔴 Relative positioning on mobile */
+    }
+    .guru-nav { 
+        position: relative; 
+        top: auto; 
+        left: auto; 
+        right: auto; 
+        padding: 1rem 0; 
+    }
+    .lineage-content { 
+        padding: 0 8% 4rem; 
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔵 ========== MAIN NAVIGATION ========== -->
+<nav class="nav-main">
+    <a href="01_index.html">Home</a>
+    <a href="02_artist.html">The Artist</a>
+    <a href="03_about.html">About</a>
+    <a href="04_lineage.html" class="active">The Lineage</a>
+    <a href="05_international.html">International</a>
+    <a href="06_media.html">Media</a>
+    <a href="07_mysore-bani.html">Mysore Bāṇi</a> <!-- 🟢 FIXED encoding -->
+    <a href="08_awards.html">Awards</a>
+    <a href="09_gallery.html">Gallery</a>
+    <a href="11_contact.html">Contact</a>
+</nav>
+
+<!-- 🔵 ========== BACKGROUND IMAGE ========== -->
+<div class="lineage-canvas"></div>
+
+<!-- 🔵 ========== GURU IMAGES (LEFT SIDE) ========== -->
+<!-- 🟡 Add your three guru images here - change src paths -->
+<div class="guru-display">
+    <img id="img1" src="images/guru1.png" alt="Guru 1" class="active"> <!-- 🟢 GURU 1 IMAGE -->
+    <img id="img2" src="images/guru2.png" alt="Guru 2"> <!-- 🟢 GURU 2 IMAGE -->
+    <img id="img3" src="images/guru3.png" alt="Guru 3"> <!-- 🟢 GURU 3 IMAGE -->
+</div>
+
+<!-- 🔵 ========== PREVIOUS/NEXT NAVIGATION ========== -->
+<div class="guru-nav">
+    <a id="prevBtn" class="disabled">← Previous</a> <!-- 🟢 Previous button -->
+    <a id="nextBtn">Next →</a> <!-- 🟢 Next button -->
+</div>
+
+<!-- 🔵 ========== GURU TEXT CONTENT (RIGHT SIDE) ========== -->
+<div class="lineage-content">
+
+    <!-- 🟣 ========== GURU 1 ========== -->
+    <div id="guru1" class="guru-section active">
+        <!-- 🟣 PUT GURU 1 NAME HERE -->
+        <div class="guru-title">Vīṇe Śeṣanna</div> <!-- 🟢 FIXED encoding -->
+        
+        <!-- 🟣 PUT GURU 1 TAGLINE HERE -->
+        <div class="guru-tagline">The Paramēṣṭhi Guru</div> <!-- 🟢 FIXED encoding -->
+
+        <!-- 🟣 PUT GURU 1 TEXT HERE -->
+        <div class="guru-body">
+            <p>Born in Mysore in 1852 into a lineage descending from Pachimiriam Adiappaiah, Veene Seshanna grew in a world where music was discipline, craft, and daily breath. Trained by his father and senior vidwans of the Tyagaraja lineage, he served as Asthāna Vidwān to three generations of Wodeyar rulers and was honoured by Nalvadi Krishnaraja Wodeyar IV with the title <em>Vainika Śikhāmaṇi</em>.</p> <!-- 🟢 FIXED encoding -->
+            
+            <p>He gave the veena its now-familiar horizontal repose, opening the way for deeper resonance, rich gamaka, and unhurried raga development—hallmarks of the Mysore <em>bāṇi</em>. His compositions, especially the tillānās, and his teaching shaped a living tradition carried forward through Venkatagiriyappa, Mysore V. Doreswamy Iyengar, and today, Vidwan D. Balakrishna.</p> <!-- 🟢 FIXED encoding & em-dash -->
+            
+            <p>This music, firm in structure yet gentle in touch, steadies the listener and refines attention. In that quiet authority, the lineage continues—not as preserved form alone, but as a cultivated way of hearing and being.</p> <!-- 🟢 FIXED em-dash -->
+        </div>
+    </div>
+
+    <!-- 🟣 ========== GURU 2 ========== -->
+    <div id="guru2" class="guru-section">
+        <!-- 🟣 PUT GURU 2 NAME HERE -->
+        <div class="guru-title">Vīṇe Venkatagiriyappa</div>
+        
+        <!-- 🟣 PUT GURU 2 TAGLINE HERE -->
+        <div class="guru-tagline">The Parama Guru</div>
+
+        <!-- 🟣 PUT GURU 2 TEXT HERE -->
+        <div class="guru-body">
+            <p>Born in 1887 in the Mysore region and trained first within his family, Veene Venkatagiriyappa came under the direct tutelage of Veene Seshanna, from whom he absorbed the full depth and discipline of the Mysore veena tradition. Rising to serve as Asthāna Vidwān in the Wodeyar court, he combined rigorous classical grounding with wide musical exposure, and became a central figure in both performance and pedagogy within Mysore’s cultural life.
+</p>
+            <p>His playing preserved the unhurried raga development, firm left-hand clarity, and balanced right-hand articulation that define the Mysore <em>bāṇi</em>, while his curiosity led him to explore new forms, including instrumental naghmas and compositions shaped by broader musical contact. As a teacher of rare patience and precision, he shaped a generation of eminent vainikas, foremost among them Mysore V. Doreswamy Iyengar, through whom the lineage flows today to Vidwan D. Balakrishna.</p>
+            <p>In Venkatagiriyappa’s music, tradition and openness moved together—rooted, yet never rigid—leaving behind a style that refines the ear, steadies the mind, and keeps the veena both dignified and alive.
+ </p>
+        </div>
+    </div>
+
+    <!-- 🟣 ========== GURU 3 ========== -->
+    <div id="guru3" class="guru-section">
+        <!-- 🟣 PUT GURU 3 NAME HERE -->
+        <div class="guru-title">Vīṇe Doreswamy Iyengar</div>
+        
+        <!-- 🟣 PUT GURU 3 TAGLINE HERE -->
+        <div class="guru-tagline">Guru—The Master and Father</div>
+
+        <!-- 🟣 PUT GURU 3 TEXT HERE -->
+        <div class="guru-body">
+            <p>Born in 1920 into a family steeped in devotional and instrumental music, Mysore V. Doreswamy Iyengar received his earliest training from his father and later became the foremost disciple of Veene Venkatagiriyappa, inheriting the full classical discipline of the Mysore veena tradition. A prodigy who debuted at the Mysore Palace in childhood, he was appointed Asthāna Vidwān at a remarkably young age, and soon came to represent the very sound of the courtly Mysore style on national and international stages.
+</p>
+            <p>His playing was marked by unamplified purity of tone, deep raga immersion, and seamless left-hand continuity, allowing the veena to speak with instrumental clarity and architectural poise. While rooted firmly in tradition, he remained open to thoughtful exploration—collaborating across systems, composing for dance and theatre, and shaping broadcast formats that brought classical music to wider audiences, without ever compromising raga dignity.</p>
+            <p> Above all, he was a guardian of transmission, giving his most sustained and intimate teaching to his son and disciple, Vidwan D. Balakrishna, through whom the Mysore <em>bāṇi</em> continues in its full melodic gravity. In his music, one hears not display, but depth—where restraint becomes power, and lineage becomes living voice.</p>
+        </div>
+    </div>
+
+</div>
+
+<!-- 🔵 ========== JAVASCRIPT - GURU NAVIGATION LOGIC ========== -->
+<script>
+// 🔴 DON'T MODIFY THIS SECTION - Handles prev/next functionality
+
+let currentGuru = 1; // Starting with Guru 1
+const totalGurus = 3; // Total number of gurus
+
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+// Function to show specific guru
+function showGuru(guruNumber) {
+    // Hide all gurus and images
+    for (let i = 1; i <= totalGurus; i++) {
+        document.getElementById('guru' + i).classList.remove('active');
+        document.getElementById('img' + i).classList.remove('active');
+    }
+    
+    // Show selected guru and image
+    document.getElementById('guru' + guruNumber).classList.add('active');
+    document.getElementById('img' + guruNumber).classList.add('active');
+    
+    // Update button states
+    prevBtn.classList.toggle('disabled', guruNumber === 1);
+    nextBtn.classList.toggle('disabled', guruNumber === totalGurus);
+    
+    currentGuru = guruNumber;
+}
+
+// Previous button click
+prevBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (currentGuru > 1) {
+        showGuru(currentGuru - 1);
+    }
+});
+
+// Next button click
+nextBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (currentGuru < totalGurus) {
+        showGuru(currentGuru + 1);
+    }
+});
+
+// Initialize - show first guru
+showGuru(1);
+</script>
+
+<!-- 🟢 ========== QUICK TWEAKING GUIDE ========== 
+=====================================
+
+🟣 ADDING GURU CONTENT:
+1. Find "🟣 PUT GURU 2 NAME HERE" sections
+2. Replace placeholder text with actual guru names, taglines, and bios
+3. Add your guru images to images/ folder as guru1.png, guru2.png, guru3.png
+
+🟡 IMAGE ADJUSTMENTS:
+- Change image paths: Update src="images/guruX.png"
+- Make image area wider: Increase width in .guru-display (currently 38%)
+- Adjust image fit: Change object-fit from cover to contain
+- Reposition image: Adjust object-position values
+
+🟢 TEXT POSITIONING:
+- Move text left/right: Adjust left padding in .lineage-content (currently 40%)
+- More space below buttons: Increase top padding in .lineage-content (currently 160px)
+- Bigger guru name: Increase font-size in .guru-title
+- Button text size: Adjust font-size in .guru-nav a
+
+🟢 BUTTON POSITIONING:
+- Move buttons down: Increase top value in .guru-nav (currently 100px)
+- Move buttons left/right: Adjust left percentage in .guru-nav
+- More space between buttons: Increase gap in .guru-nav
+
+🔴 DON'T TOUCH:
+- position: absolute in .guru-display img (CRITICAL for image switching)
+- JavaScript section (handles switching)
+- opacity and transition properties
+- .active class logic
+
+SMOOTH TRANSITIONS:
+- Fade speed: Change 0.5s in transition properties
+- Faster fade: Use 0.3s
+- Slower fade: Use 0.8s
+
+========================================== -->
+
+</body>
+</html>

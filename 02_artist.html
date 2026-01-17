@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Artist | Vidvān D. Balakrishna</title>
+
+<style>
+/* 🔴 CRITICAL - BASE RESET - DON'T MODIFY */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+/* 🟢 BODY SETTINGS - Safe to adjust colors and fonts */
+body {
+    font-family: "Palatino Linotype", Palatino, Georgia, serif; /* 🟢 Change font family here */
+    background-color: #fffff0; /* 🟢 Page background - ivory */
+    color: #2f2f2f; /* 🟢 Default text color */
+    line-height: 1.6; /* 🟢 Increase for more spacing between lines */
+}
+
+/* 🔵 ========== NAVIGATION BAR ========== */
+.nav-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; /* 🔴 Keeps nav on top - don't change */
+    display: flex;
+    gap: 3rem; /* 🟢 Space between nav links - increase for more gap */
+    padding: 1rem 3rem; /* 🟢 Top/bottom padding | Left/right padding */
+    background-color: rgba(255,255,240,0.95); /* 🟢 Nav background with transparency */
+}
+
+.nav-main a {
+    font-size: 1.05rem; /* 🟢 UPDATED - Navigation link size (was 0.95rem) */
+    font-style: italic;
+    letter-spacing: 0.18em; /* 🟢 Space between letters */
+    text-decoration: none;
+    color: #5a3a3a; /* 🟢 Normal link color */
+    transition: color 0.3s ease; /* 🔴 Smooth color change on hover */
+}
+
+.nav-main a:hover {
+    color: #8B0000; /* 🟢 Link color on mouse hover - maroon */
+}
+
+.nav-main a.active {
+    color: #8B0000; /* 🟢 Active page color - maroon */
+    border-bottom: 1px solid #8B0000; /* 🟢 Underline for active page */
+}
+
+/* 🔵 ========== MAIN ARTIST SECTION ========== */
+.artist {
+    margin-top: 64px; /* 🟢 Space below fixed nav - matches nav height */
+    min-height: calc(100vh - 64px); /* 🔴 Full viewport height minus nav */
+    
+    /* 🟡 BACKGROUND IMAGE CONTROLS */
+    background-image: url("images/02-artist-bg.png"); /* 🟡 Change image path here */
+    background-repeat: no-repeat;
+    background-size: cover; /* 🟡 Options: cover | contain | 80% */
+    background-position: left top 80px; /* 🟡 Position: left/center/right | top/center/bottom | offset */
+    background-attachment: fixed; /* 🟡 Options: fixed (parallax) | scroll */
+    
+    /* 🔴 LAYOUT STRUCTURE - Advanced */
+    display: flex;
+    align-items: flex-start; /* 🟢 Vertical alignment: flex-start | center | flex-end */
+    justify-content: flex-start; /* 🟢 Horizontal: flex-start | center | flex-end */
+    padding: 90px 8% 4rem 45%; /* 🟢 Top | Right | Bottom | Left padding */
+}
+
+/* 🔵 ========== TEXT CONTENT ========== */
+.artist-heading {
+    font-size: 3.2rem; /* 🟢 Main title size - increase for bigger */
+    font-weight: 600; /* 🟢 Boldness: 400 (normal) to 700 (bold) */
+    letter-spacing: 0.09em; /* 🟢 Space between letters */
+    color: #8B0000; /* 🟢 Title color - maroon */
+    margin-bottom: 1rem; /* 🟢 Space below title */
+}
+
+.artist-tagline {
+    font-size: 1.25rem; /* 🟢 Subtitle size */
+    font-weight: 500; /* 🟢 Light bold */
+    font-style: normal;
+    letter-spacing: 0.01em;
+    color: #8B0000; /* 🟢 Tagline color - maroon */
+    margin-bottom: 3.5rem; /* 🟢 Space below tagline before body text */
+}
+
+.artist-body p {
+    font-size: 1.5rem; /* 🟢 Paragraph text size */
+    font-style: italic; /* 🟢 FIXED - was broken with "tagline" text */
+    color: #5a3a3a; /* 🟢 Body text color - dark brown */
+    line-height: 1.78; /* 🟢 Space between lines in paragraph */
+    margin-bottom: 2rem; /* 🟢 Space between paragraphs */
+}
+
+/* 🔵 ========== MOBILE RESPONSIVE ========== */
+/* 🟡 Activates when screen width is 540px or less */
+@media (max-width: 540px) {
+    .artist {
+        background-image: none; /* 🟡 Hides background image on mobile */
+        background-color: #fffff0; /* 🟢 Solid color instead */
+        padding: 90px 8% 4rem 8%; /* 🟢 Equal left/right padding on mobile */
+        justify-content: flex-start;
+    }
+    .artist-text {
+        width: 100%;
+        max-width: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🔵 ========== NAVIGATION MENU ========== -->
+<nav class="nav-main">
+    <!-- 🟣 Change href values to match your actual file names -->
+    <a href="01_index.html">Home</a>
+    <a href="02_artist.html" class="active">The Artist</a>
+    <a href="03_about.html">About</a>
+    <a href="04_lineage.html">The Lineage</a>
+    <a href="05_international.html">International</a>
+    <a href="06_media.html">Media</a>
+    <a href="07_mysore-bani.html">Mysore Bāṇi</a> <!-- 🟢 FIXED encoding -->
+    <a href="08_awards.html">Awards</a>
+    <a href="09_gallery.html">Gallery</a>
+    <a href="11_contact.html">Contact</a>
+</nav>
+
+<!-- 🔵 ========== MAIN CONTENT AREA ========== -->
+<div class="artist">
+    <div class="artist-text">
+        <!-- 🟣 MAIN HEADING - Edit text content here -->
+        <div class="artist-heading">The Vidvān</div> <!-- 🟢 FIXED encoding -->
+        
+        <!-- 🟣 TAGLINE - Edit text content here -->
+        <div class="artist-tagline">—rooted in lineage, shaped by long sādhanā.</div> <!-- 🟢 FIXED encoding -->
+
+        <!-- 🟣 BODY PARAGRAPHS - Edit text content here -->
+        <div class="artist-body">
+            <p>Son and disciple of Sangeetha Kalanidhi Dr. Mysore V. Doreswamy Iyengar, he grew in a household where music was absorbed quietly, corrected in silence, and refined without haste.</p>
+            
+            <p>He stands within the Mysore bāṇi as a natural bearer. Descending from the legacy of Veena Sheshanna, this tradition values clarity over display, repose over urgency, and balance over outward flourish.</p> <!-- 🟢 FIXED encoding -->
+            
+            <p>In Balakrishna's hands, the veena speaks with quiet assurance. Notes are placed with care; phrases unfold without insistence. What is heard is steadiness, proportion, and an unforced sense of form.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 🟢 ========== QUICK TWEAKING GUIDE ========== 
+=====================================
+
+🟢 EASY ADJUSTMENTS:
+- Change all maroon: Search #8B0000 and replace
+- Change all ivory: Search #fffff0 and replace
+- Bigger text: Increase font-size values (e.g., 1.5rem → 1.8rem)
+- More spacing: Increase margin-bottom values
+- Move text left/right: Adjust padding values in .artist
+
+🟡 IMAGE ADJUSTMENTS:
+- Change image: Update url("images/02-artist-bg.png")
+- Move image down: Increase "80px" in background-position
+- Zoom image: Change background-size from cover to 110% or 120%
+
+🔴 DON'T TOUCH:
+- HTML structure (div tags)
+- display: flex properties
+- z-index values
+- calc() functions
+
+SPACING UNITS:
+- rem = relative to root font (scalable)
+- px = fixed pixels
+- % = percentage of parent
+- vh = viewport height percentage
+
+========================================== -->
+
+</body>
+</html>
