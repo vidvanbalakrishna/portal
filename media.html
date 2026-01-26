@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Vidvān D. Balakrishna - Watch veena performances and concert recordings showcasing the Mysore bāṇi tradition.">
+<title>Media | Vidvān D. Balakrishna</title>
+
+<style>
+/* ================================================================
+   MASTER CSS - IDENTICAL ACROSS ALL PAGES
+   ================================================================ */
+
+/* BASE RESET */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* COLOR PALETTE */
+:root {
+    --maroon: #8B0000;
+    --ivory: #fffff0;
+    --gold: #D4AF37;
+    --brown: #5a3a3a;
+    --light-gray: #F5F5F0;
+}
+
+/* BODY & TYPOGRAPHY BASE */
+body {
+    font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    background-color: var(--ivory);
+    color: var(--brown);
+    line-height: 1.6;
+    overflow-x: hidden;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+/* FIXED BACKGROUND TEXTURE */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/bg-texture.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+    opacity: 0.95;
+}
+
+/* PAGE FADE TRANSITION */
+body {
+    animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ================================================================
+   NAVIGATION - HORIZONTAL SCROLL
+   ================================================================ */
+.nav-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1.2rem 2rem;
+    background-color: rgba(255, 255, 240, 0.95);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-main::-webkit-scrollbar {
+    height: 8px;
+}
+
+.nav-main::-webkit-scrollbar-track {
+    background: rgba(90, 58, 58, 0.1);
+}
+
+.nav-main::-webkit-scrollbar-thumb {
+    background: var(--maroon);
+    border-radius: 2px;
+}
+
+.nav-main::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+.nav-main-links {
+    display: inline-flex;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    list-style: none;
+}
+
+.nav-main-links a {
+    font-size: clamp(0.85rem, calc(1.5vw * 0.70), 1.05rem);
+    font-style: italic;
+    letter-spacing: 0.18em;
+    text-decoration: none;
+    color: var(--brown);
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-main-links a:hover {
+    color: var(--maroon);
+    text-decoration: none;
+}
+
+.nav-main-links a.active {
+    color: var(--maroon);
+    border-bottom: 1px solid var(--maroon);
+}
+
+.nav-main::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 240, 0.95));
+    pointer-events: none;
+}
+
+/* ================================================================
+   MAIN CONTENT AREA
+   ================================================================ */
+main {
+    margin-top: 80px;
+    min-height: calc(100vh - 80px);
+    padding: 0.5rem 2rem;
+    position: relative;
+}
+
+/* ================================================================
+   CONTENT WRAPPER - FULL WIDTH
+   ================================================================ */
+.content-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ================================================================
+   SECTION HEADER
+   ================================================================ */
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-subtitle {
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: clamp(2rem, calc(1.5vw * 2.13), 3.2rem);
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    color: var(--maroon);
+    margin-bottom: 1.5rem;
+}
+
+.section-description {
+    font-size: 1rem;
+    color: var(--brown);
+    opacity: 0.8;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ================================================================
+   VIDEO GALLERY - HORIZONTAL SCROLL WITH NAVIGATION
+   ================================================================ */
+.video-gallery {
+    position: relative;
+    margin-top: 3rem;
+}
+
+.video-scroll-container {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2rem 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.video-scroll-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.video-scroll-container::-webkit-scrollbar-track {
+    background: rgba(90, 58, 58, 0.1);
+    border-radius: 4px;
+}
+
+.video-scroll-container::-webkit-scrollbar-thumb {
+    background: var(--maroon);
+    border-radius: 4px;
+}
+
+.video-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+/* ================================================================
+   NAVIGATION ARROWS
+   ================================================================ */
+.gallery-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: var(--maroon);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.gallery-nav-btn:hover {
+    background: var(--gold);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-nav-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.gallery-nav-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.nav-left {
+    left: -25px;
+}
+
+.nav-right {
+    right: -25px;
+}
+
+.video-card {
+    flex: 0 0 auto;
+    width: 320px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--maroon), #6B0000);
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover .video-thumbnail img {
+    transform: scale(1.1);
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.play-overlay::after {
+    content: '▶';
+    font-size: 1.5rem;
+    color: var(--maroon);
+    margin-left: 4px;
+}
+
+.video-card:hover .play-overlay {
+    background: white;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-info {
+    padding: 1.5rem;
+}
+
+.video-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--maroon);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.video-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* ================================================================
+   UTILITY CLASSES
+   ================================================================ */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--maroon);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ================================================================
+   BACK TO TOP BUTTON
+   ================================================================ */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--maroon);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+    display: none;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+}
+
+.back-to-top:hover {
+    background: var(--gold);
+}
+
+/* ================================================================
+   MOBILE RESPONSIVE - 768px BREAKPOINT
+   ================================================================ */
+@media (max-width: 768px) {
+    .content-wrapper {
+        padding: 1rem;
+    }
+    
+    main {
+        padding: 2rem 1rem;
+    }
+    
+    .nav-main {
+        padding: 1rem 1rem;
+    }
+    
+    .nav-main-links {
+        gap: 2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .video-card {
+        width: 280px;
+    }
+    
+    .video-scroll-container {
+        gap: 1.5rem;
+    }
+    
+    /* Hide navigation arrows on mobile */
+    .gallery-nav-btn {
+        display: none;
+    }
+}
+
+/* ================================================================
+   PRINT STYLESHEET
+   ================================================================ */
+@media print {
+    .nav-main,
+    .back-to-top,
+    .gallery-nav-btn {
+        display: none !important;
+    }
+    
+    .content-wrapper {
+        margin: 0;
+        max-width: 100%;
+    }
+    
+    body::before {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav-main">
+    <ul class="nav-main-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="artist.html">The Artist</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="lineage.html">The Lineage</a></li>
+        <li><a href="international.html">International</a></li>
+        <li><a href="media.html" class="active">Media</a></li>
+        <li><a href="mysore-bani.html">Mysore Bāṇi</a></li>
+        <li><a href="awards.html">Awards</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="press.html">Press</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+    <div class="content-wrapper">
+        
+        <!-- SECTION HEADER -->
+        <div class="section-header">
+            <div class="section-subtitle">Performances</div>
+            <h1 class="section-title">Listen & Watch</h1>
+            <p class="section-description">
+                Immerse yourself in the elegance of the Mysore bāṇi through concert recordings and performances
+            </p>
+        </div>
+        
+        <!-- VIDEO GALLERY WITH NAVIGATION -->
+        <div class="video-gallery">
+            
+            <!-- LEFT ARROW -->
+            <button class="gallery-nav-btn nav-left" id="scrollLeft" aria-label="Scroll left">
+                ‹
+            </button>
+            
+            <!-- VIDEO SCROLL CONTAINER -->
+            <div class="video-scroll-container" id="videoContainer">
+                
+                <!-- VIDEO 1 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=cDb4RjyxWYM" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/cDb4RjyxWYM/hqdefault.jpg" alt="Veena Recital">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Vidwan D. Balakrishna – Veena Recital</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- VIDEO 2 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=rL5uoikCp_8" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/rL5uoikCp_8/hqdefault.jpg" alt="Melbourne Veena Festival">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">D Balakrishna Melbourne Veena Festival 2024</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- VIDEO 3 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=y0N1jtCx8pw" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/y0N1jtCx8pw/hqdefault.jpg" alt="Nadasurabhi">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Nadasurabhi – March 2024 – D. Balakrishna-Veena</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- VIDEO 4 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=_X4RxI6h75s" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/_X4RxI6h75s/hqdefault.jpg" alt="Sangeet Nritya Utsav">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Sangeet Nritya Utsav - Veena Concert by Vidwan D Balakrishna</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- VIDEO 5 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=IpNb8iN9g3A" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/IpNb8iN9g3A/hqdefault.jpg" alt="Carnatic Classical Instrumental">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Carnatic Classical Instrumental "Veena" - By D. Balakrishna</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- VIDEO 6 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=lVTSIvCGYxQ" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/lVTSIvCGYxQ/hqdefault.jpg" alt="Navaratri 2013">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Navaratri 2013 Day 3 - Veena Vidwan D. Balakrishna</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- VIDEO 7 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=SBslNX1Tv50" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/SBslNX1Tv50/hqdefault.jpg" alt="Thillana">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Thillana - D Balakrishna | Veena Seshanna | Raga - Kapi</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- VIDEO 8 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=MQZAun8wogA" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/MQZAun8wogA/hqdefault.jpg" alt="Veena Swara Ranjani">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Veena Swara Ranjani | Karuninchitaku | By D. Balakrishna</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- VIDEO 9 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=nCOwJxbFr5c" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/nCOwJxbFr5c/hqdefault.jpg" alt="Srinarada Kanada">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">D Balakrishna veena - Srinarada Kanada Thyagarajar</h3>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- VIDEO 10 -->
+                <div class="video-card">
+                    <a href="https://www.youtube.com/watch?v=pVqv56419Is" target="_blank" class="video-link">
+                        <div class="video-thumbnail">
+                            <img src="https://img.youtube.com/vi/pVqv56419Is/hqdefault.jpg" alt="Naada Sangama">
+                            <div class="play-overlay"></div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Naada Sangama | Veena recital by D Balakrishna | Part 1</h3>
+                        </div>
+                    </a>
+                </div>
+                
+            </div>
+            
+            <!-- RIGHT ARROW -->
+            <button class="gallery-nav-btn nav-right" id="scrollRight" aria-label="Scroll right">
+                ›
+            </button>
+            
+        </div>
+        
+    </div>
+</main>
+
+<!-- BACK TO TOP BUTTON -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+<!-- JAVASCRIPT FOR GALLERY NAVIGATION -->
+<script>
+// Back to top button
+const backToTop = document.getElementById('backToTop');
+
+if (backToTop) {
+    if (document.body.scrollHeight > window.innerHeight * 1.5) {
+        backToTop.style.display = 'block';
+    }
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+}
+
+// Gallery navigation
+const container = document.getElementById('videoContainer');
+const leftBtn = document.getElementById('scrollLeft');
+const rightBtn = document.getElementById('scrollRight');
+
+// Scroll amount (2.5 cards worth)
+const scrollAmount = 850;
+
+// Update button states based on scroll position
+function updateButtons() {
+    const scrollLeft = container.scrollLeft;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    
+    // Disable left button at start
+    if (scrollLeft <= 0) {
+        leftBtn.classList.add('disabled');
+    } else {
+        leftBtn.classList.remove('disabled');
+    }
+    
+    // Disable right button at end
+    if (scrollLeft >= maxScroll - 10) {
+        rightBtn.classList.add('disabled');
+    } else {
+        rightBtn.classList.remove('disabled');
+    }
+}
+
+// Scroll left
+leftBtn.addEventListener('click', () => {
+    container.scrollBy({
+        left: -scrollAmount,
+        behavior: 'smooth'
+    });
+});
+
+// Scroll right
+rightBtn.addEventListener('click', () => {
+    container.scrollBy({
+        left: scrollAmount,
+        behavior: 'smooth'
+    });
+});
+
+// Update buttons on scroll
+container.addEventListener('scroll', updateButtons);
+
+// Initial button state
+updateButtons();
+</script>
+
+</body>
+</html>

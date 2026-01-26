@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The Lineage - VidvÄn D. Balakrishna and the Mysore Veena tradition">
+<title>The Lineage | VidvÄn D. Balakrishna</title>
+
+<style>
+/* ================================================================
+   BASE RESET
+   ================================================================ */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* COLOR PALETTE */
+:root {
+    --maroon: #8B0000;
+    --ivory: #fffff0;
+    --gold: #D4AF37;
+    --brown: #5a3a3a;
+    --light-gray: #F5F5F0;
+}
+
+/* BODY & TYPOGRAPHY BASE */
+body {
+    font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    background-color: var(--ivory);
+    color: var(--brown);
+    line-height: 1.6;
+    overflow-x: hidden;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+/* FIXED BACKGROUND TEXTURE */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/bg-texture.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+    opacity: 0.65;
+}
+
+/* PAGE FADE TRANSITION */
+body {
+    animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ================================================================
+   NAVIGATION - HORIZONTAL SCROLL
+   ================================================================ */
+.nav-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1.2rem 2rem;
+    background-color: rgba(255, 255, 240, 0.95);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+.nav-main::-webkit-scrollbar {
+    height: 8px;
+}
+
+.nav-main::-webkit-scrollbar-track {
+    background: rgba(90, 58, 58, 0.1);
+}
+
+.nav-main::-webkit-scrollbar-thumb {
+    background: var(--maroon);
+    border-radius: 2px;
+}
+
+.nav-main::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+
+.nav-main-links {
+    display: inline-flex;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    list-style: none;
+}
+
+.nav-main-links a {
+    font-size: clamp(0.85rem, calc(1.5vw * 0.70), 1.05rem);
+    font-style: italic;
+    letter-spacing: 0.18em;
+    text-decoration: none;
+    color: var(--brown);
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-main-links a:hover {
+    color: var(--maroon);
+}
+
+.nav-main-links a.active {
+    color: var(--maroon);
+    border-bottom: 1px solid var(--maroon);
+}
+
+.nav-main::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 240, 0.95));
+    pointer-events: none;
+}
+
+/* ================================================================
+   MAIN CONTENT AREA
+   ================================================================ */
+main {
+    margin-top: 80px;
+    min-height: calc(100vh - 80px);
+    padding: 4rem 2rem;
+    position: relative;
+}
+
+/* ================================================================
+   HERO IMAGE SWITCHING (LEFT SIDE)
+   ================================================================ */
+.hero-container {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 40vw;
+    height: calc(100vh - 80px);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+
+.hero-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    mask-image: radial-gradient(ellipse 70% 70% at center, black 60%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at center, black 60%, transparent 100%);
+}
+
+
+.hero-container img.active {
+    opacity: 1;
+}
+
+/* ================================================================
+   PREV/NEXT BUTTONS - CENTERED AT BOTTOM OF HERO
+   ================================================================ */
+
+.lineage-nav {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2rem;
+    z-index: 10;
+    font-style: italic;
+    background: rgba(255, 255, 240, 0.75);
+    backdrop-filter: blur(8px);
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    border: 1px solid rgba(139, 0, 0, 0.15);
+}
+
+
+.lineage-nav a {
+    text-decoration: none;
+    color: var(--maroon);
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.lineage-nav a:hover {
+    color: var(--brown);
+}
+
+.lineage-nav .disabled {
+    color: #c0c0c0;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* ================================================================
+   CONTENT WRAPPER - RIGHT SIDE
+   ================================================================ */
+.content-wrapper {
+    margin-left: 42vw;
+    max-width: 50vw;
+    padding: 3rem 3rem 3rem 1rem;
+}
+
+/* ================================================================
+   LINEAGE SECTIONS - SWITCHING
+   ================================================================ */
+.lineage-section {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.lineage-section.active {
+    display: block;
+    opacity: 1;
+}
+
+/* ================================================================
+   FLUID TYPOGRAPHY HIERARCHY
+   ================================================================ */
+.page-title {
+    font-size: clamp(2rem, calc(1.5vw * 2.13), 3.2rem);
+    font-weight: 600;
+
+font-style: italic;
+
+
+    letter-spacing: 0.09em;
+    color: var(--maroon);
+    margin-bottom: 1rem;
+}
+
+.page-tagline {
+    font-size: clamp(1rem, calc(1.5vw * 0.83), 1.25rem);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--maroon);
+    margin-bottom: 3.5rem;
+}
+
+.page-text {
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    font-style: regular;
+    color: var(--brown);
+    line-height: 1.78;
+    margin-bottom: 2rem;
+}
+
+/* ================================================================
+   MOBILE RESPONSIVE - 768px BREAKPOINT
+   ================================================================ */
+@media (max-width: 768px) {
+    /* Hero - shorter and visible */
+    .hero-container {
+        position: relative;
+        width: 100%;
+        height: 35vh;
+        top: auto;
+        left: auto;
+        padding: 1rem 0;
+    }
+    
+    .hero-container img {
+        position: relative;
+    }
+    
+    /* BUTTONS - FIXED AT BOTTOM */
+    .lineage-nav {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 200;
+        display: flex;
+        gap: 1rem;
+        background: rgba(139, 0, 0, 0.15);
+        backdrop-filter: blur(8px);
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        border: 2px solid rgba(139, 0, 0, 0.3);
+    }
+    
+    .lineage-nav a {
+        color: var(--maroon);
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 0.4rem 0.8rem;
+        background: rgba(255, 255, 240, 0.4);
+        border-radius: 20px;
+    }
+    
+    .lineage-nav a.disabled {
+        opacity: 0.3;
+    }
+    
+    /* Content with BOTTOM FADE and padding */
+    .content-wrapper {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 2rem 1.5rem;
+        padding-bottom: 120px;  /* Space for buttons */
+        
+        /* BOTTOM FADE - text fades near buttons */
+        mask-image: linear-gradient(
+            to bottom,
+            black 0%,
+            black 70%,
+            transparent 100%
+        );
+        -webkit-mask-image: linear-gradient(
+            to bottom,
+            black 0%,
+            black 70%,
+            transparent 100%
+        );
+    }
+    
+    /* Title and tagline - STICKY with fade */
+    .page-title,
+    .page-tagline {
+        position: sticky;
+        top: 80px;
+        z-index: 100;
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 240, 1) 0%,
+            rgba(255, 255, 240, 1) 60%,
+            rgba(255, 255, 240, 0.8) 100%
+        );
+        padding-bottom: 0.5rem;
+    }
+    
+    .page-title {
+        padding-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .page-tagline {
+        margin-bottom: 2rem;
+    }
+    
+    main {
+        padding: 0;
+        margin-top: 80px;
+    }
+    
+    .nav-main {
+        padding: 1rem 1rem;
+    }
+    
+    .nav-main-links {
+        gap: 2rem;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .hero-container {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        margin-left: 0;
+        max-width: 100%;
+    }
+}
+
+
+
+/* ================================================================
+   PRINT STYLESHEET
+   ================================================================ */
+@media print {
+    .nav-main,
+    .hero-container,
+    .lineage-nav {
+        display: none !important;
+    }
+    
+.lineage-nav a {
+    color: #8B0000 !important;
+    font-size: 1.2rem;
+}
+
+
+    .content-wrapper {
+        margin: 0;
+        max-width: 100%;
+    }
+    
+    body::before {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav-main">
+    <ul class="nav-main-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="artist.html">The Artist</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="lineage.html" class="active">The Lineage</a></li>
+        <li><a href="international.html">International</a></li>
+        <li><a href="media.html">Media</a></li>
+        <li><a href="mysore-bani.html">Mysore Bāṇi</a></li>
+        <li><a href="awards.html">Awards</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="press.html">Press</a></li>
+    </ul>
+</nav>
+
+<!-- HERO WITH PREV/NEXT INSIDE -->
+<div class="hero-container">
+    <img id="img1" src="images/Lineage Introduction.png" alt="Lineage Introduction" class="active">
+    <img id="img2" src="images/guru-sheshanna.png" alt="Vīṇe Śeṣanna">
+    <img id="img3" src="images/guru-venkatagiriyappa.png" alt="Vīṇe Venkatagiriyappa">
+    <img id="img4" src="images/guru-doreswamy.png" alt="Vīṇe Doreswamy Iyengar">
+    
+    <!-- PREV/NEXT BUTTONS -->
+    <div class="lineage-nav">
+        <a id="prevBtn" class="disabled">← Previous</a>
+        <a id="nextBtn">Next →</a>
+    </div>
+</div>
+
+<!-- MAIN CONTENT - 4 SECTIONS -->
+<main>
+    <div class="content-wrapper">
+        
+        <!-- SECTION 1: INTRODUCTION -->
+        <div id="section1" class="lineage-section active">
+            <h1 class="page-title">The Lineage</h1>
+            <p class="page-tagline">— where sound finds its shape through touch</p>
+            
+            <p class="page-text">
+               The vīṇā tradition of Mysore stands rooted in the wider Carnatic lineage flowing from the saint-composer Tyagaraja, through Walajapet Venkataramana Bhagavatar and Mysore Sadashiva Rao—a lineage that shaped the grammar, discipline, and aesthetic balance of South Indian music.
+            </p>
+
+<p class="page-text">
+                It was from this stream that Vīṇe Śeṣanna emerged. Trained in vocal music under Mysore Sadashiva Rao, and grounded in vīṇā practice through his father Bakshi Chikkaramappa, with further guidance from Dodda Śeṣanna, he stood at a natural confluence of voice and instrument. In him, what had long lived in human voice found a new and unforced channel in strings. The Mysore bāṇi of vīṇā playing took its definitive shape, not as an echo of the vocal cords, but as a thoughtful emulation by the vīṇā strings, singing within their own vādyā dharma, while preserving the grace of the voice.
+            </p>
+
+
+<p class="page-text">
+              This lineage is not sustained by written formulation or theory alone. It is carried through living contact—by the quiet work of correction, repetition, and time. The guru asks the student to return to a phrase until effort loosens its grip and the music begins to breath freely. What is passed on is not merely technique, but a trained way of listening, a steadiness of attention, and a regard for form that makes no display of itself, yet governs every sound that follows.
+            </p>
+
+
+
+        </div>
+        
+        <!-- SECTION 2: VĪṆE ŚEṢANNA -->
+        <div id="section2" class="lineage-section">
+            <h1 class="page-title">Vīṇe Śeṣanna</h1>
+            <p class="page-tagline">Vainika Śikhāmaṇi — the shaping force of the Mysore bāṇi</p>
+            
+            <p class="page-text">
+               Born in Mysore in 1852 —Veene Sheshanna grew into a musical world shaped by discipline, courtly responsibility, and daily practice. Trained in vocal music within the Tyāgarāja lineage and grounded early in vīṇā playing, he came to embody a balance of structural clarity and measured expression that would define the Mysore tradition. As Asthāna Vidwān to successive Wodeyar rulers, his music reflected a courtly preference for depth over display and refinement over force. In recognition of this authority, Nalvadi Krishnaraja Wodeyar IV conferred upon him the title Vainika Śikhāmaṇi.
+            </p>
+
+<p class="page-text">
+                Śeṣanna’s most enduring contribution lay in the way he shaped the physical and musical presence of the vīṇā. By establishing the instrument’s horizontal repose, he enabled greater resonance, clarity of gamaka, and an unhurried unfolding of rāga. These qualities, quietly cultivated, came to define the Mysore bāṇi and its characteristic sense of proportion.
+            </p>
+
+
+<p class="page-text">
+               His influence extended beyond individual achievement to transmission. Through his compositions, particularly the tillānās, and through teaching that relied on patience and example rather than assertion, he established a distinct style of veena playing. This way of playing trained hands to listen as much as to perform. Music shaped in this manner steadies the listener and sharpens attention; its authority lies in restraint, its depth in clarity. Sustained through such discipline, the tradition endures not as a fixed inheritance, but as a living way of hearing.
+            </p>
+
+
+
+
+
+        </div>
+        
+        <!-- SECTION 3: VĪṆE VENKATAGIRIYAPPA -->
+        <div id="section3" class="lineage-section">
+            <h1 class="page-title">Vīṇe Venkatagiriyappa</h1>
+            <p class="page-tagline">Vainika Praveena - A teacher par excellence</p>
+            
+            <p class="page-text">
+                Born in 1887 and trained first within his family, Vīṇe Venkatagiriyappa came under the direct tutelage of Vīṇe Seshanna, from whom he absorbed the full depth and discipline of the Mysore veena tradition. Rising to serve as Asthāna Vidwān in the Wodeyar court, he combined rigorous classical grounding with wide musical exposure, and became a central figure in both performance and pedagogy within Mysore’s cultural life.
+            </p>
+<p class="page-text">
+               His playing preserved the unhurried raga development, firm left-hand clarity, and balanced right-hand articulation that define the Mysore bāṇi, while his curiosity led him to explore new forms, including instrumental naghmas and compositions shaped by broader musical contact. As a teacher of rare patience and precision, he shaped a generation of eminent vainikas, foremost among them Mysore V. Doreswamy Iyengar, through whom the lineage flows today to Vidwan D. Balakrishna.
+            </p>
+<p class="page-text">
+               In Venkatagiriyappa’s music, tradition and openness moved together, rooted-yet never rigid, leaving behind a style that refines the ear, steadies the mind, and keeps the veena both dignified and alive.
+            </p>
+
+
+
+
+
+        </div>
+        
+        <!-- SECTION 4: VĪṆE DORESWAMY IYENGAR -->
+        <div id="section4" class="lineage-section">
+            <h1 class="page-title">Vīṇe Doreswamy Iyengar</h1>
+            <p class="page-tagline">The Gentle Knight of Vīṇa</p>
+            
+            <p class="page-text">
+              Born in 1920 into a family steeped in devotional and instrumental music, Mysore V. Doreswamy Iyengar received his earliest training from his father and later became the foremost disciple of Vīṇe Venkatagiriyappa, inheriting the full classical discipline of the Mysore veena tradition. A prodigy who debuted at the Mysore Palace in childhood, he was appointed Asthāna Vidwān at a remarkably young age, and soon came to represent the very sound of the courtly Mysore style on national and international stages.
+            </p>
+       
+<p class="page-text">
+              His playing was marked by unamplified purity of tone, deep raga immersion, and seamless left-hand continuity, allowing the veena to speak with instrumental clarity and architectural poise. While rooted firmly in tradition, he remained open to thoughtful exploration—collaborating across systems, composing for dance and theatre, and shaping broadcast formats that brought classical music to wider audiences, without ever compromising raga integrity.
+            </p>
+
+
+
+ </div>
+        
+    </div>
+</main>
+
+<!-- JAVASCRIPT - 4 SECTION SWITCHING -->
+<script>
+let currentSection = 1;
+const totalSections = 4;
+
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+function showSection(sectionNumber) {
+    for (let i = 1; i <= totalSections; i++) {
+        document.getElementById('section' + i).classList.remove('active');
+        document.getElementById('img' + i).classList.remove('active');
+    }
+    
+    document.getElementById('section' + sectionNumber).classList.add('active');
+    document.getElementById('img' + sectionNumber).classList.add('active');
+    
+    prevBtn.classList.toggle('disabled', sectionNumber === 1);
+    nextBtn.classList.toggle('disabled', sectionNumber === totalSections);
+    
+    currentSection = sectionNumber;
+    
+    // Scroll to top on mobile so user sees new title
+    if (window.innerWidth <= 768) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+prevBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (currentSection > 1) showSection(currentSection - 1);
+});
+
+nextBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (currentSection < totalSections) showSection(currentSection + 1);
+});
+
+showSection(1);
+</script>
+
+</body>
+</html>

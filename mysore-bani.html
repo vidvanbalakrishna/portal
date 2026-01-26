@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="Understanding the Mysore bāṇi - a veena tradition shaped by restraint, clarity, and vādyā dharma.">
+<title>Mysore Bāṇi | Vidvān D. Balakrishna</title>
+
+<style>
+/* ================================================================
+   MASTER CSS - IDENTICAL ACROSS ALL PAGES
+   ================================================================ */
+
+/* BASE RESET */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* COLOR PALETTE */
+:root {
+    --maroon: #8B0000;
+    --ivory: #fffff0;
+    --gold: #D4AF37;
+    --brown: #5a3a3a;
+    --light-gray: #F5F5F0;
+}
+
+/* BODY & TYPOGRAPHY BASE */
+body {
+    font-family: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+    background-color: var(--ivory);
+    color: var(--brown);
+    line-height: 1.6;
+    overflow-x: hidden;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+/* FIXED BACKGROUND TEXTURE */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/bg-texture.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -2;
+    opacity: 0.4;
+}
+
+/* PAGE FADE TRANSITION */
+body {
+    animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ================================================================
+   NAVIGATION - HORIZONTAL SCROLL
+   ================================================================ */
+.nav-main {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 1.2rem 2rem;
+    background-color: rgba(255, 255, 240, 0.95);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.nav-main::-webkit-scrollbar {
+    height: 8px;
+}
+
+.nav-main::-webkit-scrollbar-track {
+    background: rgba(90, 58, 58, 0.1);
+}
+
+.nav-main::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 2px;
+}
+
+.nav-main::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+}
+
+.nav-main-links {
+    display: inline-flex;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    list-style: none;
+}
+
+.nav-main-links a {
+    font-size: clamp(0.85rem, calc(1.5vw * 0.70), 1.05rem);
+    font-style: italic;
+    letter-spacing: 0.18em;
+    text-decoration: none;
+    color: var(--brown);
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
+
+.nav-main-links a:hover {
+    color: var(--maroon);
+    text-decoration: none;
+}
+
+.nav-main-links a.active {
+    color: var(--maroon);
+    border-bottom: 1px solid var(--maroon);
+}
+
+.nav-main::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 240, 0.95));
+    pointer-events: none;
+}
+
+/* ================================================================
+   MAIN CONTENT AREA
+   ================================================================ */
+main {
+    margin-top: 80px;
+    min-height: calc(100vh - 80px);
+}
+
+/* ================================================================
+   MYSORE BĀṆI SECTION - MAROON BACKGROUND
+   ================================================================ */
+.baani-section {
+    background: var(--maroon);
+    color: white;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* DECORATIVE CIRCLE */
+.baani-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.baani-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* ================================================================
+   SECTION HEADER
+   ================================================================ */
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-subtitle {
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: clamp(2rem, calc(1.5vw * 2.13), 3.2rem);
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.baani-text {
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    line-height: 1.9;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    text-align: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ================================================================
+   FEATURE CARDS GRID
+   ================================================================ */
+.baani-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.baani-feature {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.baani-feature:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.baani-feature h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.baani-feature p {
+    opacity: 0.9;
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+/* ================================================================
+   UTILITY CLASSES
+   ================================================================ */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: var(--maroon);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ================================================================
+   BACK TO TOP BUTTON
+   ================================================================ */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: var(--maroon);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 999;
+    display: none;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+}
+
+.back-to-top:hover {
+    background: var(--gold);
+}
+
+/* ================================================================
+   MOBILE RESPONSIVE - 768px BREAKPOINT
+   ================================================================ */
+@media (max-width: 768px) {
+    .baani-section {
+        padding: 4rem 1.5rem;
+    }
+    
+    .nav-main {
+        padding: 1rem 1rem;
+    }
+    
+    .nav-main-links {
+        gap: 2rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .baani-text {
+        font-size: 1rem;
+    }
+    
+    .baani-features {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* ================================================================
+   PRINT STYLESHEET
+   ================================================================ */
+@media print {
+    .nav-main,
+    .back-to-top {
+        display: none !important;
+    }
+    
+    .baani-section {
+        background: white;
+        color: black;
+    }
+    
+    .baani-feature {
+        border: 1px solid #ccc;
+    }
+    
+    body::before {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav-main">
+    <ul class="nav-main-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="artist.html">The Artist</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="lineage.html">The Lineage</a></li>
+        <li><a href="international.html">International</a></li>
+        <li><a href="media.html">Media</a></li>
+        <li><a href="mysore-bani.html" class="active">Mysore Bāṇi</a></li>
+        <li><a href="awards.html">Awards</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="press.html">Press</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+    
+    <!-- MYSORE BĀṆI SECTION -->
+    <section class="baani-section">
+        <div class="baani-content">
+            
+            <!-- SECTION HEADER -->
+            <div class="section-header">
+                <div class="section-subtitle">The Tradition</div>
+                <h1 class="section-title">Understanding Mysore Bāṇi</h1>
+                
+                <!-- PHILOSOPHICAL INTRODUCTION -->
+                <p class="baani-text">
+                    The Mysore bāṇi of vīṇā playing evolved under the sustained cultural patronage of the Wodeyar dynasty, where music was shaped for refinement rather than display. Emerging in the eighteenth century and finding its defining voice in Vīṇe Śeṣanna and those who followed, this tradition treats the vīṇā not as an extension of the voice, but as an instrument with its own law. Clarity, proportion, and inwardness govern its sound, inviting close listening and unhurried attention.
+                </p>
+            </div>
+            
+            <!-- THREE PRINCIPLE CARDS -->
+            <div class="baani-features">
+                
+                <!-- CARD 1: TONE AND RESONANCE -->
+                <div class="baani-feature">
+                    <h3>Tone and Resonance</h3>
+                    <p>
+                        Tone in the Mysore bāṇi is shaped for intimacy rather than projection. The upper registers are given clarity and luminosity, while bass is held in careful balance. Resonance is guided, not forced, allowing sound to settle and reveal depth over time.
+                    </p>
+                </div>
+                
+                <!-- CARD 2: ECONOMY OF TECHNIQUE -->
+                <div class="baani-feature">
+                    <h3>Economy of Technique</h3>
+                    <p>
+                        Technique in this tradition is exacting yet restrained. Straight notes provide points of tonal repose, from which gamakas emerge with clarity and control rather than excess. Subtle right-hand meetu patterns and simultaneous string use sustain continuity between phrases. Motion is economical, serving stability rather than display.
+                    </p>
+                </div>
+                
+                <!-- CARD 3: VĀDYĀ DHARMA -->
+                <div class="baani-feature">
+                    <h3>Vādyā Dharma</h3>
+                    <p>
+                        The Mysore bāṇi is grounded in vādyā dharma—the instrument's own nature. Split fingering and measured string deflection allow phrases to unfold without strain, giving the vīṇā an instrumental voice that is thoughtful, balanced, and true to itself, rather than a mere echo of vocal gamakas.
+                    </p>
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+    
+</main>
+
+<!-- BACK TO TOP BUTTON -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+<!-- JAVASCRIPT -->
+<script>
+// Back to top button
+const backToTop = document.getElementById('backToTop');
+
+if (backToTop) {
+    if (document.body.scrollHeight > window.innerHeight * 1.5) {
+        backToTop.style.display = 'block';
+    }
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+}
+</script>
+
+</body>
+</html>
