@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Lineage</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.00 – GLOBAL VARIABLES
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* Background layers */
+  --bg-layer-1: radial-gradient(circle at 72% 35%, rgba(245,200,130,0.18), transparent 55%);
+  --bg-layer-2: radial-gradient(circle at 18% 28%, rgba(180,140,100,0.30), transparent 45%);
+  --bg-layer-3: linear-gradient(135deg, #f5e9d0 0%, #f0deb8 50%, #f7f0d8 100%);
+
+  /* Text colors */
+  --text-primary: #3b2a2a;
+  --text-secondary: #4e3b32;
+  --text-accent: #7a1f1f;
+  
+  /* Navigation colors */
+  --nav-link: #6b3a3a;
+  --nav-active: #9a7b2f;
+  --nav-underline: #c49b3a;
+  --nav-bg: rgba(255,255,240,0.96);
+  
+  /* Border & dividers */
+  --border-color: rgba(154,123,47,0.14);
+
+  /* Font families */
+  --font-base: "Palatino Linotype", Georgia, serif;
+  --font-display: 'Cormorant Garamond', serif;
+
+  /* Body text – Desktop */
+  --body-size-desktop: 1.15rem;
+  --body-line-desktop: 2.05;
+  --body-letter-desktop: 0.03em;
+
+  /* Body text – Mobile */
+  --body-size-mobile: 1rem;
+  --body-line-mobile: 1.8;
+  --body-letter-mobile: 0.03em;
+
+  /* Navigation */
+  --nav-height: 80px;
+  --nav-padding-x: 28px;
+  --nav-padding-y: 0;
+  --nav-gap: 32px;
+  --nav-link-gap: 28px;
+  --nav-link-padding: 6px 2px;
+
+  /* Logo */
+  --logo-height: 62px;
+
+  /* Content offset */
+  --content-top: 80px;
+
+  /* Grain texture */
+  --grain-opacity: 0.035;
+  --grain-blend: multiply;
+
+  /* Transitions */
+  --hover-transition: 0.3s ease;
+
+  /* Nav underline animation */
+  --nav-underline-width: 70%;
+  --nav-underline-height: 1.5px;
+  --nav-underline-transition: 0.35s ease;
+
+  /* Image filters */
+  --img-saturate: 0.95;
+  --img-contrast: 1.02;
+
+  /* Breakpoint */
+  --breakpoint: 900px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.01 – BASE STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: var(--font-base);
+  background: var(--bg-layer-1), var(--bg-layer-2), var(--bg-layer-3);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: url('images/grain.png');
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  z-index: 9999;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.02 – NAVIGATION PANEL
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--nav-gap);
+  padding: var(--nav-padding-y) var(--nav-padding-x);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  letter-spacing: 0.08em;
+  z-index: 100;
+  margin: 0;
+
+overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-logo {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-logo img {
+  height: var(--logo-height);
+  width: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--nav-link-gap);
+  margin: 0;
+  padding: 0;
+}
+
+.nav-panel a {
+  text-decoration: none;
+  color: var(--nav-link);
+  font-style: normal;
+  font-weight: 400;
+  position: relative;
+  display: inline-block;
+  padding: var(--nav-link-padding);
+  transition: color var(--hover-transition), text-shadow var(--hover-transition);
+  cursor: pointer;
+  margin: 0;
+
+flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.nav-panel a:hover {
+  color: var(--nav-active);
+  text-shadow: none;
+}
+
+.nav-panel a.active {
+  color: var(--nav-active);
+  font-weight: 400;
+}
+
+.nav-panel a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: var(--nav-underline-height);
+  background: var(--nav-underline);
+  transform: translateX(-50%);
+  transition: width var(--nav-underline-transition);
+}
+
+.nav-panel a.active::after,
+.nav-panel a:hover::after {
+  width: var(--nav-underline-width);
+}
+
+/* Scrollbar styling */
+.nav-panel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.nav-panel::-webkit-scrollbar-track {
+  background: rgba(154,123,47,0.15);
+  border-radius: 3px;
+}
+
+.nav-panel::-webkit-scrollbar-thumb {
+  background: rgba(154,123,47,0.6);
+  border-radius: 3px;
+}
+
+.nav-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(154,123,47,0.85);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.03 – CONTENT WRAPPER
+   ═══════════════════════════════════════════════════════════ */
+
+#content {
+  position: fixed;
+  top: var(--content-top);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – LINEAGE PAGE TYPOGRAPHY BASE
+   ═══════════════════════════════════════════════════════════ */
+
+.lineage-title,
+.lineage-tagline {
+  font-family: var(--font-display);
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.00 – DESKTOP LAYOUT (min-width: 901px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 901px) {
+
+  /* C.02.01 – Hide mobile hero */
+  .lineage-mobile-hero {
+    display: none;
+  }
+
+  /* C.02.02 – Fixed hero container left */
+  .lineage-hero {
+    position: fixed;
+    top: var(--content-top);
+    left: 0;
+    bottom: 0;
+    width: 39vw;
+    transform: translateX(-2vw);
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .lineage-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .lineage-hero img.active {
+    opacity: 1;
+  }
+
+  /* C.02.03 – Text column right */
+  .lineage-text-column {
+    position: relative;
+    margin-left: 32vw;
+    min-height: 100vh;
+    padding: 0;
+    z-index: 2;
+  }
+
+  /* C.02.04 – Title and tagline */
+  .lineage-header {
+    position: relative;
+    top: auto;
+    background: none;
+    padding: 3rem 4rem 2rem 12rem;
+    max-width: none;
+    z-index: auto;
+    border-bottom: none;
+  }
+
+  .lineage-title {
+    font-size: 3rem;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.1;
+    color: var(--text-primary);
+  }
+
+  .lineage-tagline {
+    font-size: 1.2rem;
+    letter-spacing: 0.12em;
+    color: var(--text-accent);
+    opacity: 0.85;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.4;
+  }
+
+  /* C.02.05 – Subpage container */
+  .lineage-subpages {
+    position: relative;
+    padding: 3rem 4rem 4rem 12rem;
+    margin: 0;
+  }
+
+  /* C.02.06 – Individual subpage */
+  .lineage-subpage {
+    position: relative;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .lineage-subpage.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .lineage-subpage p {
+    font-size: var(--body-size-desktop);
+    line-height: var(--body-line-desktop);
+    letter-spacing: var(--body-letter-desktop);
+    font-style: REGULAR;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin: 0 0 2.5rem 0;
+    padding: 0;
+    max-width: 54ch;
+  }
+
+  /* C.02.07 – Navigation buttons */
+
+
+.lineage-nav-btn {
+  position: fixed;
+  top: 140px;
+  transform: none;
+  width: 42px;  /* TWEAK THIS – Larger for prominence. Try 42px, 44px, 46px */
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #8B4513;  /* Maroon border */
+  background: rgba(139,69,19,0.15);  /* Light maroon background */
+  font-size: 24px;  /* TWEAK THIS – Larger arrow. Try 24px, 26px */
+  font-weight: 600;
+  line-height: 1;
+  color: #7a1f1f;  /* Maroon arrow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(139,69,19,0.2);
+  transition: all 0.3s ease;
+  z-index: 50;
+  opacity: 0.85;  /* TWEAK THIS – More visible at rest */
+}
+
+.lineage-nav-btn:hover {
+  opacity: 1;
+  background: rgba(139,69,19,0.3);
+  border-color: #7a1f1f;
+  box-shadow: 0 4px 16px rgba(139,69,19,0.4);
+  transform: scale(1.15) translateY(-2px);  /* Lift up slightly on hover */
+}
+
+/* Gentle breathing animation */
+@keyframes gentleBreath {
+  0%, 100% { 
+    box-shadow: 0 2px 8px rgba(139,69,19,0.2);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 3px 10px rgba(139,69,19,0.3);
+    transform: scale(1.03);
+  }
+}
+
+.lineage-nav-btn {
+  animation: gentleBreath 3s ease-in-out infinite;  /* TWEAK THIS – Breathing effect. Change 3s to speed up/slow down */
+}
+
+.lineage-nav-btn:hover {
+  animation: none;  /* Stop breathing on hover */
+}
+
+
+  .lineage-nav-btn.hidden {
+    display: none;
+  }
+
+  #prevBtn {
+    left: 2vw;  /* TWEAK THIS – Distance from left edge */
+  }
+
+  #nextBtn {
+    left: calc(32vw - 2vw);  /* TWEAK THIS – Positioned near text column start */
+  }
+}
+
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – MOBILE LAYOUT (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  /* C.03.01 – Hide desktop hero */
+  .lineage-hero {
+    display: none;
+  }
+
+  /* C.03.02 – Mobile hero display */
+  .lineage-mobile-hero {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .lineage-mobile-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+    display: block;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .lineage-mobile-hero img.active {
+    opacity: 1;
+  }
+
+  /* C.03.03 – Mobile text column */
+  .lineage-text-column {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-layer-3);
+  }
+
+  /* C.03.04 – Mobile header */
+  .lineage-header {
+    position: relative;
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .lineage-title {
+    font-size: 2.2rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+
+  .lineage-tagline {
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    color: var(--text-accent);
+    opacity: 0.85;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.4;
+  }
+
+  /* C.03.05 – Mobile subpages */
+  .lineage-subpages {
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .lineage-subpage {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .lineage-subpage.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .lineage-subpage p {
+    font-size: var(--body-size-mobile);
+    line-height: var(--body-line-mobile);
+    letter-spacing: var(--body-letter-mobile);
+    font-style: normal;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin: 0 0 2rem 0;
+    padding: 0;
+  }
+
+  /* C.03.06 – Mobile navigation buttons */
+  .lineage-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(154,123,47,0.3);
+    background: rgba(255,255,240,0.9);
+    font-size: 20px;
+    line-height: 1;
+    color: #9a7b2f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(154,123,47,0.15);
+    z-index: 50;
+  }
+
+  .lineage-nav-btn.hidden {
+    display: none;
+  }
+
+  #prevBtn {
+    left: 12px;
+  }
+
+  #nextBtn {
+    right: 12px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.00.00 – NAVIGATION PANEL
+     ═══════════════════════════════════════════════════════════ -->
+
+<div class="nav-panel">
+  <div class="nav-logo">
+    <img src="images/logo-db.png" alt="D. Balakrishna">
+  </div>
+
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="artist.html">Artist</a>
+    <a href="about.html">About</a>
+    <a href="lineage.html" class="active">Lineage</a>
+    <a href="international.html">International</a>
+    <a href="media.html">Media</a>
+    <a href="mysore-bani.html">Mysore Bani</a>
+    <a href="awards.html">Awards</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+
+  <!-- H.01.01 – Mobile hero -->
+  <div class="lineage-mobile-hero">
+  <img src="images/lineage-intro.png" class="active" alt="The Lineage">
+  <img src="images/guru1.png" alt="Vīṇe Śeṣanna">
+  <img src="images/guru2.png" alt="Vīṇe Venkatagiriyappa">
+  <img src="images/guru3.png" alt="Mysore V. Doreswamy Iyengar">
+</div>
+
+  <!-- H.01.02 – Desktop fixed hero -->
+  <div class="lineage-hero">
+    <img src="images/lineage-intro.png" class="active" alt="The Lineage">
+    <img src="images/guru1.png" alt="Vīṇe Śeṣanna">
+    <img src="images/guru2.png" alt="Vīṇe Venkatagiriyappa">
+    <img src="images/guru3.png" alt="Mysore V. Doreswamy Iyengar">
+  </div>
+
+  <!-- Desktop navigation buttons -->
+  <button class="lineage-nav-btn" id="prevBtn">‹</button>
+  <button class="lineage-nav-btn" id="nextBtn">›</button>
+
+  <!-- H.01.03 – Text column -->
+  <div class="lineage-text-column">
+
+    <!-- H.01.04 – Header (title + tagline) -->
+    <div class="lineage-header">
+      <h1 class="lineage-title">The Lineage</h1>
+      <div class="lineage-tagline">— where sound finds its shape through touch</div>
+    </div>
+
+    <!-- H.01.05 – Subpages -->
+    <div class="lineage-subpages">
+
+      <!-- Subpage 1: The Lineage -->
+      <div class="lineage-subpage active" data-page="0">
+        <p>
+          The vīṇā tradition of Mysore is rooted in a deeper Carnatic continuum that flows from Pacchimiriam Adiappayya, the eighteenth-century composer whose work shaped the grammar of South Indian classical music. Remembered most widely for the Bhairavi āṭa tāḷa varṇam Viriboni, which remains foundational to Carnatic pedagogy, Adiappayya stands at the source of a lineage marked by clarity, proportion, and architectural balance.
+        </p>
+
+        <p>
+          Vīṇe Śeṣanna, one of the foremost figures in the history of the vīṇā, belonged to this lineage as a descendant of Pacchimiriam Adiappayya. His musical formation was further shaped through formal vocal training under Mysore Sadāśiva Rao, a distinguished musician of the Tyāgarāja tradition, descending through Walajapet Venkataramana Bhagavatar, the foremost disciple and chronicler of Tyāgarāja's musical legacy.
+        </p>
+
+        <p>
+          In Śeṣanna, what had long lived in the human voice found a new and unforced channel in strings—not as an echo of the vocal cords, but as a thoughtful emulation by the vīṇā strings, singing within their own vādyā dharma, while preserving the grace of the voice. Through him, the Mysore bāṇi of vīṇā playing took its definitive shape.
+        </p>
+
+        <p>
+          The style that emerged was marked by repose rather than urgency, proportion rather than emphasis, and clarity rather than display. Sound was allowed to unfold at its own pace, shaped by restraint and inner balance. This was not a tradition preserved through doctrine or notation, but one sustained through touch, repetition, and time.
+        </p>
+
+        <p>
+          From Śeṣanna, the lineage flowed through Veene Venkatagiriyappa, to Mysore V. Doreswamy Iyengar, and onward to Vidvān D. Balakrishna. Across generations, the essence has remained intact—not as a fixed form, but as a living continuity, sustained by practice rather than proclamation.
+        </p>
+      </div>
+
+      <!-- Subpage 2: Vīṇe Śeṣanna -->
+      <div class="lineage-subpage" data-page="1">
+        <p>
+          Born in Mysore in 1852 into a lineage descending from Pachimiriam Adiappaiah, Veene Seshanna grew in a world where music was discipline, craft, and daily breath. Trained by his father and senior vidwans of the Tyagaraja lineage, he served as Asthāna Vidwān to three generations of Wodeyar rulers and was honoured by Nalvadi Krishnaraja Wodeyar IV with the title Vainika Śikhāmaṇi.
+        </p>
+
+        <p>
+          He gave the veena its now-familiar horizontal repose, opening the way for deeper resonance, rich gamaka, and unhurried raga development—hallmarks of the Mysore bāṇi. His compositions, especially the tillānās, and his teaching shaped a living tradition carried forward through Venkatagiriyappa, Mysore V. Doreswamy Iyengar, and today, Vidwan D. Balakrishna.
+        </p>
+
+        <p>
+          This music, firm in structure yet gentle in touch, steadies the listener and refines attention. In that quiet authority, the lineage continues—not as preserved form alone, but as a cultivated way of hearing and being.
+        </p>
+      </div>
+
+      <!-- Subpage 3: Vīṇe Venkatagiriyappa -->
+      <div class="lineage-subpage" data-page="2">
+        <p>
+          Born in 1887 in the Mysore region and trained first within his family, Veene Venkatagiriyappa came under the direct tutelage of Veene Seshanna, from whom he absorbed the full depth and discipline of the Mysore veena tradition. Rising to serve as Asthāna Vidwān in the Wodeyar court, he combined rigorous classical grounding with wide musical exposure, and became a central figure in both performance and pedagogy within Mysore's cultural life.
+        </p>
+
+        <p>
+          His playing preserved the unhurried raga development, firm left-hand clarity, and balanced right-hand articulation that define the Mysore bāṇi, while his curiosity led him to explore new forms, including instrumental naghmas and compositions shaped by broader musical contact. As a teacher of rare patience and precision, he shaped a generation of eminent vainikas, foremost among them Mysore V. Doreswamy Iyengar, through whom the lineage flows today to Vidwan D. Balakrishna.
+        </p>
+
+        <p>
+          In Venkatagiriyappa's music, tradition and openness moved together—rooted, yet never rigid—leaving behind a style that refines the ear, steadies the mind, and keeps the veena both dignified and alive.
+        </p>
+      </div>
+
+      <!-- Subpage 4: Mysore V. Doreswamy Iyengar -->
+      <div class="lineage-subpage" data-page="3">
+        <p>
+          Born in 1920 into a family steeped in devotional and instrumental music, Mysore V. Doreswamy Iyengar received his earliest training from his father and later became the foremost disciple of Veene Venkatagiriyappa, inheriting the full classical discipline of the Mysore veena tradition. A prodigy who debuted at the Mysore Palace in childhood, he was appointed Asthāna Vidwān at a remarkably young age, and soon came to represent the very sound of the courtly Mysore style on national and international stages.
+        </p>
+
+        <p>
+          His playing was marked by unamplified purity of tone, deep raga immersion, and seamless left-hand continuity, allowing the veena to speak with instrumental clarity and architectural poise. While rooted firmly in tradition, he remained open to thoughtful exploration—collaborating across systems, composing for dance and theatre, and shaping broadcast formats that brought classical music to wider audiences, without ever compromising raga dignity.
+        </p>
+
+        <p>
+          As a teacher, he passed the Mysore bāṇi to his son D. Balakrishna with the same rigor and patience he had received, ensuring that lineage remained not a relic of the past but a living presence—refined, unhurried, and architecturally sound.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.00.00 – SUBPAGE NAVIGATION SCRIPT
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+/* J.00.01 – Navigation data */
+const subpageData = [
+  {
+    title: 'The Lineage',
+    tagline: '— where sound finds its shape through touch',
+    heroDesktop: 'images/lineage-intro.png',
+    heroMobile: 'images/lineage-intro.png'
+  },
+  {
+    title: 'Vīṇe Śeṣanna',
+    tagline: 'Vainika Śikhāmaṇi — the shaping force of the Mysore bāṇi',
+    heroDesktop: 'images/guru1.png',
+    heroMobile: 'images/guru1.png'
+  },
+  {
+    title: 'Vīṇe Venkatagiriyappa',
+    tagline: 'Vainika Praveena - A teacher par excellence',
+    heroDesktop: 'images/guru2.png',
+    heroMobile: 'images/guru2.png'
+  },
+  {
+    title: 'Mysore V. Doreswamy Iyengar',
+    tagline: 'The Gentle Knight of Vīṇa',
+    heroDesktop: 'images/guru3.png',
+    heroMobile: 'images/guru3.png'
+  }
+];
+
+/* J.00.02 – DOM elements */
+const subpages = document.querySelectorAll('.lineage-subpage');
+const desktopHeroImages = document.querySelectorAll('.lineage-hero img');
+const mobileHeroImages = document.querySelectorAll('.lineage-mobile-hero img');
+const titleEl = document.querySelector('.lineage-title');
+const taglineEl = document.querySelector('.lineage-tagline');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+
+let currentIndex = 0;
+
+/* J.00.03 – Show subpage function */
+function showSubpage(index) {
+  
+  /* Hide all subpages */
+  subpages.forEach(page => page.classList.remove('active'));
+  desktopHeroImages.forEach(img => img.classList.remove('active'));
+  mobileHeroImages.forEach(img => img.classList.remove('active'));
+
+  /* Reset scroll position */
+  document.getElementById('content').scrollTop = 0;
+
+  
+  /* Show current subpage */
+  subpages[index].classList.add('active');
+  desktopHeroImages[index].classList.add('active');
+  mobileHeroImages[index].classList.add('active');
+  
+  /* Update title and tagline */
+  titleEl.textContent = subpageData[index].title;
+  taglineEl.textContent = subpageData[index].tagline;
+  
+  /* Show/hide navigation buttons */
+  if (index === 0) {
+    prevBtn.classList.add('hidden');
+  } else {
+    prevBtn.classList.remove('hidden');
+  }
+  
+  if (index === subpages.length - 1) {
+    nextBtn.classList.add('hidden');
+  } else {
+    nextBtn.classList.remove('hidden');
+  }
+  
+  currentIndex = index;
+}
+
+/* J.00.04 – Navigation button handlers */
+prevBtn.addEventListener('click', () => {
+  if (currentIndex > 0) {
+    showSubpage(currentIndex - 1);
+  }
+});
+
+nextBtn.addEventListener('click', () => {
+  if (currentIndex < subpages.length - 1) {
+    showSubpage(currentIndex + 1);
+  }
+});
+
+/* J.00.05 – Initialize */
+showSubpage(0);
+
+</script>
+
+</body>
+</html>

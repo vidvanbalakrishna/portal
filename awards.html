@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Awards & Honors</title>
+
+<link rel="stylesheet" href="global-variables.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+
+:root {
+  --h1-size-desktop: 3.8rem;
+  --h1-letter-desktop: 0.06em;
+  --h1-line-desktop: 1.05;
+  
+  --h1-size-mobile: 2.4rem;
+  --h1-letter-mobile: 0.05em;
+  --h1-line-mobile: 1.1;
+  
+  --subtitle-size-desktop: 1.15rem;
+  --subtitle-letter-desktop: 0.16em;
+  
+  --subtitle-size-mobile: 1.05rem;
+  --subtitle-letter-mobile: 0.12em;
+  
+  --body-size-desktop: 1.15rem;
+  --body-line-desktop: 2.05;
+  --body-letter-desktop: 0.03em;
+  
+  --body-size-mobile: 1rem;
+  --body-line-mobile: 1.8;
+  --body-letter-mobile: 0.03em;
+  
+  --img-saturate: 0.95;
+  --img-contrast: 1.02;
+}
+/* ==========================================================
+   C.01.00 – AWARDS SPLIT LAYOUT
+   ========================================================== */
+
+/* C.01.01 – Page Wrapper */
+
+#awards-page{
+  position:relative;
+  min-height:100vh;
+}
+
+/* C.01.02 – Fixed Hero (Left Side) */
+
+.awards-hero{
+  position:fixed;
+  top:var(--content-top);  /* aligns below nav */
+  left:0;
+  width:40vw;  /* TWEAK THIS – controls hero width */
+  height:calc(100vh - var(--content-top));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:2rem 1rem 2rem 0;
+  z-index:1;
+}
+
+.awards-hero img{
+  width:100%;
+  height:auto;
+  max-height:100%;
+  object-fit:cover;
+  object-position:center;
+  filter:saturate(var(--img-saturate)) contrast(var(--img-contrast));
+}
+
+/* C.01.03 – Right Content */
+
+.awards-content{
+  margin-left:42vw; /* TWEAK THIS – slightly more than hero width */
+  max-width:50vw;   /* TWEAK THIS – text column width */
+  padding:3rem 3rem 5rem 1rem;
+}
+
+.awards-title{
+  font-family:var(--font-display);
+  font-size:var(--h1-size-desktop);
+  letter-spacing:var(--h1-letter-desktop);
+  line-height:var(--h1-line-desktop);
+  font-style:italic;
+  color:var(--nav-active);
+  text-align:center;
+  margin-bottom:var(--text-gap-medium);
+}
+
+.awards-tagline{
+  font-family:var(--font-display);
+  font-size:var(--subtitle-size-desktop);
+  letter-spacing:var(--subtitle-letter-desktop);
+  color:var(--text-accent);
+  opacity:0.85;
+  font-weight:400;
+  text-align:center;
+  margin-bottom:4rem; /* TWEAK THIS – space before timeline */
+}
+
+/* ==========================================================
+   C.01.04 – Timeline
+   ========================================================== */
+
+.awards-timeline{
+  position:relative;
+  padding-left:4rem; /* TWEAK THIS – space for vertical line */
+}
+
+/* Vertical gold line */
+
+.awards-timeline::before{
+  content:'';
+  position:absolute;
+  left:1.6rem;
+  top:2rem;
+  bottom:0;
+  width:1px;
+  background:linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--nav-active) 5%,
+    var(--nav-active) 95%,
+    transparent 100%
+  );
+}
+
+/* ==========================================================
+   C.01.05 – Individual Award
+   ========================================================== */
+
+.award-item{
+  position:relative;
+  margin-bottom:4rem; /* TWEAK THIS – space between awards */
+}
+
+.award-logo{
+  position:absolute;
+  left:-2.6rem;
+  top:0.4rem;
+  width:38px;  /* TWEAK THIS – icon size */
+  height:38px;
+  opacity:0.85;
+  transition:opacity var(--hover-transition),
+             transform var(--hover-transition);
+}
+
+.award-item:hover .award-logo{
+  opacity:1;
+  transform:scale(1.08);
+}
+
+.award-year{
+  font-size:2.6rem;  /* TWEAK THIS – year size */
+  font-weight:700;
+  letter-spacing:0.02em;
+  color:#7f6921; /* retained classical gold tone */
+  margin-bottom:0.5rem;
+}
+
+.award-title{
+  font-family:var(--font-display);
+  font-size:1.4rem;
+  color:var(--nav-active);
+  font-weight:600;
+  margin-bottom:0.5rem;
+}
+
+.award-organization{
+  font-style:italic;
+  font-size:1rem;
+  color:var(--text-secondary);
+  opacity:0.75;
+  margin-bottom:1rem;
+}
+
+.award-description{
+  font-size:var(--body-size-desktop);
+  line-height:var(--body-line-desktop);
+  letter-spacing:var(--body-letter-desktop);
+  color:var(--text-secondary);
+  margin:0;
+}
+
+/* ==========================================================
+   C.02.00 – MOBILE (Single Breakpoint Only)
+   ========================================================== */
+
+@media (max-width:900px){
+
+  .awards-hero{
+    position:relative;
+    width:100%;
+    height:auto;
+    padding:2rem 1.5rem;
+  }
+
+  .awards-content{
+    margin-left:0;
+    max-width:100%;
+    padding:2rem 1.5rem 4rem;
+  }
+
+  .awards-title{
+    font-size:var(--h1-size-mobile);
+    letter-spacing:var(--h1-letter-mobile);
+    line-height:var(--h1-line-mobile);
+  }
+
+  .awards-tagline{
+    font-size:var(--subtitle-size-mobile);
+    letter-spacing:var(--subtitle-letter-mobile);
+    margin-bottom:3rem;
+  }
+
+  .award-description{
+    font-size:var(--body-size-mobile);
+    line-height:var(--body-line-mobile);
+    letter-spacing:var(--body-letter-mobile);
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<div class="nav-panel">
+  <div class="nav-logo">
+    <img src="images/logo-db.png" alt="D. Balakrishna">
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="artist.html">Artist</a>
+    <a href="about.html">About</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="international.html">International</a>
+    <a href="media.html">Media</a>
+    <a href="mysore-bani.html">Mysore Bani</a>
+    <a href="awards.html" class="active">Awards</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</div>
+
+<div id="content">
+<div id="awards-page">
+
+  <!-- LEFT HERO -->
+  <div class="awards-hero">
+    <img src="images/awards-hero.png" alt="Vidvān D. Balakrishna">
+  </div>
+
+  <!-- RIGHT CONTENT -->
+  <div class="awards-content">
+
+    <h1 class="awards-title">Awards & Honors</h1>
+    <div class="awards-tagline">
+      Celebrating excellence and dedication to preserving the Mysore tradition
+    </div>
+
+    <div class="awards-timeline">
+
+      
+<!-- 2025 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2025</div>
+  <div class="award-title">Nada Vallabha</div>
+  <div class="award-organization">Nada Sudha, Chennai</div>
+</div>
+
+<!-- 2024 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2024</div>
+  <div class="award-title">Picchumani Iyer Centenary Award</div>
+  <div class="award-organization">Parthasarathi Swami Sabha, Chennai</div>
+</div>
+
+<!-- 2023 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2023</div>
+  <div class="award-title">Central Sangeet Natak Akademi Award</div>
+  <div class="award-organization">Government of India</div>
+  <p class="award-description">
+    India's highest national recognition for performing artists, honoring sustained contribution to Carnatic music and the Mysore Veena tradition.
+  </p>
+</div>
+
+<!-- 2022 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2022</div>
+  <div class="award-title">Sangeeta Kala Ratna</div>
+  <div class="award-organization">Bangalore Gayana Samaja</div>
+</div>
+
+<!-- 2019 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2019</div>
+  <div class="award-title">Veena Nadamani</div>
+  <div class="award-organization">Charubala Trust, Chennai</div>
+</div>
+
+<!-- 2018 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2018</div>
+  <div class="award-title">Parampara Pradheepanacharya – Lifetime Achievement</div>
+  <div class="award-organization">Chintalapalli Parampara Trust</div>
+</div>
+
+<!-- 2016 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2016</div>
+  <div class="award-title">Veena Sheshanna Memorial National Award</div>
+  <div class="award-organization">Swaramurthy V. N. Rao Trust</div>
+</div>
+
+<!-- 2014 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2014</div>
+  <div class="award-title">Karnataka Kalashree</div>
+  <div class="award-organization">Karnataka Sangeetha Nrithya Academy</div>
+</div>
+
+<!-- 2013 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2013</div>
+  <div class="award-title">Veena Brahma</div>
+  <div class="award-organization">Nada Brahma Sangeetha Sabha, Mysore</div>
+</div>
+
+<!-- 2009 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">2009</div>
+  <div class="award-title">Asthāna Vidvān</div>
+  <div class="award-organization">Sri Kamakoti Peetham, Kanchi</div>
+</div>
+
+<!-- 1997 -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">1997</div>
+  <div class="award-title">Ganakalashri</div>
+  <div class="award-organization">Karnataka Gana Kala Parishat</div>
+</div>
+
+<!-- Multiple Years -->
+<div class="award-item">
+  <img src="images/logo-db.png" class="award-logo" alt="">
+  <div class="award-year">1979 · 1991 · 1996 · 2006 · 2008</div>
+  <div class="award-title">Best Veena Player (Five Times)</div>
+  <div class="award-organization">The Music Academy, Madras</div>
+</div>
+
+
+
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+</body>
+</html>

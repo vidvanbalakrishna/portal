@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.00 – GLOBAL VARIABLES
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* Background layers */
+  --bg-layer-1: radial-gradient(circle at 72% 35%, rgba(245,200,130,0.18), transparent 55%);
+  --bg-layer-2: radial-gradient(circle at 18% 28%, rgba(180,140,100,0.30), transparent 45%);
+  --bg-layer-3: linear-gradient(135deg, #f5e9d0 0%, #f0deb8 50%, #f7f0d8 100%);
+
+  /* Text colors */
+  --text-primary: #3b2a2a;
+  --text-secondary: #4e3b32;
+  --text-accent: #7a1f1f;
+  
+  /* Navigation colors */
+  --nav-link: #6b3a3a;
+  --nav-active: #9a7b2f;
+  --nav-underline: #c49b3a;
+  --nav-bg: rgba(255,255,240,0.96);
+  
+  /* Border & dividers */
+  --border-color: rgba(154,123,47,0.14);
+
+  /* Font families */
+  --font-base: "Palatino Linotype", Georgia, serif;
+  --font-display: 'Cormorant Garamond', serif;
+
+  /* Body text – Desktop */
+  --body-size-desktop: 1.15rem;
+  --body-line-desktop: 2.05;
+  --body-letter-desktop: 0.03em;
+
+  /* Body text – Mobile */
+  --body-size-mobile: 1rem;
+  --body-line-mobile: 1.8;
+  --body-letter-mobile: 0.03em;
+
+  /* Heading scales – Desktop */
+  --h1-size-desktop: 3.8rem;
+  --h1-letter-desktop: 0.06em;
+  --h1-line-desktop: 1.05;
+
+  /* Heading scales – Mobile */
+  --h1-size-mobile: 2.4rem;
+  --h1-letter-mobile: 0.05em;
+  --h1-line-mobile: 1.1;
+
+  /* Subtitle – Desktop */
+  --subtitle-size-desktop: 1.15rem;
+  --subtitle-letter-desktop: 0.16em;
+  --subtitle-line-desktop: 1.4;
+
+  /* Subtitle – Mobile */
+  --subtitle-size-mobile: 1.05rem;
+  --subtitle-letter-mobile: 0.12em;
+  --subtitle-line-mobile: 1.4;
+
+  /* Honorific / Small caps */
+  --honorific-size: 1.6rem;
+  --honorific-letter: 0.22em;
+  --honorific-opacity: 0.65;
+
+  /* Closing text */
+  --closing-size: 0.95rem;
+  --closing-letter: 0.12em;
+  --closing-opacity: 0.68;
+
+  /* Navigation */
+  --nav-height: 80px;
+  --nav-padding-x: 28px;
+  --nav-padding-y: 0;
+  --nav-gap: 32px;
+  --nav-link-gap: 28px;
+  --nav-link-padding: 6px 2px;
+
+  /* Logo */
+  --logo-height: 62px;
+
+  /* Content offset */
+  --content-top: 80px;
+
+  /* Section spacing */
+  --section-gap-desktop: 6rem;
+  --section-gap-mobile: 3rem;
+
+  /* Text element spacing */
+  --text-gap-small: 0.6rem;
+  --text-gap-medium: 1.2rem;
+  --text-gap-large: 2.2rem;
+  --text-gap-xlarge: 2.5rem;
+
+  /* Grain texture */
+  --grain-opacity: 0.035;
+  --grain-blend: multiply;
+
+  /* Transitions */
+  --hover-transition: 0.3s ease;
+  --fade-transition: 2.5s ease-in-out;
+  --text-fade-duration: 0.6s;
+
+  /* Nav underline animation */
+  --nav-underline-width: 70%;
+  --nav-underline-height: 1.5px;
+  --nav-underline-transition: 0.35s ease;
+
+  /* Image filters */
+  --img-saturate: 0.95;
+  --img-contrast: 1.02;
+
+  /* Breakpoint */
+  --breakpoint: 900px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.01 – BASE STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: var(--font-base);
+  background: var(--bg-layer-1), var(--bg-layer-2), var(--bg-layer-3);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  background-image: url('images/grain.png');
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  z-index: 9999;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.02 – NAVIGATION PANEL
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--nav-gap);
+  padding: var(--nav-padding-y) var(--nav-padding-x);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  letter-spacing: 0.08em;
+  z-index: 100;
+  margin: 0;
+  
+  overflow-x: auto;  /* Enable horizontal scroll */
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;  /* Smooth mobile scroll */
+}
+
+
+.nav-logo {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-logo img {
+  height: var(--logo-height);
+  width: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--nav-link-gap);
+  margin: 0;
+  padding: 0;
+}
+
+
+.nav-panel a {
+  text-decoration: none;
+  color: var(--nav-link);
+  font-style: normal;
+  font-weight: 400;
+  position: relative;
+  display: inline-block;
+  padding: var(--nav-link-padding);
+  transition: color var(--hover-transition), text-shadow var(--hover-transition);
+  cursor: pointer;
+  margin: 0;
+  
+  flex-shrink: 0;  /* Prevent links from shrinking */
+  white-space: nowrap;  /* Keep text on one line */
+}
+
+
+.nav-panel a:hover {
+  color: var(--nav-active);
+  text-shadow: none;
+}
+
+.nav-panel a.active {
+  color: var(--nav-active);
+  font-weight: 400;
+}
+
+.nav-panel a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: var(--nav-underline-height);
+  background: var(--nav-underline);
+  transform: translateX(-50%);
+  transition: width var(--nav-underline-transition);
+}
+
+.nav-panel a.active::after,
+.nav-panel a:hover::after {
+  width: var(--nav-underline-width);
+}
+
+/* Scrollbar styling */
+.nav-panel::-webkit-scrollbar {
+  height: 8px;  /* TWEAK – Scrollbar thickness */
+}
+
+.nav-panel::-webkit-scrollbar-track {
+  background: rgba(154,123,47,0.15);  /* TWEAK – Track color */
+  border-radius: 3px;
+}
+
+.nav-panel::-webkit-scrollbar-thumb {
+  background: rgba(154,123,47,0.6);  /* TWEAK – Scrollbar color */
+  border-radius: 3px;
+}
+
+.nav-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(154,123,47,0.85);  /* TWEAK – Hover color */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.03 – CONTENT WRAPPER
+   ═══════════════════════════════════════════════════════════ */
+
+#content {
+  position: fixed;
+  top: var(--content-top);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – HOME PAGE TYPOGRAPHY BASE
+   ═══════════════════════════════════════════════════════════ */
+
+.home-name,
+.home-subtitle,
+.home-honorific {
+  font-family: var(--font-display);
+  margin: 0;
+  padding: 0;
+}
+
+.home-honorific {
+  font-size: var(--honorific-size);
+  letter-spacing: var(--honorific-letter);
+  text-transform: uppercase;
+  opacity: var(--honorific-opacity);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.2;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.00 – DESKTOP LAYOUT (min-width: 901px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 901px) {
+
+  /* C.02.01 – Hide mobile hero */
+  .mobile-hero { 
+    display: none; 
+  }
+
+  /* C.02.02 – Desktop hero container */
+  .home-hero {
+    position: fixed;
+    top: var(--content-top);
+    right: 4vw;  /* TWEAK THIS – Smaller = closer to right edge */
+    width: 54vw;  /* TWEAK THIS – Larger = wider image */
+    height: calc(100vh - var(--content-top));
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  /* C.02.03 – Individual slide images */
+  .home-slide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: contain;
+    background-position: right center;
+    background-repeat: no-repeat;
+    filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+    opacity: 0;
+    transition: opacity var(--fade-transition);
+  }
+
+  .home-slide.active {
+    opacity: 1;
+  }
+
+  /* C.02.04 – Desktop text positioning */
+  .home-text {
+    position: absolute;
+    top: 48%;  /* TWEAK THIS – 50% = vertical center, lower = more down */
+    left: 6vw;  /* TWEAK THIS – Larger = more right */
+    transform: translateY(-50%);
+    max-width: 540px;  /* TWEAK THIS – Maximum text block width */
+    padding-left: 2rem;
+    z-index: 2;
+  }
+
+  /* C.02.05 – Desktop name styling */
+  .home-name {
+    font-size: var(--h1-size-desktop);
+    margin-bottom: var(--text-gap-small);
+    letter-spacing: var(--h1-letter-desktop);
+    line-height: var(--h1-line-desktop);
+    font-weight: 500;
+    font-style: normal;
+    color: var(--text-primary);
+  }
+
+  /* C.02.06 – Desktop subtitle styling */
+  .home-subtitle {
+    font-size: var(--subtitle-size-desktop);
+    letter-spacing: var(--subtitle-letter-desktop);
+    margin-bottom: var(--text-gap-large);
+    color: var(--text-accent);
+    opacity: 0.85;
+    font-weight: 400;
+    font-style: normal;
+    line-height: var(--subtitle-line-desktop);
+  }
+
+  /* C.02.07 – Desktop body text styling */
+  .home-body {
+    font-size: var(--body-size-desktop);
+    letter-spacing: var(--body-letter-desktop);
+    font-style: normal;
+    font-weight: 400;
+    max-width: 36ch;  /* TWEAK THIS – Characters per line */
+    margin-bottom: 2.4rem;
+    line-height: var(--body-line-desktop);
+    color: var(--text-secondary);
+  }
+
+  /* C.02.08 – Desktop closing text styling */
+  .home-closing {
+    font-size: var(--closing-size);
+    letter-spacing: var(--closing-letter);
+    text-transform: uppercase;
+    opacity: var(--closing-opacity);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--text-primary);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – MOBILE LAYOUT (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  /* C.03.01 – Hide desktop hero */
+  .home-hero { 
+    display: none; 
+  }
+
+  /* C.03.02 – Mobile hero display */
+  .mobile-hero {
+    display: block;
+    width: 100%;
+    height: 85vh;  /* TWEAK THIS – Image height on mobile */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+  }
+
+  /* C.03.03 – Mobile text positioning */
+  .home-text {
+    position: relative;
+    max-width: 100%;
+    padding: var(--text-gap-xlarge) 1.5rem 4rem;
+    text-align: center;
+    z-index: 2;
+  }
+
+  /* C.03.04 – Mobile name styling */
+  .home-name {
+    font-size: var(--h1-size-mobile);
+    letter-spacing: var(--h1-letter-mobile);
+    margin-bottom: var(--text-gap-small);
+    font-weight: 500;
+    font-style: normal;
+    line-height: var(--h1-line-mobile);
+    color: var(--text-primary);
+  }
+
+  /* C.03.05 – Mobile subtitle styling */
+  .home-subtitle {
+    font-size: var(--subtitle-size-mobile);
+    margin-bottom: 1.8rem;
+    letter-spacing: var(--subtitle-letter-mobile);
+    font-weight: 400;
+    font-style: normal;
+    line-height: var(--subtitle-line-mobile);
+    color: var(--text-accent);
+    opacity: 0.85;
+  }
+
+  /* C.03.06 – Mobile body text styling */
+  .home-body {
+    font-size: var(--body-size-mobile);
+    margin-bottom: 2rem;
+    line-height: var(--body-line-mobile);
+    letter-spacing: var(--body-letter-mobile);
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text-secondary);
+  }
+
+  /* C.03.07 – Mobile closing text styling */
+  .home-closing {
+    font-size: var(--closing-size);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.75;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.4;
+    color: var(--text-primary);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – TEXT FADE-IN ANIMATION
+   ═══════════════════════════════════════════════════════════ */
+
+.home-text > * {
+  opacity: 0;
+  transform: translateY(18px);  /* TWEAK THIS – Larger = more upward movement */
+  animation: fadeUp var(--text-fade-duration) ease forwards;
+}
+
+.home-text > *:nth-child(1) { animation-delay: 0.2s; }   /* TWEAK THIS – Honorific delay */
+.home-text > *:nth-child(2) { animation-delay: 0.35s; }  /* TWEAK THIS – Name delay */
+.home-text > *:nth-child(3) { animation-delay: 0.5s; }   /* TWEAK THIS – Subtitle delay */
+.home-text > *:nth-child(4) { animation-delay: 0.65s; }  /* TWEAK THIS – Body delay */
+.home-text > *:nth-child(5) { animation-delay: 0.8s; }   /* TWEAK THIS – Closing delay */
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.00.00 – NAVIGATION PANEL
+     ═══════════════════════════════════════════════════════════ -->
+
+<div class="nav-panel">
+  <div class="nav-logo">
+    <img src="images/logo-db.png" alt="D. Balakrishna">
+  </div>
+
+
+<div class="nav-links">
+  <a href="index.html" class="active">Home</a>
+  <a href="artist.html">Artist</a>
+  <a href="about.html">About</a>
+  <a href="lineage.html">Lineage</a>
+  <a href="international.html">International</a>
+  <a href="media.html">Media</a>
+  <a href="mysore-bani.html">Mysore Bani</a>
+  <a href="awards.html">Awards</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+</div>
+  
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+
+  <!-- H.01.01 – Mobile hero image -->
+  <div class="mobile-hero"
+       style="background-image:url('images/home-hero.png');">
+  </div>
+
+  <!-- H.01.02 – Desktop hero slideshow -->
+  <div class="home-hero">
+    <div class="home-slide active"
+         style="background-image:url('images/home-hero.png')"></div>
+    <div class="home-slide"
+         style="background-image:url('images/home-hero-2.png')"></div>
+    <div class="home-slide"
+         style="background-image:url('images/home-hero-3.png')"></div>
+  </div>
+
+  <!-- H.01.03 – Text content -->
+  <div class="home-text">
+    <div class="home-honorific">vidvān</div>
+
+    <h1 class="home-name">D. Balakrishna</h1>
+
+    <div class="home-subtitle">
+      Vīṇa Virtuoso · Mysore Bāṇi
+    </div>
+
+    <p class="home-body">
+      Carrying forward a lineage of repose,
+      depth & uncompromising classicism.
+    </p>
+
+    <div class="home-closing">
+      Sustaining the Tradition . . .
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.00.00 – SLIDESHOW ROTATION SCRIPT
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+/* J.00.01 – Desktop slideshow only */
+if (window.innerWidth >= 901) {
+  const slides = document.querySelectorAll('.home-slide');
+  let index = 0;
+
+  setInterval(() => {
+    slides[index].classList.remove('active');
+    index = (index + 1) % slides.length;
+    slides[index].classList.add('active');
+  }, 18000);  /* TWEAK THIS – Milliseconds between slides (18000 = 18 seconds) */
+}
+
+</script>
+
+
+<script>
+
+/* GLOBAL NAV WHEEL SCROLL */
+
+const navLinks = document.querySelector('.nav-links');
+
+if(navLinks){
+  navLinks.addEventListener('wheel', function(e){
+
+    if(navLinks.scrollWidth > navLinks.clientWidth){
+      e.preventDefault();
+      navLinks.scrollLeft += e.deltaY;
+    }
+
+  });
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Mysore Bāṇi</title>
+
+<link rel="stylesheet" href="global-variables.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.00 – LOCAL VARIABLES
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --body-size-desktop: 1.15rem;
+  --body-line-desktop: 2.05;
+  --body-letter-desktop: 0.03em;
+  
+  --body-size-mobile: 1rem;
+  --body-line-mobile: 1.8;
+  --body-letter-mobile: 0.03em;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – PAGE HEADER
+   ═══════════════════════════════════════════════════════════ */
+
+.mb-header {
+  text-align: center;
+  padding: 3rem 2rem 1.8rem;
+  position: relative;
+}
+
+.mb-title {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  font-style: normal;
+  margin: 0 0 0.8rem 0;
+  color: var(--text-primary);
+}
+
+.mb-subtitle {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-accent);
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* C.01.01 – Expand/Collapse All Button (PROMINENT + ANIMATED) */
+
+.expand-controls {
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-btn {
+  background: rgba(154,123,47,0.08);  /* TWEAK THIS – visible background always */
+  border: 2px solid rgba(154,123,47,0.4);  /* TWEAK THIS – thicker border */
+  color: var(--nav-active);
+  font-family: var(--font-base);
+  font-size: 0.95rem;  /* TWEAK THIS – larger text */
+  letter-spacing: 0.14em;  /* TWEAK THIS – more spacing */
+  padding: 0.85rem 1.6rem;  /* TWEAK THIS – much larger padding */
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 600;  /* TWEAK THIS – bold text */
+  font-style: normal;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(154,123,47,0.15);  /* TWEAK THIS – shadow depth */
+}
+
+/* Animated ripple effect */
+.control-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(154,123,47,0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.control-btn:hover::before {
+  width: 300px;  /* TWEAK THIS – ripple expansion size */
+  height: 300px;
+}
+
+.control-btn:first-child {
+  border-right: none;
+  border-radius: 5px 0 0 5px;  /* TWEAK THIS – corner roundness */
+}
+
+.control-btn:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.control-btn:hover {
+  background: rgba(154,123,47,0.18);
+  border-color: rgba(154,123,47,0.7);
+  transform: translateY(-2px);  /* TWEAK THIS – lift on hover */
+  box-shadow: 0 4px 12px rgba(154,123,47,0.25);  /* TWEAK THIS – stronger shadow */
+}
+
+.control-btn:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 1px 3px rgba(154,123,47,0.2);
+}
+
+/* C.01.02 – Expand Hint */
+
+.expand-hint {
+  font-family: var(--font-base);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-accent);
+  opacity: 0.5;
+  margin: 0.8rem 0 0 0;
+  padding: 0;
+  text-align: center;
+  transition: opacity 0.6s ease;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.expand-hint.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.00 – ACCORDION CONTAINER
+   ═══════════════════════════════════════════════════════════ */
+
+.mb-container {
+  max-width: 760px;
+  margin: 0 auto 4rem auto;
+  padding: 0 2rem;
+  position: relative;
+}
+
+/* C.02.01 – Vertical Gold Thread */
+
+.mb-container::before {
+  content: '';
+  position: absolute;
+  left: 2rem;  /* TWEAK THIS – aligns with left edge of container */
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(154,123,47,0.3) 5%,
+    rgba(154,123,47,0.3) 95%,
+    transparent 100%
+  );
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – ACCORDION SECTION
+   ═══════════════════════════════════════════════════════════ */
+
+.mb-section {
+  position: relative;
+  margin-bottom: 2rem;  /* TWEAK THIS – space between sections */
+  z-index: 1;
+}
+
+/* C.03.01 – Section Header (clickable) */
+
+.section-header {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.5rem;  /* TWEAK THIS – space between dot and text */
+  padding: 1.2rem 0 1.2rem 2rem;  /* TWEAK THIS – left padding for dot */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  margin: 0;
+  background: transparent;
+}
+
+.section-header:hover {
+  padding-left: 2.3rem;  /* TWEAK THIS – slight indent on hover */
+  background: rgba(154,123,47,0.03);  /* TWEAK THIS – subtle background on hover */
+}
+
+/* C.03.02 – Gold Dot Marker */
+
+.section-dot {
+  position: absolute;
+  left: 0;
+  top: 1.8rem;  /* TWEAK THIS – vertical alignment with title */
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(154,123,47,0.5);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.section-header:hover .section-dot {
+  background: rgba(154,123,47,0.95);
+  box-shadow: 0 0 8px rgba(154,123,47,0.4);
+  transform: scale(1.3);
+}
+
+.mb-section.active .section-dot {
+  background: rgba(154,123,47,0.85);
+}
+
+/* C.03.03 – Section Text Container */
+
+.section-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+}
+
+/* C.03.04 – Section Title */
+
+.mb-section-title {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  font-style: normal;
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  transition: color 0.3s ease;
+  line-height: 1.2;
+}
+
+.section-header:hover .mb-section-title {
+  color: var(--nav-active);
+}
+
+/* C.03.05 – Section Subtitle */
+
+.mb-section-subtitle {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-accent);
+  opacity: 0.75;
+  margin: 0;
+  padding: 0;
+  line-height: 1.4;
+}
+
+/* C.03.06 – Arrow Icon */
+
+/* C.03.06 – Arrow Icon (PROMINENT + ANIMATED) */
+
+.section-arrow {
+  font-size: 2.2rem;  /* TWEAK THIS – MUCH larger arrow */
+  color: rgba(154,123,47,0.85);  /* TWEAK THIS – dark gold, very visible */
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);  /* Bouncy animation */
+  margin-left: auto;
+  flex-shrink: 0;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1;
+  padding: 0.5rem;  /* TWEAK THIS – clickable area */
+  background: rgba(154,123,47,0.08);  /* TWEAK THIS – subtle background circle */
+  border-radius: 50%;
+  width: 2.8rem;  /* TWEAK THIS – circle size */
+  height: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(154,123,47,0.15);  /* TWEAK THIS – shadow depth */
+}
+
+.section-header:hover .section-arrow {
+  color: rgba(154,123,47,1);
+  background: rgba(154,123,47,0.15);
+  transform: translateX(6px) scale(1.15);  /* TWEAK THIS – slides right + grows */
+  box-shadow: 0 4px 12px rgba(154,123,47,0.25);
+}
+
+.mb-section.active .section-arrow {
+  transform: rotate(90deg);
+  background: rgba(154,123,47,0.12);
+}
+
+.mb-section.active .section-header:hover .section-arrow {
+  transform: rotate(90deg) scale(1.2);  /* TWEAK THIS – grows when active */
+  background: rgba(154,123,47,0.18);
+}
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – ACCORDION CONTENT (collapsible)
+   ═══════════════════════════════════════════════════════════ */
+
+.section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+  opacity: 0;
+  padding: 0 0 0 3.5rem;  /* TWEAK THIS – left padding aligns with title */
+  margin: 0;
+}
+
+.mb-section.active .section-content {
+  max-height: 2000px;  /* TWEAK THIS – larger if content is longer */
+  opacity: 1;
+  padding: 0.5rem 0 1.5rem 3.5rem;
+}
+
+.section-content p {
+  margin: 0 0 1.3rem 0;
+  padding: 0;
+  font-family: var(--font-base);
+  font-size: var(--body-size-desktop);
+  line-height: var(--body-line-desktop);
+  letter-spacing: var(--body-letter-desktop);
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-secondary);
+}
+
+.section-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   C.05.00 – AUDIO PANEL
+   ═══════════════════════════════════════════════════════════ */
+
+.audio-panel {
+  position: relative;
+  background: rgba(255,252,245,0.45);
+  border-top: 1px solid rgba(154,123,47,0.12);
+  padding: 1.8rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
+  backdrop-filter: blur(2px);
+}
+
+.audio-string {
+  width: 28%;
+  max-width: 340px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(154,123,47,0.4),
+    transparent
+  );
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  opacity: 0.7;
+  position: relative;
+  animation: stringBreath 5s ease-in-out infinite;
+}
+
+@keyframes stringBreath {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scaleX(1.05);
+  }
+}
+
+.audio-string::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(154,123,47,0.5);
+}
+
+/* C.05.01 – Track Info Display */
+
+.audio-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0 0 1.5rem 0;
+  padding: 0;
+  max-width: 90%;
+}
+
+.audio-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  font-style: normal;
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.audio-subtitle {
+  font-family: var(--font-base);
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-secondary);
+  opacity: 0.75;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+/* C.05.02 – Audio Controls */
+
+.audio-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.audio-btn {
+  background: transparent;
+  border: 1px solid rgba(154,123,47,0.3);
+  color: rgba(154,123,47,0.7);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+}
+
+.audio-btn:hover {
+  border-color: rgba(154,123,47,0.7);
+  color: rgba(154,123,47,1);
+  transform: scale(1.08);
+}
+
+.audio-btn:active {
+  transform: scale(0.95);
+}
+
+#prevBtn,
+#nextBtn {
+  width: 50px;
+  height: 50px;
+  font-size: 1.8rem;
+}
+
+#playBtn {
+  width: 64px;
+  height: 64px;
+  font-size: 1.6rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   C.06.00 – MOBILE (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  .mb-title {
+    font-size: 2.2rem;
+  }
+
+  .mb-container {
+    padding: 0 1.5rem;
+  }
+
+  .mb-container::before {
+    left: 1.5rem;
+  }
+
+  .expand-controls {
+    position: static;
+    margin: 1.5rem auto 0;
+    justify-content: center;
+  }
+
+  .control-btn {
+    font-size: 0.85rem;
+    padding: 0.75rem 1.3rem;
+  }
+
+  .section-content p {
+    font-size: var(--body-size-mobile);
+    line-height: var(--body-line-mobile);
+    letter-spacing: var(--body-letter-mobile);
+  }
+
+  .audio-controls {
+    gap: 2.5rem;
+  }
+
+  #prevBtn,
+  #nextBtn {
+    width: 46px;
+    height: 46px;
+    font-size: 1.6rem;
+  }
+
+  #playBtn {
+    width: 58px;
+    height: 58px;
+    font-size: 1.4rem;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<div class="nav-panel">
+  <div class="nav-logo">
+    <img src="images/logo-db.png" alt="D. Balakrishna">
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="artist.html">Artist</a>
+    <a href="about.html">About</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="international.html">International</a>
+    <a href="media.html">Media</a>
+    <a href="mysore-bani.html" class="active">Mysore Bāṇi</a>
+    <a href="awards.html">Awards</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</div>
+
+<div id="content">
+
+  <div class="mb-header">
+    
+    <div class="expand-controls">
+      <button class="control-btn" id="expandAll">Expand All</button>
+      <button class="control-btn" id="collapseAll">Collapse All</button>
+    </div>
+
+    <h1 class="mb-title">Mysore Bāṇi</h1>
+    <div class="mb-subtitle">The Discipline of Unhurried Sound</div>
+    <div class="expand-hint" id="expandHint">Tap sections to expand</div>
+  </div>
+
+  <div class="mb-container">
+
+    <!-- SECTION 1: The Instrument Finds Its Voice -->
+    <div class="mb-section">
+      <div class="section-header">
+        <div class="section-dot"></div>
+        <div class="section-text">
+          <div class="mb-section-title">The Instrument Finds Its Voice</div>
+          <div class="mb-section-subtitle">Where sound learns to speak for itself</div>
+        </div>
+        <div class="section-arrow">▸</div>
+      </div>
+      <div class="section-content">
+        <p>The Mysore bāṇi of vīṇā playing matured under the cultural patronage of the Wodeyar court, where music was shaped for refinement rather than spectacle. Emerging in the eighteenth century and finding luminous expression in Vīṇe Śeṣanna and his lineage, this tradition approaches the vīṇā not as an extension of the human voice, but as an instrument with its own temperament. Clarity, proportion, and inwardness shape its sound. It invites an attentive ear — and time.</p>
+        <p>In this approach, the guiding principle is vādyadharma — fidelity to the nature of the instrument. The right hand, through a thoughtful mīṭu, responds to sahitya without being bound to it. The pluck does not follow syllable with mechanical obedience, nor does it attempt to mirror vocal stress at every turn. It listens first to the string — to its weight, its resonance, its natural decay. Each stroke allows the sound to settle and mature. The vīṇā does not shadow the voice; it speaks in its own breath.</p>
+        <p>The left hand moves with equal care. The finger touches the fret with just enough pressure — no more. Excess force tightens the string, and that tightness enters the tone. Deflection of pitch is purposeful but restrained. A note may be drawn forward by two or three shades; it is not compelled to yield an entire octave from a single fret. The frets are there to be used. Reach is never pursued at the cost of repose.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 2: The Art of Articulation -->
+    <div class="mb-section">
+      <div class="section-header">
+        <div class="section-dot"></div>
+        <div class="section-text">
+          <div class="mb-section-title">The Art of Articulation</div>
+          <div class="mb-section-subtitle">Where stillness and movement find equilibrium</div>
+        </div>
+        <div class="section-arrow">▸</div>
+      </div>
+      <div class="section-content">
+        <p>Among the defining characteristics of the Mysore bāṇi is its measured use of the split-finger technique. This technique secures the note in its essential plainness, where clarity itself is ornament. Gamaka is not synonymous with oscillation. A plain note, placed with intention, is itself an inflection of meaning.</p>
+        <p>In brisk passages, split fingering brings a bright articulation. Notes are caught cleanly upon the fret, each distinct yet connected. The effect recalls the precision of brikā-s in vocal music, though achieved through wholly instrumental means. It sharpens without hardening. It illumines without agitation.</p>
+        <p>In split fingering, the left hand is not merely catching the note; it offers a faint, supportive touch. This answers the right-hand mīṭu (pluck) and helps the resonance of the string settle and endure.</p>
+        <p>The dialogue between plain note and oscillatory gamaka remains central. Straight tones offer a ground of stillness from which ornament unfolds. Excess oscillation can blur that steadiness; excessive linearity can drain the rāga of its subtle life. In the Mysore bāṇi, neither dominates. They temper one another. Strength lies in balance.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 3: Resonance and Relation -->
+    <div class="mb-section">
+      <div class="section-header">
+        <div class="section-dot"></div>
+        <div class="section-text">
+          <div class="mb-section-title">Resonance and Relation</div>
+          <div class="mb-section-subtitle">Where tones converse in quiet depth</div>
+        </div>
+        <div class="section-arrow">▸</div>
+      </div>
+      <div class="section-content">
+        <p>Equally characteristic is the deliberate use of two-string playing. Adjacent strings are engaged not for harmonic display, but to reveal samvādi relationships — the quiet dignity of consonant tone. When two notes sustain together, the rāga deepens. Plain notes gain gravity. The architecture of pitch becomes palpable through resonance.</p>
+        <p>This is not chordal play in a modern sense, but an expansion of tonal space within the instrument's own body. It reveals a face of the rāga born of sustained simultaneity — something the voice, by its very nature, cannot fully embody.</p>
+        <p>Across registers, proportion governs tone. The upper register shines without edge; the lower register resonates without heaviness. Sound is guided, not pressed. Nothing strains for brilliance. Nothing sinks into weight. The music rests in equilibrium.</p>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Within the Greater Stream -->
+    <div class="mb-section">
+      <div class="section-header">
+        <div class="section-dot"></div>
+        <div class="section-text">
+          <div class="mb-section-title">Within the Greater Stream</div>
+          <div class="mb-section-subtitle">Not apart, but distinct</div>
+        </div>
+        <div class="section-arrow">▸</div>
+      </div>
+      <div class="section-content">
+        <p>Rāga itself belongs to no single style. The Mysore bāṇi does not claim to redefine it, nor to stand apart from the shared grammar of Carnatic music. It remains wholly within that tradition. Its distinctiveness lies not in altering the substance, but in refining its expression — much like cream rising from milk: inseparable from it, yet revealing a certain concentration of texture and flavor.</p>
+        <p>This approach offers the artist a way of seeing — a way of shaping. When joined to a sensitive musical mind, it allows many abhiprāyas — nuanced aesthetic viewpoints — to unfold. What emerges is not departure, but character. Not separation, but concentration. A voice unmistakably Carnatic, yet distinctly veena in its contour.</p>
+        <p>Clarity. Repose. Gradual unfolding. The music does not hurry toward climax; it gathers depth. What it reveals is not surface brilliance, but interior coherence. In this quiet steadiness lies the discipline of unhurried sound.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AUDIO PANEL -->
+  <div class="audio-panel">
+    <div class="audio-string"></div>
+
+    <div class="audio-info">
+      <div class="audio-title" id="trackTitle">Bhavanuta - Mohanam - Adi - Tyagaraja</div>
+      <div class="audio-subtitle" id="trackSubtitle">Track 1 of 5</div>
+    </div>
+    
+    <div class="audio-controls">
+      <button class="audio-btn" id="prevBtn">‹</button>
+      <button class="audio-btn" id="playBtn">▶</button>
+      <button class="audio-btn" id="nextBtn">›</button>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+  </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+
+/* ═══════════════════════════════════════════════════════════════
+   J.01.00 – ACCORDION FUNCTIONALITY
+   ═══════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // J.01.01 – Get all section headers
+  const sectionHeaders = document.querySelectorAll('.section-header');
+  const expandAllBtn = document.getElementById('expandAll');
+  const collapseAllBtn = document.getElementById('collapseAll');
+  const expandHint = document.getElementById('expandHint');
+  let hasInteracted = false;
+
+  // J.01.02 – Toggle individual section
+  sectionHeaders.forEach(function(header) {
+    header.addEventListener('click', function() {
+      const section = this.parentElement;
+      section.classList.toggle('active');
+      
+      // J.01.03 – Fade out hint after first interaction
+      if (!hasInteracted) {
+        hasInteracted = true;
+        expandHint.classList.add('fade-out');
+      }
+    });
+  });
+
+  // J.01.04 – Expand all sections
+  expandAllBtn.addEventListener('click', function() {
+    const sections = document.querySelectorAll('.mb-section');
+    sections.forEach(function(section) {
+      section.classList.add('active');
+    });
+    
+    if (!hasInteracted) {
+      hasInteracted = true;
+      expandHint.classList.add('fade-out');
+    }
+  });
+
+  // J.01.05 – Collapse all sections
+  collapseAllBtn.addEventListener('click', function() {
+    const sections = document.querySelectorAll('.mb-section');
+    sections.forEach(function(section) {
+      section.classList.remove('active');
+    });
+  });
+
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   J.02.00 – AUDIO PLAYER
+   ═══════════════════════════════════════════════════════════ */
+
+const tracks = [
+  {
+    file: "audio/track1.mp3",
+    title: "Bhavanuta - Mohanam - Adi - Tyagaraja"
+  },
+  {
+    file: "audio/track2.mp3",
+    title: "Karuninchitaku - Sindumandari - Adi"
+  },
+  {
+    file: "audio/track3.mp3",
+    title: "Vishvesvara - Sindhubhairavi - Roopakam - Swati Tirunal"
+  },
+  {
+    file: "audio/track4.mp3",
+    title: "Tillana - Behag "
+  },
+  {
+    file: "audio/track5.mp3",
+    title: "Kaliyugadali - Senchurutti"
+  }
+];
+
+let currentTrack = 0;
+let isPlaying = false;
+
+const audio = document.getElementById("audioPlayer");
+const playBtn = document.getElementById("playBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const trackTitle = document.getElementById("trackTitle");
+const trackSubtitle = document.getElementById("trackSubtitle");
+
+// J.02.01 – Load track
+function loadTrack(index) {
+  audio.src = tracks[index].file;
+  trackTitle.textContent = tracks[index].title;
+  trackSubtitle.textContent = "Track " + (index + 1) + " of " + tracks.length;
+}
+
+// J.02.02 – Play track
+function playTrack() {
+  audio.play();
+  isPlaying = true;
+  playBtn.textContent = "❚❚";
+}
+
+// J.02.03 – Pause track
+function pauseTrack() {
+  audio.pause();
+  isPlaying = false;
+  playBtn.textContent = "▶";
+}
+
+// J.02.04 – Play/Pause button
+playBtn.addEventListener("click", function() {
+  if (isPlaying) {
+    pauseTrack();
+  } else {
+    playTrack();
+  }
+});
+
+// J.02.05 – Next track
+nextBtn.addEventListener("click", function() {
+  currentTrack = (currentTrack + 1) % tracks.length;
+  loadTrack(currentTrack);
+  playTrack();
+});
+
+// J.02.06 – Previous track
+prevBtn.addEventListener("click", function() {
+  currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+  loadTrack(currentTrack);
+  playTrack();
+});
+
+// J.02.07 – Auto-advance to next track
+audio.addEventListener("ended", function() {
+  nextBtn.click();
+});
+
+// J.02.08 – Load first track on page load
+loadTrack(currentTrack);
+
+</script>
+
+</body>
+</html>
