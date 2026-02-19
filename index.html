@@ -107,7 +107,7 @@
 
   /* Transitions */
   --hover-transition: 0.3s ease;
-  --fade-transition: 2.5s ease-in-out;
+  --fade-transition: 3.5s ease-in-out;
   --text-fade-duration: 0.6s;
 
   /* Nav underline animation */
@@ -444,7 +444,7 @@ body::before {
     background-repeat: no-repeat;
     filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
     opacity: 0;
-    transition: opacity 1.2s ease;  /* TWEAK THIS – Fade speed in seconds */
+    transition: opacity 3.0s ease;  /* TWEAK THIS – Fade speed in seconds */
   }
 
   .mobile-slide.active {
@@ -642,7 +642,7 @@ if (window.matchMedia('(max-width: 900px)').matches) {
     mSlides[mIndex].classList.remove('active');
     mIndex = (mIndex + 1) % mSlides.length;
     mSlides[mIndex].classList.add('active');
-  }, 5000);  /* TWEAK THIS – Milliseconds per slide (5000 = 5 seconds) */
+  }, 5000);  /* TWEAK THIS – Milliseconds per slide (8000 = 8 seconds) */
 }
 
 
