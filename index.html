@@ -38,7 +38,7 @@
   --font-display: 'Cormorant Garamond', serif;
 
   /* Body text – Desktop */
-  --body-size-desktop: 1.35rem;
+  --body-size-desktop: 1.15rem;
   --body-line-desktop: 2.05;
   --body-letter-desktop: 0.03em;
 
@@ -48,17 +48,17 @@
   --body-letter-mobile: 0.03em;
 
   /* Heading scales – Desktop */
-  --h1-size-desktop: 4.4rem;
-  --h1-letter-desktop: 0.06em;
+  --h1-size-desktop: 3.6rem;
+  --h1-letter-desktop: 0.04em;
   --h1-line-desktop: 1.05;
 
   /* Heading scales – Mobile */
-  --h1-size-mobile: 2.4rem;
+  --h1-size-mobile: 2.0rem;
   --h1-letter-mobile: 0.05em;
   --h1-line-mobile: 1.1;
 
   /* Subtitle – Desktop */
-  --subtitle-size-desktop: 1.60rem;
+  --subtitle-size-desktop: 1.15rem;
   --subtitle-letter-desktop: 0.16em;
   --subtitle-line-desktop: 1.4;
 
@@ -421,16 +421,58 @@ body::before {
     display: none; 
   }
 
-  /* C.03.02 – Mobile hero display */
+
+/* C.03.02 – Mobile hero display */
   .mobile-hero {
     display: block;
+    position: relative;
     width: 100%;
-    height: 64svh;  /* TWEAK THIS – Image height on mobile */
+    height: calc(76svh - var(--content-top));  /* TWEAK THIS – Full screen minus nav bar */
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* C.03.02a – Mobile slide images */
+  .mobile-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+    opacity: 0;
+    transition: opacity 1.2s ease;  /* TWEAK THIS – Fade speed in seconds */
+  }
+
+  .mobile-slide.active {
+    opacity: 1;
+  }
+
+
+
+
+  /* C.03.02a – Mobile slide images */
+  .mobile-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+    opacity: 0;
+    transition: opacity 1.2s ease;  /* TWEAK THIS – Fade duration in seconds */
   }
+
+  .mobile-slide.active {
+    opacity: 1;
+  } 
+
 
   /* C.03.03 – Mobile text positioning */
   .home-text {
@@ -549,10 +591,18 @@ body::before {
 
 <div id="content">
 
-  <!-- H.01.01 – Mobile hero image -->
-  <div class="mobile-hero"
-       style="background-image:url('images/home-hero.png');">
+  
+<!-- H.01.01 – Mobile hero slideshow -->
+  <div class="mobile-hero">
+    <div class="mobile-slide active"
+         style="background-image:url('images/home-hero.png');"></div>
+    <div class="mobile-slide"
+         style="background-image:url('images/home-hero-2.png');"></div>
+    <div class="mobile-slide"
+         style="background-image:url('images/home-hero-3.png');"></div>
   </div>
+
+
 
   <!-- H.01.02 – Desktop hero slideshow -->
   <div class="home-hero">
@@ -593,7 +643,7 @@ body::before {
 
 <script>
 
-/* J.00.01 – Desktop slideshow only */
+/* J.00.01 – Desktop slideshow */
 if (window.innerWidth >= 901) {
   const slides = document.querySelectorAll('.home-slide');
   let index = 0;
@@ -602,8 +652,23 @@ if (window.innerWidth >= 901) {
     slides[index].classList.remove('active');
     index = (index + 1) % slides.length;
     slides[index].classList.add('active');
-  }, 18000);  /* TWEAK THIS – Milliseconds between slides (18000 = 18 seconds) */
+  }, 18000);  /* TWEAK THIS – Desktop: milliseconds per slide (18000 = 18 seconds) */
 }
+
+
+/* J.00.02 – Mobile slideshow */
+if (window.innerWidth <= 900) {
+  const mSlides = document.querySelectorAll('.mobile-slide');
+  let mIndex = 0;
+
+  setInterval(() => {
+    mSlides[mIndex].classList.remove('active');
+    mIndex = (mIndex + 1) % mSlides.length;
+    mSlides[mIndex].classList.add('active');
+  }, 5000);  /* TWEAK THIS – Milliseconds per slide (5000 = 5 seconds) */
+}
+
+
 
 </script>
 
