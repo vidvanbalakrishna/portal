@@ -331,7 +331,7 @@ body::before {
     overflow: hidden;
   }
 
-  /* C.02.03 – Individual slide images */
+/* C.02.03 – Individual slide images */
   .home-slide {
     position: absolute;
     top: 0;
@@ -343,12 +343,21 @@ body::before {
     background-repeat: no-repeat;
     filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
     opacity: 0;
+    z-index: 1;
     transition: opacity var(--fade-transition);
   }
 
   .home-slide.active {
     opacity: 1;
+    z-index: 2;
   }
+
+  .home-slide.outgoing {
+    opacity: 0;
+    z-index: 2;
+    transition: opacity var(--fade-transition);
+  } 
+
 
   /* C.02.04 – Desktop text positioning */
   .home-text {
@@ -432,7 +441,8 @@ body::before {
     flex-shrink: 0;
   }
 
-  /* C.03.02a – Mobile slide images */
+  
+/* C.03.02a – Mobile slide images */
   .mobile-slide {
     position: absolute;
     top: 0;
@@ -444,11 +454,19 @@ body::before {
     background-repeat: no-repeat;
     filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
     opacity: 0;
-    transition: opacity 3.0s ease;  /* TWEAK THIS – Fade speed in seconds */
+    z-index: 1;
+    transition: opacity 3.0s ease-in-out;  /* TWEAK THIS – Larger = slower mobile fade */
   }
 
   .mobile-slide.active {
     opacity: 1;
+    z-index: 2;
+  }
+
+  .mobile-slide.outgoing {
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 3.0s ease-in-out;
   }
 
 
@@ -627,9 +645,14 @@ if (window.matchMedia('(min-width: 901px)').matches) {
   let index = 0;
 
   setInterval(() => {
+    slides[index].classList.add('outgoing');
     slides[index].classList.remove('active');
+    const prev = index;
     index = (index + 1) % slides.length;
     slides[index].classList.add('active');
+    setTimeout(() => {
+      slides[prev].classList.remove('outgoing');
+    }, 3500);  /* TWEAK THIS – Must match --fade-transition in milliseconds */
   }, 18000);  /* TWEAK THIS – Desktop: milliseconds per slide (18000 = 18 seconds) */
 }
 
@@ -639,12 +662,16 @@ if (window.matchMedia('(max-width: 900px)').matches) {
   let mIndex = 0;
 
   setInterval(() => {
+    mSlides[mIndex].classList.add('outgoing');
     mSlides[mIndex].classList.remove('active');
+    const prev = mIndex;
     mIndex = (mIndex + 1) % mSlides.length;
     mSlides[mIndex].classList.add('active');
-  }, 5000);  /* TWEAK THIS – Milliseconds per slide (8000 = 8 seconds) */
+    setTimeout(() => {
+      mSlides[prev].classList.remove('outgoing');
+    }, 3000);  /* TWEAK THIS – Must match mobile transition in milliseconds */
+  }, 8000);  /* TWEAK THIS – Mobile: milliseconds per slide (8000 = 8 seconds) */
 }
-
 
 
 </script>
