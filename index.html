@@ -23,13 +23,13 @@
   --text-primary: #3b2a2a;
   --text-secondary: #4e3b32;
   --text-accent: #7a1f1f;
-  
+
   /* Navigation colors */
   --nav-link: #6b3a3a;
   --nav-active: #9a7b2f;
   --nav-underline: #c49b3a;
   --nav-bg: rgba(255,255,240,0.96);
-  
+
   /* Border & dividers */
   --border-color: rgba(154,123,47,0.14);
 
@@ -177,17 +177,15 @@ body::before {
   letter-spacing: 0.08em;
   z-index: 100;
   margin: 0;
-  
-  overflow-x: auto;  /* Enable horizontal scroll */
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;  /* Smooth mobile scroll */
+  overflow-x: visible;
+  overflow-y: visible;
 }
-
 
 .nav-logo {
   display: block;
   margin: 0;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .nav-logo img {
@@ -207,7 +205,6 @@ body::before {
   padding: 0;
 }
 
-
 .nav-panel a {
   text-decoration: none;
   color: var(--nav-link);
@@ -219,11 +216,9 @@ body::before {
   transition: color var(--hover-transition), text-shadow var(--hover-transition);
   cursor: pointer;
   margin: 0;
-  
-  flex-shrink: 0;  /* Prevent links from shrinking */
-  white-space: nowrap;  /* Keep text on one line */
+  flex-shrink: 0;
+  white-space: nowrap;
 }
-
 
 .nav-panel a:hover {
   color: var(--nav-active);
@@ -252,24 +247,6 @@ body::before {
   width: var(--nav-underline-width);
 }
 
-/* Scrollbar styling */
-.nav-panel::-webkit-scrollbar {
-  height: 8px;  /* TWEAK – Scrollbar thickness */
-}
-
-.nav-panel::-webkit-scrollbar-track {
-  background: rgba(154,123,47,0.15);  /* TWEAK – Track color */
-  border-radius: 3px;
-}
-
-.nav-panel::-webkit-scrollbar-thumb {
-  background: rgba(154,123,47,0.6);  /* TWEAK – Scrollbar color */
-  border-radius: 3px;
-}
-
-.nav-panel::-webkit-scrollbar-thumb:hover {
-  background: rgba(154,123,47,0.85);  /* TWEAK – Hover color */
-}
 
 /* ═══════════════════════════════════════════════════════════════
    C.00.03 – CONTENT WRAPPER
@@ -310,28 +287,180 @@ body::before {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   C.02.00 – DESKTOP LAYOUT (min-width: 901px)
+   C.02.00 – MOBILE HAMBURGER BUTTON
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-hamburger {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;           /* TWEAK THIS – button hit area width */
+  height: var(--nav-height);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.nav-hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;              /* TWEAK THIS – gap between lines. Larger = more spread */
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-hamburger-icon span {
+  display: block;
+  width: 22px;           /* TWEAK THIS – line width */
+  height: 1.5px;         /* TWEAK THIS – line thickness */
+  background: var(--nav-link);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.01 – MOBILE NAV DRAWER
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;       /* TWEAK THIS – top/bottom padding inside drawer */
+  margin: 0;
+  z-index: 150;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-drawer.open {
+  display: flex;
+}
+
+.nav-drawer a {
+  display: block;
+  width: 100%;
+  padding: 12px 28px;    /* TWEAK THIS – row height and left indent of each link */
+  margin: 0;
+  text-decoration: none;
+  color: var(--nav-link);
+  font-family: var(--font-base);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  border: none;
+  background: transparent;
+  transition: color var(--hover-transition);
+  box-sizing: border-box;
+}
+
+.nav-drawer a:hover,
+.nav-drawer a.active {
+  color: var(--nav-active);
+  background: transparent;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.02 – MOBILE MODE (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  .nav-panel {
+    position: fixed;
+    overflow: hidden;
+    padding-right: 68px;   /* TWEAK THIS – must be wider than hamburger button width */
+  }
+
+  /* BUG FIX: fade lives here only – not on desktop */
+  .nav-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 60px;           /* TWEAK THIS – must match hamburger button width */
+    width: 60px;           /* TWEAK THIS – 50 to 80px controls fade band width */
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(255,255,240,0) 0%,
+      var(--nav-bg) 100%
+    );
+    z-index: 101;
+  }
+
+  .nav-links {
+    display: flex;
+    overflow: hidden;      /* clips links that don't fit – no scroll */
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.03 – DESKTOP MODE (min-width: 901px)
    ═══════════════════════════════════════════════════════════ */
 
 @media (min-width: 901px) {
 
-  /* C.02.01 – Hide mobile hero */
-  .mobile-hero { 
-    display: none; 
+  .nav-hamburger {
+    display: none;
   }
 
-  /* C.02.02 – Desktop hero container */
+  .nav-drawer {
+    display: none !important;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – DESKTOP LAYOUT (min-width: 901px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 901px) {
+
+  /* C.03.01 – Hide mobile hero */
+  .mobile-hero {
+    display: none;
+  }
+
+  /* C.03.02 – Desktop hero container */
   .home-hero {
     position: fixed;
     top: var(--content-top);
-    right: 4vw;  /* TWEAK THIS – Smaller = closer to right edge */
-    width: 54vw;  /* TWEAK THIS – Larger = wider image */
+    right: 4vw;            /* TWEAK THIS – smaller = closer to right edge */
+    width: 54vw;           /* TWEAK THIS – larger = wider image */
     height: calc(100vh - var(--content-top));
     z-index: 1;
     overflow: hidden;
   }
 
-/* C.02.03 – Individual slide images */
+  /* C.03.03 – Individual slide images */
   .home-slide {
     position: absolute;
     top: 0;
@@ -356,21 +485,20 @@ body::before {
     opacity: 0;
     z-index: 2;
     transition: opacity var(--fade-transition);
-  } 
+  }
 
-
-  /* C.02.04 – Desktop text positioning */
+  /* C.03.04 – Desktop text positioning */
   .home-text {
     position: absolute;
-    top: 48%;  /* TWEAK THIS – 50% = vertical center, lower = more down */
-    left: 6vw;  /* TWEAK THIS – Larger = more right */
+    top: 48%;              /* TWEAK THIS – 50% = vertical center, lower = more down */
+    left: 6vw;             /* TWEAK THIS – larger = more right */
     transform: translateY(-50%);
-    max-width: 540px;  /* TWEAK THIS – Maximum text block width */
+    max-width: 540px;      /* TWEAK THIS – maximum text block width */
     padding-left: 2rem;
     z-index: 2;
   }
 
-  /* C.02.05 – Desktop name styling */
+  /* C.03.05 – Desktop name styling */
   .home-name {
     font-size: var(--h1-size-desktop);
     margin-bottom: var(--text-gap-small);
@@ -381,7 +509,7 @@ body::before {
     color: var(--text-primary);
   }
 
-  /* C.02.06 – Desktop subtitle styling */
+  /* C.03.06 – Desktop subtitle styling */
   .home-subtitle {
     font-size: var(--subtitle-size-desktop);
     letter-spacing: var(--subtitle-letter-desktop);
@@ -393,19 +521,19 @@ body::before {
     line-height: var(--subtitle-line-desktop);
   }
 
-  /* C.02.07 – Desktop body text styling */
+  /* C.03.07 – Desktop body text styling */
   .home-body {
     font-size: var(--body-size-desktop);
     letter-spacing: var(--body-letter-desktop);
     font-style: normal;
     font-weight: 400;
-    max-width: 36ch;  /* TWEAK THIS – Characters per line */
+    max-width: 36ch;       /* TWEAK THIS – characters per line */
     margin-bottom: 2.4rem;
     line-height: var(--body-line-desktop);
     color: var(--text-secondary);
   }
 
-  /* C.02.08 – Desktop closing text styling */
+  /* C.03.08 – Desktop closing text styling */
   .home-closing {
     font-size: var(--closing-size);
     letter-spacing: var(--closing-letter);
@@ -420,29 +548,27 @@ body::before {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   C.03.00 – MOBILE LAYOUT (max-width: 900px)
+   C.04.00 – MOBILE LAYOUT (max-width: 900px)
    ═══════════════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
 
-  /* C.03.01 – Hide desktop hero */
-  .home-hero { 
-    display: none; 
+  /* C.04.01 – Hide desktop hero */
+  .home-hero {
+    display: none;
   }
 
-
-/* C.03.02 – Mobile hero display */
+  /* C.04.02 – Mobile hero display */
   .mobile-hero {
     display: block;
     position: relative;
     width: 100%;
-    height: calc(76svh - var(--content-top));  /* TWEAK THIS – Full screen minus nav bar */
+    height: calc(76svh - var(--content-top)); /* TWEAK THIS – full screen minus nav bar */
     overflow: hidden;
     flex-shrink: 0;
   }
 
-  
-/* C.03.02a – Mobile slide images */
+  /* C.04.02a – Mobile slide images */
   .mobile-slide {
     position: absolute;
     top: 0;
@@ -455,7 +581,7 @@ body::before {
     filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
     opacity: 0;
     z-index: 1;
-    transition: opacity 3.0s ease-in-out;  /* TWEAK THIS – Larger = slower mobile fade */
+    transition: opacity 3.0s ease-in-out; /* TWEAK THIS – larger = slower mobile fade */
   }
 
   .mobile-slide.active {
@@ -469,8 +595,7 @@ body::before {
     transition: opacity 3.0s ease-in-out;
   }
 
-
-  /* C.03.03 – Mobile text positioning */
+  /* C.04.03 – Mobile text positioning */
   .home-text {
     position: relative;
     max-width: 100%;
@@ -479,7 +604,7 @@ body::before {
     z-index: 2;
   }
 
-  /* C.03.04 – Mobile name styling */
+  /* C.04.04 – Mobile name styling */
   .home-name {
     font-size: var(--h1-size-mobile);
     letter-spacing: var(--h1-letter-mobile);
@@ -490,7 +615,7 @@ body::before {
     color: var(--text-primary);
   }
 
-  /* C.03.05 – Mobile subtitle styling */
+  /* C.04.05 – Mobile subtitle styling */
   .home-subtitle {
     font-size: var(--subtitle-size-mobile);
     margin-bottom: 1.8rem;
@@ -502,7 +627,7 @@ body::before {
     opacity: 0.85;
   }
 
-  /* C.03.06 – Mobile body text styling */
+  /* C.04.06 – Mobile body text styling */
   .home-body {
     font-size: var(--body-size-mobile);
     margin-bottom: 2rem;
@@ -513,7 +638,7 @@ body::before {
     color: var(--text-secondary);
   }
 
-  /* C.03.07 – Mobile closing text styling */
+  /* C.04.07 – Mobile closing text styling */
   .home-closing {
     font-size: var(--closing-size);
     text-transform: uppercase;
@@ -528,20 +653,20 @@ body::before {
 
 
 /* ═══════════════════════════════════════════════════════════════
-   C.04.00 – TEXT FADE-IN ANIMATION
+   C.05.00 – TEXT FADE-IN ANIMATION
    ═══════════════════════════════════════════════════════════ */
 
 .home-text > * {
   opacity: 0;
-  transform: translateY(18px);  /* TWEAK THIS – Larger = more upward movement */
+  transform: translateY(18px); /* TWEAK THIS – larger = more upward movement */
   animation: fadeUp var(--text-fade-duration) ease forwards;
 }
 
-.home-text > *:nth-child(1) { animation-delay: 0.2s; }   /* TWEAK THIS – Honorific delay */
-.home-text > *:nth-child(2) { animation-delay: 0.35s; }  /* TWEAK THIS – Name delay */
-.home-text > *:nth-child(3) { animation-delay: 0.5s; }   /* TWEAK THIS – Subtitle delay */
-.home-text > *:nth-child(4) { animation-delay: 0.65s; }  /* TWEAK THIS – Body delay */
-.home-text > *:nth-child(5) { animation-delay: 0.8s; }   /* TWEAK THIS – Closing delay */
+.home-text > *:nth-child(1) { animation-delay: 0.2s; }   /* TWEAK THIS – honorific delay */
+.home-text > *:nth-child(2) { animation-delay: 0.35s; }  /* TWEAK THIS – name delay */
+.home-text > *:nth-child(3) { animation-delay: 0.5s; }   /* TWEAK THIS – subtitle delay */
+.home-text > *:nth-child(4) { animation-delay: 0.65s; }  /* TWEAK THIS – body delay */
+.home-text > *:nth-child(5) { animation-delay: 0.8s; }   /* TWEAK THIS – closing delay */
 
 @keyframes fadeUp {
   to {
@@ -562,9 +687,28 @@ body::before {
   <div class="nav-logo">
     <img src="images/logo-db.png" alt="D. Balakrishna">
   </div>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="artist.html">Artist</a>
+    <a href="about.html">About</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="international.html">International</a>
+    <a href="media.html">Media</a>
+    <a href="mysore-bani.html">Mysore Bani</a>
+    <a href="awards.html">Awards</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <div class="nav-hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+</div>
 
-
-<div class="nav-links">
+<nav class="nav-drawer" id="navDrawer">
   <a href="index.html" class="active">Home</a>
   <a href="artist.html">Artist</a>
   <a href="about.html">About</a>
@@ -575,10 +719,7 @@ body::before {
   <a href="awards.html">Awards</a>
   <a href="gallery.html">Gallery</a>
   <a href="contact.html">Contact</a>
-</div>
-  
-
-</div>
+</nav>
 
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -587,8 +728,7 @@ body::before {
 
 <div id="content">
 
-  
-<!-- H.01.01 – Mobile hero slideshow -->
+  <!-- H.01.01 – Mobile hero slideshow -->
   <div class="mobile-hero">
     <div class="mobile-slide active"
          style="background-image:url('images/home-hero.png');"></div>
@@ -597,8 +737,6 @@ body::before {
     <div class="mobile-slide"
          style="background-image:url('images/home-hero-3.png');"></div>
   </div>
-
-
 
   <!-- H.01.02 – Desktop hero slideshow -->
   <div class="home-hero">
@@ -673,26 +811,44 @@ if (window.matchMedia('(max-width: 900px)').matches) {
   }, 8000);  /* TWEAK THIS – Mobile: milliseconds per slide (8000 = 8 seconds) */
 }
 
-
 </script>
 
 
+<!-- ═══════════════════════════════════════════════════════════════
+     J.01.00 – HAMBURGER TOGGLE
+     ═══════════════════════════════════════════════════════════ -->
+
 <script>
 
-/* GLOBAL NAV WHEEL SCROLL */
+(function () {
 
-const navLinks = document.querySelector('.nav-links');
+  var btn    = document.getElementById('navHamburger');
+  var drawer = document.getElementById('navDrawer');
 
-if(navLinks){
-  navLinks.addEventListener('wheel', function(e){
+  if (!btn || !drawer) { return; }
 
-    if(navLinks.scrollWidth > navLinks.clientWidth){
-      e.preventDefault();
-      navLinks.scrollLeft += e.deltaY;
+  btn.addEventListener('click', function () {
+    var isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      drawer.classList.remove('open');
+    } else {
+      drawer.classList.add('open');
     }
-
   });
-}
+
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      drawer.classList.remove('open');
+    }
+  });
+
+}());
 
 </script>
 
