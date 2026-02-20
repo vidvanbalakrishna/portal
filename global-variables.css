@@ -37,14 +37,14 @@
 
 /* ───────── NAVIGATION SYSTEM ───────── */
 
-  --nav-height: 80px;
+  --nav-height: 60px;
   --nav-padding-x: 28px;
   --nav-padding-y: 0;
   --nav-gap: 32px;
   --nav-link-gap: 28px;
   --nav-link-padding: 6px 2px;
 
-  --logo-height: 62px;
+  --logo-height: 44px;
   --content-top: 80px;
 
 /* ───────── EFFECTS ───────── */
