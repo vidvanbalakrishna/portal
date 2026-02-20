@@ -23,13 +23,13 @@
   --text-primary: #3b2a2a;
   --text-secondary: #4e3b32;
   --text-accent: #7a1f1f;
-  
+
   /* Navigation colors */
   --nav-link: #6b3a3a;
   --nav-active: #9a7b2f;
   --nav-underline: #c49b3a;
   --nav-bg: rgba(255,255,240,0.96);
-  
+
   /* Border & dividers */
   --border-color: rgba(154,123,47,0.14);
 
@@ -131,16 +131,15 @@ body::before {
   letter-spacing: 0.08em;
   z-index: 100;
   margin: 0;
-
-overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: visible;   /* BUG FIX: was overflow-x: auto */
+  overflow-y: visible;
 }
 
 .nav-logo {
   display: block;
   margin: 0;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .nav-logo img {
@@ -171,8 +170,7 @@ overflow-x: auto;
   transition: color var(--hover-transition), text-shadow var(--hover-transition);
   cursor: pointer;
   margin: 0;
-
-flex-shrink: 0;
+  flex-shrink: 0;
   white-space: nowrap;
 }
 
@@ -203,24 +201,6 @@ flex-shrink: 0;
   width: var(--nav-underline-width);
 }
 
-/* Scrollbar styling */
-.nav-panel::-webkit-scrollbar {
-  height: 8px;
-}
-
-.nav-panel::-webkit-scrollbar-track {
-  background: rgba(154,123,47,0.15);
-  border-radius: 3px;
-}
-
-.nav-panel::-webkit-scrollbar-thumb {
-  background: rgba(154,123,47,0.6);
-  border-radius: 3px;
-}
-
-.nav-panel::-webkit-scrollbar-thumb:hover {
-  background: rgba(154,123,47,0.85);
-}
 
 /* ═══════════════════════════════════════════════════════════════
    C.00.03 – CONTENT WRAPPER
@@ -250,22 +230,240 @@ flex-shrink: 0;
 
 
 /* ═══════════════════════════════════════════════════════════════
-   C.02.00 – DESKTOP LAYOUT (min-width: 901px)
+   C.02.00 – MOBILE HAMBURGER BUTTON
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-hamburger {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;           /* TWEAK THIS – button hit area width */
+  height: var(--nav-height);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.nav-hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;              /* TWEAK THIS – gap between lines */
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-hamburger-icon span {
+  display: block;
+  width: 22px;           /* TWEAK THIS – line width */
+  height: 1.5px;         /* TWEAK THIS – line thickness */
+  background: var(--nav-link);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.01 – MOBILE NAV DRAWER
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+  margin: 0;
+  z-index: 150;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-drawer.open {
+  display: flex;
+}
+
+.nav-drawer a {
+  display: block;
+  width: 100%;
+  padding: 12px 28px;
+  margin: 0;
+  text-decoration: none;
+  color: var(--nav-link);
+  font-family: var(--font-base);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  border: none;
+  background: transparent;
+  transition: color var(--hover-transition);
+  box-sizing: border-box;
+}
+
+.nav-drawer a:hover,
+.nav-drawer a.active {
+  color: var(--nav-active);
+  background: transparent;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.02 – MOBILE MODE (max-width: 1100px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1160px) {
+
+  .nav-panel {
+    position: fixed;
+    overflow: hidden;
+    padding-right: 68px;
+  }
+
+  .nav-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 60px;
+    width: 60px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(255,255,240,0) 0%,
+      var(--nav-bg) 100%
+    );
+    z-index: 101;
+  }
+
+  .nav-links {
+    display: flex;
+    overflow: hidden;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.03 – DESKTOP MODE (min-width: 1101px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 1161px) {
+
+  .nav-hamburger {
+    display: none;
+  }
+
+  .nav-drawer {
+    display: none !important;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – TOGGLE BUTTON ANIMATIONS
+   BUG FIX: keyframes must live outside media queries
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes toggleShimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes lineGlow {
+  0%, 100% {
+    opacity: 0.7;
+    box-shadow: 0 0 8px rgba(154,123,47,0.15);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 12px rgba(154,123,47,0.25);
+  }
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      0 0 0 3px rgba(154,123,47,0.1),
+      0 2px 8px rgba(122,31,31,0.3);
+  }
+  50% {
+    transform: scale(1.15);  /* TWEAK THIS – pulse intensity */
+    box-shadow:
+      0 0 0 5px rgba(154,123,47,0.2),
+      0 3px 12px rgba(122,31,31,0.4);
+  }
+}
+
+@keyframes locationFade {
+  0%, 100% {
+    opacity: 0.85;
+    box-shadow:
+      0 1px 4px rgba(122,31,31,0.12),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 2px 6px rgba(122,31,31,0.18),
+      inset 0 1px 0 rgba(255,255,255,0.8);
+  }
+}
+
+@keyframes artistGlow {
+  0%, 100% {
+    opacity: 0.92;
+    box-shadow:
+      0 2px 6px rgba(122,31,31,0.1),
+      inset 0 1px 0 rgba(255,255,255,0.7);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 3px 8px rgba(154,123,47,0.15),
+      inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – DESKTOP LAYOUT (min-width: 901px)
    ═══════════════════════════════════════════════════════════ */
 
 @media (min-width: 901px) {
 
-  /* C.02.01 – Header section */
+  /* C.04.01 – Header section */
   .intl-header {
     position: relative;
     text-align: center;
     padding: 4rem 2rem 2rem;
-    max-width: 900px;  /* TWEAK THIS – Maximum content width */
+    max-width: 900px;    /* TWEAK THIS – maximum content width */
     margin: 0 auto;
   }
 
   .intl-title {
-    font-size: 3rem;  /* TWEAK THIS – Title size */
+    font-size: 3rem;     /* TWEAK THIS – title size */
     letter-spacing: 0.06em;
     margin-bottom: 1rem;
     font-weight: 500;
@@ -275,7 +473,7 @@ flex-shrink: 0;
   }
 
   .intl-tagline {
-    font-size: 1.2rem;  /* TWEAK THIS – Tagline size */
+    font-size: 1.2rem;   /* TWEAK THIS – tagline size */
     letter-spacing: 0.12em;
     color: var(--text-accent);
     opacity: 0.85;
@@ -285,89 +483,95 @@ flex-shrink: 0;
     margin-bottom: 2.5rem;
   }
 
-  /* C.02.02 – Toggle buttons */
+  /* C.04.02 – Toggle buttons */
   .intl-toggle {
     display: flex;
-    gap: 3rem;  /* TWEAK THIS – Space between buttons */
+    gap: 1.2rem;         /* TWEAK THIS – space between buttons */
     justify-content: center;
-    margin-bottom: 4rem;  /* TWEAK THIS – Space before content */
+    margin-bottom: 4rem; /* TWEAK THIS – space before content */
+    align-items: center;
   }
 
   .toggle-btn {
-    background: none;
-    border: none;
+    background: transparent;
+    border: 1px solid rgba(122,31,31,0.25);
     font-family: var(--font-display);
-    font-size: 1.05rem;  /* TWEAK THIS – Button text size */
-    letter-spacing: 0.08em;
+    font-size: 1rem;     /* TWEAK THIS – button text size */
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.14em;
     color: var(--text-secondary);
-    opacity: 0.5;
+    opacity: 0.55;
     cursor: pointer;
-    padding: 0.5rem 0;
+    padding: 0.55rem 2rem; /* TWEAK THIS – pill height and width */
+    border-radius: 2px;
     position: relative;
-    transition: all 0.3s ease;
+    overflow: hidden;
+    transition: opacity 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    margin: 0;
   }
 
   .toggle-btn:hover {
     opacity: 0.8;
+    border-color: rgba(122,31,31,0.45);
+    color: var(--text-accent);
   }
 
   .toggle-btn.active {
     opacity: 1;
-    color: var(--text-accent);
+    color: rgba(255,248,235,1);
+    border-color: rgba(122,31,31,0.6);
+    background: linear-gradient(
+      120deg,
+      rgba(122,31,31,0.82) 0%,
+      rgba(154,123,47,0.75) 40%,
+      rgba(196,155,58,0.8) 55%,   /* TWEAK THIS – shimmer highlight color */
+      rgba(154,123,47,0.75) 70%,
+      rgba(122,31,31,0.82) 100%
+    );
+    background-size: 200% auto;
+    animation: toggleShimmer 3.5s linear infinite; /* TWEAK THIS – 3.5s = shimmer speed */
+    text-shadow: 0 1px 3px rgba(80,10,10,0.3);
   }
 
-  .toggle-btn.active::after {
+  /* Divider between buttons */
+  .toggle-divider {
+    display: block;
+    width: 1px;
+    height: 18px;        /* TWEAK THIS – divider height */
+    background: rgba(154,123,47,0.3);
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  /* C.04.03 – Content container */
+  .intl-timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 4rem 5rem;
+  }
+
+  /* Timeline vertical line */
+  .intl-timeline::before {
     content: '';
     position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--text-accent);
-  }
-
- /* C.02.03 – Content container */
-.intl-timeline {
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 4rem 5rem;
-}
-
-/* Timeline line between columns */
-
-/* Timeline line between columns */
-.intl-timeline::before {
-  content: '';
-  position: absolute;
-  top: 2rem;
-  bottom: 5rem;
-  left: calc(50% - 450px + 160px + 2rem);  /* TWEAK THIS – Line position */
-  width: 2px;  /* TWEAK THIS – Line thickness */
-  background: linear-gradient(to bottom, 
-    transparent 0%, 
-    rgba(122,31,31,0.35) 5%, 
-    rgba(154,123,47,0.4) 50%, 
-    rgba(122,31,31,0.35) 95%, 
-    transparent 100%);
-  box-shadow: 0 0 8px rgba(154,123,47,0.15);  /* Subtle glow */
-  animation: lineGlow 4s ease-in-out infinite;  /* TWEAK THIS – Animation speed */
-}
-
-@keyframes lineGlow {
-  0%, 100% { 
-    opacity: 0.7;
+    top: 2rem;
+    bottom: 5rem;
+    left: calc(50% - 450px + 160px + 2rem); /* TWEAK THIS – line position */
+    width: 2px;          /* TWEAK THIS – line thickness */
+    background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(122,31,31,0.35) 5%,
+      rgba(154,123,47,0.4) 50%,
+      rgba(122,31,31,0.35) 95%,
+      transparent 100%);
     box-shadow: 0 0 8px rgba(154,123,47,0.15);
+    animation: lineGlow 4s ease-in-out infinite; /* TWEAK THIS – 4s = glow speed */
   }
-  50% { 
-    opacity: 1;
-    box-shadow: 0 0 12px rgba(154,123,47,0.25);
-  }
-}
 
-
-
-  /* C.02.04 – View containers */
+  /* C.04.04 – View containers */
   .intl-view {
     display: none;
     opacity: 0;
@@ -379,64 +583,42 @@ flex-shrink: 0;
     opacity: 1;
   }
 
-  /* C.02.05 – Grid items */
+  /* C.04.05 – Grid items */
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 4rem;
+    margin-bottom: 4.5rem;
+    align-items: start;
+    position: relative;
+  }
 
-/* C.02.05 – Grid items */
-.timeline-item {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 4rem;
-  margin-bottom: 4.5rem;
-  align-items: start;
-  position: relative;
-}
-
-/* Timeline dot on line */
-
-/* Timeline dot on line */
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  top: 0.8rem;  /* TWEAK THIS – Vertical position */
-  left: calc(160px + 2rem - 1px);  /* TWEAK THIS – Centered on line */
-  width: 10px;  /* TWEAK THIS – Dot size */
-  height: 10px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #9a7b2f 0%, #7a1f1f 100%);
-  border: 2px solid rgba(247,240,216,1);
-  box-shadow: 
-    0 0 0 3px rgba(154,123,47,0.1),  /* Outer ring */
-    0 2px 8px rgba(122,31,31,0.3);  /* Shadow */
-  z-index: 2;
-  animation: dotPulse 3s ease-in-out infinite;  /* TWEAK THIS – Animation speed */
-}
-
-@keyframes dotPulse {
-  0%, 100% { 
-    transform: scale(1);
-    box-shadow: 
+  /* Timeline dot on line */
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    top: 0.8rem;         /* TWEAK THIS – vertical dot position */
+    left: calc(160px + 2rem - 1px); /* TWEAK THIS – centered on line */
+    width: 10px;         /* TWEAK THIS – dot size */
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #9a7b2f 0%, #7a1f1f 100%);
+    border: 2px solid rgba(247,240,216,1);
+    box-shadow:
       0 0 0 3px rgba(154,123,47,0.1),
       0 2px 8px rgba(122,31,31,0.3);
+    z-index: 2;
+    animation: dotPulse 3s ease-in-out infinite; /* TWEAK THIS – 3s = pulse speed */
   }
-  50% { 
-    transform: scale(1.15);  /* TWEAK THIS – Pulse intensity */
-    box-shadow: 
-      0 0 0 5px rgba(154,123,47,0.2),
-      0 3px 12px rgba(122,31,31,0.4);
-  }
-}
-
-
-
 
   .timeline-year {
     font-family: var(--font-display);
-    font-size: 2.8rem;  /* TWEAK THIS – Year size */
+    font-size: 2.8rem;   /* TWEAK THIS – year size */
     font-weight: 400;
     font-style: normal;
     color: var(--text-primary);
     letter-spacing: 0.02em;
-    opacity: 0.4;  /* TWEAK THIS – Year opacity (calm, not loud) */
+    opacity: 0.4;        /* TWEAK THIS – year opacity */
     line-height: 1;
     text-align: right;
     padding-top: 0.2rem;
@@ -446,17 +628,36 @@ flex-shrink: 0;
     display: block;
   }
 
+  /* C.04.06 – Location badge */
   .timeline-location {
-    font-size: 0.85rem;
-    letter-spacing: 0.15em;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-accent);
-    opacity: 0.75;
-    margin-bottom: 1rem;
-    font-weight: 400;
+    font-weight: 600;
     font-style: normal;
+    color: #5a1f1f;
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    background: linear-gradient(135deg,
+      rgba(255,255,240,0.95),
+      rgba(250,245,230,0.98));
+    border: 1px solid rgba(154,123,47,0.25);
+    border-left: 2px solid rgba(154,123,47,0.3);
+    box-shadow:
+      0 1px 4px rgba(122,31,31,0.12),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    animation: locationFade 3s ease-in-out infinite; /* TWEAK THIS – 3s = fade speed */
+  }
 
-
+  .timeline-location::before {
+    content: '◆';
+    margin-right: 0.6rem;
+    opacity: 0.4;
+    font-size: 0.7rem;
   }
 
   .timeline-desc {
@@ -468,53 +669,33 @@ flex-shrink: 0;
     color: var(--text-secondary);
     margin: 0;
     padding: 0;
-    max-width: 550px;  /* TWEAK THIS – Description width */
+    max-width: 550px;    /* TWEAK THIS – description width */
   }
 
-  /* C.02.06 – Collaboration specific */
-
-
-.collab-artist {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-style: normal;
-  color: #5a1f1f;
-  display: inline-block;
-  padding: 0.35rem 1rem;
-  background: linear-gradient(135deg, 
-    rgba(255,255,240,0.95), 
-    rgba(250,245,230,0.98));
-  border: 1px solid rgba(154,123,47,0.25);
-  box-shadow: 
-    0 1px 4px rgba(122,31,31,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.6);
-  border-radius: 4px;
-  border-left: 2px solid rgba(154,123,47,0.3);
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
-  animation: locationFade 3s ease-in-out infinite;
-}
-
-
-
-@keyframes artistGlow {
-  0%, 100% { 
-    opacity: 0.92;
-    box-shadow: 
-      0 2px 6px rgba(122,31,31,0.1),
-      inset 0 1px 0 rgba(255,255,255,0.7);
+  /* C.04.07 – Collaboration specific */
+  .collab-artist {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-style: normal;
+    color: #5a1f1f;
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    background: linear-gradient(135deg,
+      rgba(255,255,240,0.95),
+      rgba(250,245,230,0.98));
+    border: 1px solid rgba(154,123,47,0.25);
+    border-left: 2px solid rgba(154,123,47,0.3);
+    box-shadow:
+      0 1px 4px rgba(122,31,31,0.12),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    animation: artistGlow 3s ease-in-out infinite; /* BUG FIX: was locationFade */
   }
-  50% { 
-    opacity: 1;
-    box-shadow: 
-      0 3px 8px rgba(154,123,47,0.15),
-      inset 0 1px 0 rgba(255,255,255,0.9);
-  }
-}
-
 
   .collab-instrument {
     font-size: 0.85rem;
@@ -524,66 +705,18 @@ flex-shrink: 0;
     opacity: 0.75;
     margin-bottom: 1rem;
     font-weight: 400;
+    font-style: normal;
   }
 }
-
-
-
-.timeline-location {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 600;
-  font-style: normal;
-  color: #5a1f1f;
-  display: inline-block;
-  padding: 0.35rem 1rem;
-  background: linear-gradient(135deg, 
-    rgba(255,255,240,0.95), 
-    rgba(250,245,230,0.98));
-  border: 1px solid rgba(154,123,47,0.25);
-  box-shadow: 
-    0 1px 4px rgba(122,31,31,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.6);
-  border-radius: 4px;
-  border-left: 2px solid rgba(154,123,47,0.3);
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
-  animation: locationFade 3s ease-in-out infinite;
-}
-
-@keyframes locationFade {
-  0%, 100% { 
-    opacity: 0.85;
-    box-shadow: 
-      0 1px 4px rgba(122,31,31,0.12),
-      inset 0 1px 0 rgba(255,255,255,0.6);
-  }
-  50% { 
-    opacity: 1;
-    box-shadow: 
-      0 2px 6px rgba(122,31,31,0.18),
-      inset 0 1px 0 rgba(255,255,255,0.8);
-  }
-}
-
-.timeline-location::before {
-  content: '◆';
-  margin-right: 0.6rem;
-  opacity: 0.4;
-  font-size: 0.7rem;
-}
-
 
 
 /* ═══════════════════════════════════════════════════════════════
-   C.03.00 – MOBILE LAYOUT (max-width: 900px)
+   C.05.00 – MOBILE LAYOUT (max-width: 900px)
    ═══════════════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
 
-  /* C.03.01 – Header section */
+  /* C.05.01 – Header section */
   .intl-header {
     position: relative;
     text-align: center;
@@ -591,7 +724,7 @@ flex-shrink: 0;
   }
 
   .intl-title {
-    font-size: 2.2rem;
+    font-size: 2.2rem;   /* TWEAK THIS – mobile title size */
     letter-spacing: 0.05em;
     margin-bottom: 0.8rem;
     font-weight: 500;
@@ -601,7 +734,7 @@ flex-shrink: 0;
   }
 
   .intl-tagline {
-    font-size: 1.05rem;
+    font-size: 1.05rem;  /* TWEAK THIS – mobile tagline size */
     letter-spacing: 0.1em;
     color: var(--text-accent);
     opacity: 0.85;
@@ -611,50 +744,74 @@ flex-shrink: 0;
     margin-bottom: 2rem;
   }
 
-  /* C.03.02 – Toggle buttons */
+  /* C.05.02 – Mobile toggle buttons */
   .intl-toggle {
     display: flex;
-    gap: 2rem;
+    gap: 0.8rem;
     justify-content: center;
     margin-bottom: 3rem;
+    align-items: center;
   }
 
   .toggle-btn {
-    background: none;
-    border: none;
+    background: transparent;
+    border: 1px solid rgba(122,31,31,0.25);
     font-family: var(--font-display);
-    font-size: 1rem;
-    letter-spacing: 0.08em;
+    font-size: 0.95rem;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.12em;
     color: var(--text-secondary);
-    opacity: 0.5;
+    opacity: 0.55;
     cursor: pointer;
-    padding: 0.5rem 0;
+    padding: 0.5rem 1.4rem; /* TWEAK THIS – mobile pill height and width */
+    border-radius: 2px;
     position: relative;
-    transition: all 0.3s ease;
+    overflow: hidden;
+    transition: opacity 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    margin: 0;
+  }
+
+  .toggle-btn:hover {
+    opacity: 0.8;
+    border-color: rgba(122,31,31,0.45);
+    color: var(--text-accent);
   }
 
   .toggle-btn.active {
     opacity: 1;
-    color: var(--text-accent);
+    color: rgba(255,248,235,1);
+    border-color: rgba(122,31,31,0.6);
+    background: linear-gradient(
+      120deg,
+      rgba(122,31,31,0.82) 0%,
+      rgba(154,123,47,0.75) 40%,
+      rgba(196,155,58,0.8) 55%,
+      rgba(154,123,47,0.75) 70%,
+      rgba(122,31,31,0.82) 100%
+    );
+    background-size: 200% auto;
+    animation: toggleShimmer 3.5s linear infinite;
+    text-shadow: 0 1px 3px rgba(80,10,10,0.3);
   }
 
-  .toggle-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: var(--text-accent);
+  .toggle-divider {
+    display: block;
+    width: 1px;
+    height: 16px;
+    background: rgba(154,123,47,0.3);
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
   }
 
-  /* C.03.03 – Content container */
+  /* C.05.03 – Content container */
   .intl-timeline {
     position: relative;
     padding: 0 1.5rem 4rem;
   }
 
-  /* C.03.04 – View containers */
+  /* C.05.04 – View containers */
   .intl-view {
     display: none;
     opacity: 0;
@@ -666,15 +823,16 @@ flex-shrink: 0;
     opacity: 1;
   }
 
-  /* C.03.05 – Mobile items (single column) */
+  /* C.05.05 – Mobile items */
   .timeline-item {
     display: block;
     margin-bottom: 3.5rem;
+    position: relative;
   }
 
   .timeline-year {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 2rem;     /* TWEAK THIS – mobile year size */
     font-weight: 400;
     font-style: normal;
     color: var(--text-primary);
@@ -688,14 +846,31 @@ flex-shrink: 0;
     display: block;
   }
 
+  /* C.05.06 – Mobile location badge */
   .timeline-location {
+    font-family: var(--font-display);
     font-size: 0.8rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-accent);
-    opacity: 0.75;
+    font-weight: 600;
+    font-style: normal;
+    color: #5a1f1f;
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: linear-gradient(135deg,
+      rgba(255,255,240,0.95),
+      rgba(250,245,230,0.98));
+    border: 1px solid rgba(154,123,47,0.25);
+    border-left: 2px solid rgba(154,123,47,0.3);
+    border-radius: 4px;
     margin-bottom: 0.8rem;
-    font-weight: 400;
+  }
+
+  .timeline-location::before {
+    content: '◆';
+    margin-right: 0.5rem;
+    opacity: 0.4;
+    font-size: 0.65rem;
   }
 
   .timeline-desc {
@@ -709,19 +884,25 @@ flex-shrink: 0;
     padding: 0;
   }
 
-  /* C.03.06 – Collaboration specific */
-  
-.collab-artist {
-  font-size: 1rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--text-accent);
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-
-
+  /* C.05.07 – Mobile collaboration specific */
+  .collab-artist {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #5a1f1f;
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    background: linear-gradient(135deg,
+      rgba(255,255,240,0.95),
+      rgba(250,245,230,0.98));
+    border: 1px solid rgba(154,123,47,0.25);
+    border-left: 2px solid rgba(154,123,47,0.3);
+    border-radius: 4px;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    font-style: normal;
+  }
 
   .collab-instrument {
     font-size: 0.8rem;
@@ -731,6 +912,7 @@ flex-shrink: 0;
     opacity: 0.75;
     margin-bottom: 0.8rem;
     font-weight: 400;
+    font-style: normal;
   }
 }
 
@@ -746,7 +928,6 @@ flex-shrink: 0;
   <div class="nav-logo">
     <img src="images/logo-db.png" alt="D. Balakrishna">
   </div>
-
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="artist.html">Artist</a>
@@ -759,7 +940,27 @@ flex-shrink: 0;
     <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
   </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <div class="nav-hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
 </div>
+
+<nav class="nav-drawer" id="navDrawer">
+  <a href="index.html">Home</a>
+  <a href="artist.html">Artist</a>
+  <a href="about.html">About</a>
+  <a href="lineage.html">Lineage</a>
+  <a href="international.html" class="active">International</a>
+  <a href="media.html">Media</a>
+  <a href="mysore-bani.html">Mysore Bani</a>
+  <a href="awards.html">Awards</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -772,10 +973,11 @@ flex-shrink: 0;
   <div class="intl-header">
     <h1 class="intl-title">International Tours & Collaborations</h1>
     <div class="intl-tagline">Showcasing the Mysore Veena tradition on the world stage</div>
-    
+
     <!-- H.01.02 – Toggle buttons -->
     <div class="intl-toggle">
       <button class="toggle-btn active" data-view="tours">Tours</button>
+      <span class="toggle-divider"></span>
       <button class="toggle-btn" data-view="collaborations">Collaborations</button>
     </div>
   </div>
@@ -959,23 +1161,21 @@ flex-shrink: 0;
 <script>
 
 /* J.00.01 – DOM elements */
-const toggleButtons = document.querySelectorAll('.toggle-btn');
-const toursView = document.getElementById('tours-view');
-const collabsView = document.getElementById('collaborations-view');
+var toggleButtons = document.querySelectorAll('.toggle-btn');
+var toursView     = document.getElementById('tours-view');
+var collabsView   = document.getElementById('collaborations-view');
 
 /* J.00.02 – Toggle function */
 function switchView(viewName) {
-  
-  /* Update button states */
-  toggleButtons.forEach(btn => {
+
+  toggleButtons.forEach(function (btn) {
     if (btn.dataset.view === viewName) {
       btn.classList.add('active');
     } else {
       btn.classList.remove('active');
     }
   });
-  
-  /* Switch views */
+
   if (viewName === 'tours') {
     toursView.classList.add('active');
     collabsView.classList.remove('active');
@@ -986,11 +1186,50 @@ function switchView(viewName) {
 }
 
 /* J.00.03 – Event listeners */
-toggleButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
+toggleButtons.forEach(function (btn) {
+  btn.addEventListener('click', function () {
     switchView(btn.dataset.view);
   });
 });
+
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.01.00 – HAMBURGER TOGGLE
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+(function () {
+
+  var btn    = document.getElementById('navHamburger');
+  var drawer = document.getElementById('navDrawer');
+
+  if (!btn || !drawer) { return; }
+
+  btn.addEventListener('click', function () {
+    var isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      drawer.classList.remove('open');
+    } else {
+      drawer.classList.add('open');
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      drawer.classList.remove('open');
+    }
+  });
+
+}());
 
 </script>
 
