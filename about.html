@@ -23,13 +23,13 @@
   --text-primary: #3b2a2a;
   --text-secondary: #4e3b32;
   --text-accent: #7a1f1f;
-  
+
   /* Navigation colors */
   --nav-link: #6b3a3a;
   --nav-active: #9a7b2f;
   --nav-underline: #c49b3a;
   --nav-bg: rgba(255,255,240,0.96);
-  
+
   /* Border & dividers */
   --border-color: rgba(154,123,47,0.14);
 
@@ -135,19 +135,15 @@ body::before {
   letter-spacing: 0.08em;
   z-index: 100;
   margin: 0;
-
-overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-
+  overflow-x: visible;
+  overflow-y: visible;
 }
-
-
 
 .nav-logo {
   display: block;
   margin: 0;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .nav-logo img {
@@ -178,7 +174,7 @@ overflow-x: auto;
   transition: color var(--hover-transition), text-shadow var(--hover-transition);
   cursor: pointer;
   margin: 0;
-flex-shrink: 0;
+  flex-shrink: 0;
   white-space: nowrap;
 }
 
@@ -208,24 +204,7 @@ flex-shrink: 0;
 .nav-panel a:hover::after {
   width: var(--nav-underline-width);
 }
-/* Scrollbar styling */
-.nav-panel::-webkit-scrollbar {
-  height: 8px;
-}
 
-.nav-panel::-webkit-scrollbar-track {
-  background: rgba(154,123,47,0.15);
-  border-radius: 3px;
-}
-
-.nav-panel::-webkit-scrollbar-thumb {
-  background: rgba(154,123,47,0.6);
-  border-radius: 3px;
-}
-
-.nav-panel::-webkit-scrollbar-thumb:hover {
-  background: rgba(154,123,47,0.85);
-}
 
 /* ═══════════════════════════════════════════════════════════════
    C.00.03 – CONTENT WRAPPER
@@ -255,24 +234,175 @@ flex-shrink: 0;
 
 
 /* ═══════════════════════════════════════════════════════════════
-   C.02.00 – DESKTOP LAYOUT (min-width: 901px)
+   C.02.00 – MOBILE HAMBURGER BUTTON
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-hamburger {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;           /* TWEAK THIS – button hit area width */
+  height: var(--nav-height);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.nav-hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;              /* TWEAK THIS – gap between lines. Larger = more spread */
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-hamburger-icon span {
+  display: block;
+  width: 22px;           /* TWEAK THIS – line width */
+  height: 1.5px;         /* TWEAK THIS – line thickness */
+  background: var(--nav-link);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.01 – MOBILE NAV DRAWER
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;       /* TWEAK THIS – top/bottom padding inside drawer */
+  margin: 0;
+  z-index: 150;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-drawer.open {
+  display: flex;
+}
+
+.nav-drawer a {
+  display: block;
+  width: 100%;
+  padding: 12px 28px;    /* TWEAK THIS – row height and left indent of each link */
+  margin: 0;
+  text-decoration: none;
+  color: var(--nav-link);
+  font-family: var(--font-base);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  border: none;
+  background: transparent;
+  transition: color var(--hover-transition);
+  box-sizing: border-box;
+}
+
+.nav-drawer a:hover,
+.nav-drawer a.active {
+  color: var(--nav-active);
+  background: transparent;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.02 – MOBILE MODE (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  .nav-panel {
+    position: fixed;
+    overflow: hidden;
+    padding-right: 68px;   /* TWEAK THIS – must be wider than hamburger button width */
+  }
+
+  .nav-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 60px;           /* TWEAK THIS – must match hamburger button width */
+    width: 60px;           /* TWEAK THIS – 50 to 80px controls fade band width */
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(255,255,240,0) 0%,
+      var(--nav-bg) 100%
+    );
+    z-index: 101;
+  }
+
+  .nav-links {
+    display: flex;
+    overflow: hidden;      /* clips links that don't fit – no scroll */
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.03 – DESKTOP MODE (min-width: 901px)
    ═══════════════════════════════════════════════════════════ */
 
 @media (min-width: 901px) {
 
-  /* C.02.01 – Hide mobile hero */
+  .nav-hamburger {
+    display: none;
+  }
+
+  .nav-drawer {
+    display: none !important;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – DESKTOP LAYOUT (min-width: 901px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 901px) {
+
+  /* C.03.01 – Hide mobile hero */
   .about-mobile-hero {
     display: none;
   }
 
-  /* C.02.02 – Fixed hero container left */
+  /* C.03.02 – Fixed hero container left */
   .about-hero {
     position: fixed;
     top: var(--content-top);
     left: 0;
-bottom: 0;
-width: 54vw;  /* TWEAK THIS – Wider width extends beyond edge. Try 60vw, 62vw, 65vw */
-transform: translateX(-8vw);  /* TWEAK THIS – Moves left. Try -8vw, -10vw, -12vw */
+    bottom: 0;
+    width: 54vw;           /* TWEAK THIS – wider extends further left off edge */
+    transform: translateX(-8vw); /* TWEAK THIS – more negative moves further left */
     z-index: 1;
     overflow: hidden;
   }
@@ -288,38 +418,38 @@ transform: translateX(-8vw);  /* TWEAK THIS – Moves left. Try -8vw, -10vw, -12
     padding: 0;
   }
 
-  /* C.02.03 – Text column right */
+  /* C.03.03 – Text column right */
   .about-text-column {
     position: relative;
-    margin-left: 32vw;  /* TWEAK THIS – Must match hero width */
+    margin-left: 32vw;     /* TWEAK THIS – must match hero width */
     min-height: 100vh;
     padding: 0;
     z-index: 2;
   }
 
-  /* C.02.04 – Fixed title and tagline */
-.about-header {
-  position: relative;
-  top: auto;
-  background: none;
-  padding: 12rem 4rem 2rem 12rem;  /* TWEAK THIS – Top spacing */
-  max-width: none;
-  z-index: auto;
-  border-bottom: none;
-}
+  /* C.03.04 – Header block */
+  .about-header {
+    position: relative;
+    top: auto;
+    background: none;
+    padding: 3rem 4rem 2rem 12rem; /* TWEAK THIS – top / right / bottom / left */
+    max-width: none;
+    z-index: auto;
+    border-bottom: none;
+  }
+
   .about-title {
-    font-size: 3rem;  /* TWEAK THIS – Title size */
-font-style: normal;
+    font-size: 3rem;       /* TWEAK THIS – title size */
     letter-spacing: 0.06em;
     margin-bottom: 0.8rem;
     font-weight: 500;
-    font-style: normal;
+    font-style: normal;    /* BUG FIX: duplicate declaration removed */
     line-height: 1.1;
     color: var(--text-primary);
   }
 
   .about-tagline {
-    font-size: 1.2rem;  /* TWEAK THIS – Tagline size */
+    font-size: 1.2rem;     /* TWEAK THIS – tagline size */
     letter-spacing: 0.12em;
     color: var(--text-accent);
     opacity: 0.85;
@@ -328,20 +458,20 @@ font-style: normal;
     line-height: 1.4;
   }
 
-  /* C.02.05 – Card container */
+  /* C.03.05 – Card container */
   .about-cards {
     position: relative;
-    padding: 3rem 4rem 4rem 12rem;  /* TWEAK THIS – Text block padding */
+    padding: 3rem 4rem 4rem 12rem; /* TWEAK THIS – top / right / bottom / left */
     margin: 0;
   }
 
-  /* C.02.06 – Individual card */
+  /* C.03.06 – Individual card */
   .about-card {
     position: relative;
     min-height: auto;
     display: block;
     padding: 0;
-    margin-bottom: 2.5rem;  /* TWEAK THIS – Space between paragraphs */
+    margin-bottom: 2.5rem; /* TWEAK THIS – space between paragraphs */
     opacity: 1;
     transition: none;
   }
@@ -350,32 +480,32 @@ font-style: normal;
     font-size: var(--body-size-desktop);
     line-height: var(--body-line-desktop);
     letter-spacing: var(--body-letter-desktop);
-    font-style: REGULAR;
+    font-style: normal;    /* BUG FIX: was "REGULAR" – invalid value */
     font-weight: 400;
     color: var(--text-secondary);
     margin: 0;
     padding: 0;
-    max-width: 84ch;  /* TWEAK THIS – Characters per line */
+    max-width: 54ch;       /* TWEAK THIS – characters per line */
   }
 }
 
 
 /* ═══════════════════════════════════════════════════════════════
-   C.03.00 – MOBILE LAYOUT (max-width: 900px)
+   C.04.00 – MOBILE LAYOUT (max-width: 900px)
    ═══════════════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
 
-  /* C.03.01 – Hide desktop hero */
+  /* C.04.01 – Hide desktop hero */
   .about-hero {
     display: none;
   }
 
-  /* C.03.02 – Mobile hero display */
+  /* C.04.02 – Mobile hero display */
   .about-mobile-hero {
     display: block;
     width: 100%;
-    height: 100vh;  /* TWEAK THIS – Full screen hero height */
+    height: 100vh;         /* TWEAK THIS – full screen hero height */
     overflow: hidden;
   }
 
@@ -390,7 +520,7 @@ font-style: normal;
     padding: 0;
   }
 
-  /* C.03.03 – Mobile text column */
+  /* C.04.03 – Mobile text column */
   .about-text-column {
     position: relative;
     margin: 0;
@@ -398,7 +528,7 @@ font-style: normal;
     background: var(--bg-layer-3);
   }
 
-  /* C.03.04 – Mobile header */
+  /* C.04.04 – Mobile header */
   .about-header {
     position: relative;
     padding: 2.5rem 1.5rem 2rem 1.5rem;
@@ -407,7 +537,7 @@ font-style: normal;
   }
 
   .about-title {
-    font-size: 2.2rem;  /* TWEAK THIS – Mobile title size */
+    font-size: 2.2rem;     /* TWEAK THIS – mobile title size */
     letter-spacing: 0.05em;
     margin-bottom: 0.8rem;
     font-weight: 500;
@@ -417,7 +547,7 @@ font-style: normal;
   }
 
   .about-tagline {
-    font-size: 1.05rem;  /* TWEAK THIS – Mobile tagline size */
+    font-size: 1.05rem;    /* TWEAK THIS – mobile tagline size */
     letter-spacing: 0.1em;
     color: var(--text-accent);
     opacity: 0.85;
@@ -426,17 +556,19 @@ font-style: normal;
     line-height: 1.4;
   }
 
-  /* C.03.05 – Mobile continuous text */
+  /* C.04.05 – Mobile card container */
   .about-cards {
     padding: 2rem 1.5rem 4rem;
+    margin: 0;
   }
 
+  /* C.04.06 – Individual card */
   .about-card {
     position: relative;
     min-height: auto;
     display: block;
     padding: 0;
-    margin-bottom: 2rem;  /* TWEAK THIS – Space between paragraphs */
+    margin-bottom: 2rem;   /* TWEAK THIS – space between paragraphs */
     opacity: 1;
   }
 
@@ -464,7 +596,6 @@ font-style: normal;
   <div class="nav-logo">
     <img src="images/logo-db.png" alt="D. Balakrishna">
   </div>
-
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="artist.html">Artist</a>
@@ -477,7 +608,27 @@ font-style: normal;
     <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
   </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <div class="nav-hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
 </div>
+
+<nav class="nav-drawer" id="navDrawer">
+  <a href="index.html">Home</a>
+  <a href="artist.html">Artist</a>
+  <a href="about.html" class="active">About</a>
+  <a href="lineage.html">Lineage</a>
+  <a href="international.html">International</a>
+  <a href="media.html">Media</a>
+  <a href="mysore-bani.html">Mysore Bani</a>
+  <a href="awards.html">Awards</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -499,13 +650,13 @@ font-style: normal;
   <!-- H.01.03 – Text column -->
   <div class="about-text-column">
 
-    <!-- H.01.04 – Fixed header (title + tagline) -->
+    <!-- H.01.04 – Header -->
     <div class="about-header">
       <h1 class="about-title">The Maestro</h1>
       <div class="about-tagline">A Life Shaped by Music</div>
     </div>
 
-    <!-- H.01.05 – Scrollable cards -->
+    <!-- H.01.05 – Cards -->
     <div class="about-cards">
 
       <div class="about-card" data-card="1">
@@ -549,6 +700,45 @@ font-style: normal;
   </div>
 
 </div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.01.00 – HAMBURGER TOGGLE
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+(function () {
+
+  var btn    = document.getElementById('navHamburger');
+  var drawer = document.getElementById('navDrawer');
+
+  if (!btn || !drawer) { return; }
+
+  btn.addEventListener('click', function () {
+    var isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      drawer.classList.remove('open');
+    } else {
+      drawer.classList.add('open');
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      drawer.classList.remove('open');
+    }
+  });
+
+}());
+
+</script>
 
 </body>
 </html>
