@@ -23,13 +23,13 @@
   --text-primary: #3b2a2a;
   --text-secondary: #4e3b32;
   --text-accent: #7a1f1f;
-  
+
   /* Navigation colors */
   --nav-link: #6b3a3a;
   --nav-active: #9a7b2f;
   --nav-underline: #c49b3a;
   --nav-bg: rgba(255,255,240,0.96);
-  
+
   /* Border & dividers */
   --border-color: rgba(154,123,47,0.14);
 
@@ -135,16 +135,15 @@ body::before {
   letter-spacing: 0.08em;
   z-index: 100;
   margin: 0;
-
-overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
+  overflow-x: visible;   /* BUG FIX: was overflow-x: auto */
+  overflow-y: visible;
 }
 
 .nav-logo {
   display: block;
   margin: 0;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .nav-logo img {
@@ -175,18 +174,17 @@ overflow-x: auto;
   transition: color var(--hover-transition), text-shadow var(--hover-transition);
   cursor: pointer;
   margin: 0;
-
-flex-shrink: 0;
+  flex-shrink: 0;
   white-space: nowrap;
 }
 
 .nav-panel a:hover {
-  color: var(--nav-active);
+  color: var(--text-accent);
   text-shadow: none;
 }
 
 .nav-panel a.active {
-  color: var(--nav-active);
+  color: var(--text-accent);
   font-weight: 400;
 }
 
@@ -207,24 +205,6 @@ flex-shrink: 0;
   width: var(--nav-underline-width);
 }
 
-/* Scrollbar styling */
-.nav-panel::-webkit-scrollbar {
-  height: 8px;
-}
-
-.nav-panel::-webkit-scrollbar-track {
-  background: rgba(154,123,47,0.15);
-  border-radius: 3px;
-}
-
-.nav-panel::-webkit-scrollbar-thumb {
-  background: rgba(154,123,47,0.6);
-  border-radius: 3px;
-}
-
-.nav-panel::-webkit-scrollbar-thumb:hover {
-  background: rgba(154,123,47,0.85);
-}
 
 /* ═══════════════════════════════════════════════════════════════
    C.00.03 – CONTENT WRAPPER
@@ -254,24 +234,200 @@ flex-shrink: 0;
 
 
 /* ═══════════════════════════════════════════════════════════════
-   C.02.00 – DESKTOP LAYOUT (min-width: 901px)
+   C.02.00 – MOBILE HAMBURGER BUTTON
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-hamburger {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;           /* TWEAK THIS – button hit area width */
+  height: var(--nav-height);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.nav-hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;              /* TWEAK THIS – gap between lines */
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-hamburger-icon span {
+  display: block;
+  width: 22px;           /* TWEAK THIS – line width */
+  height: 1.5px;         /* TWEAK THIS – line thickness */
+  background: var(--nav-link);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.01 – MOBILE NAV DRAWER
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+  margin: 0;
+  z-index: 150;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-drawer.open {
+  display: flex;
+}
+
+.nav-drawer a {
+  display: block;
+  width: 100%;
+  padding: 12px 28px;
+  margin: 0;
+  text-decoration: none;
+  color: var(--nav-link);
+  font-family: var(--font-base);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  border: none;
+  background: transparent;
+  transition: color var(--hover-transition);
+  box-sizing: border-box;
+}
+
+.nav-drawer a:hover,
+.nav-drawer a.active {
+  color: var(--nav-active);
+  background: transparent;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.02 – MOBILE MODE (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  .nav-panel {
+    position: fixed;
+    overflow: hidden;
+    padding-right: 68px;   /* TWEAK THIS – must be wider than hamburger button width */
+  }
+
+  .nav-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 60px;           /* TWEAK THIS – must match hamburger button width */
+    width: 60px;           /* TWEAK THIS – 50 to 80px controls fade band width */
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(255,255,240,0) 0%,
+      var(--nav-bg) 100%
+    );
+    z-index: 101;
+  }
+
+  .nav-links {
+    display: flex;
+    overflow: hidden;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.03 – DESKTOP MODE (min-width: 901px)
    ═══════════════════════════════════════════════════════════ */
 
 @media (min-width: 901px) {
 
-  /* C.02.01 – Hide mobile hero */
+  .nav-hamburger {
+    display: none;
+  }
+
+  .nav-drawer {
+    display: none !important;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – SUBPAGE NAV BUTTON ANIMATION
+   BUG FIX: keyframes must live outside media queries
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes btnGoldPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(196,155,58,0);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(196,155,58,0.18); /* TWEAK THIS – 4px = pulse radius */
+  }
+}
+
+@keyframes arrowSlideRight {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(3px); } /* TWEAK THIS – 3px = arrow travel distance */
+}
+
+@keyframes arrowSlideLeft {
+  0%, 100% { transform: translateX(0); }
+  50%       { transform: translateX(-3px); } /* TWEAK THIS – 3px = arrow travel distance */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – DESKTOP LAYOUT (min-width: 901px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 901px) {
+
+  /* C.04.01 – Hide mobile hero */
   .lineage-mobile-hero {
     display: none;
   }
 
-  /* C.02.02 – Fixed hero container left */
+  /* C.04.02 – Fixed hero container left */
   .lineage-hero {
     position: fixed;
     top: var(--content-top);
     left: 0;
     bottom: 0;
-    width: 39vw;
-    transform: translateX(-2vw);
+    width: 39vw;           /* TWEAK THIS – hero panel width */
+    transform: translateX(-2vw); /* TWEAK THIS – negative moves left off edge */
     z-index: 1;
     overflow: hidden;
   }
@@ -296,28 +452,28 @@ flex-shrink: 0;
     opacity: 1;
   }
 
-  /* C.02.03 – Text column right */
+  /* C.04.03 – Text column right */
   .lineage-text-column {
     position: relative;
-    margin-left: 32vw;
+    margin-left: 32vw;     /* TWEAK THIS – must align with hero width */
     min-height: 100vh;
     padding: 0;
     z-index: 2;
   }
 
-  /* C.02.04 – Title and tagline */
+  /* C.04.04 – Header block */
   .lineage-header {
     position: relative;
     top: auto;
     background: none;
-    padding: 3rem 4rem 2rem 12rem;
+    padding: 3rem 4rem 2rem 12rem; /* TWEAK THIS – top / right / bottom / left */
     max-width: none;
     z-index: auto;
     border-bottom: none;
   }
 
   .lineage-title {
-    font-size: 3rem;
+    font-size: 3rem;       /* TWEAK THIS – title size */
     letter-spacing: 0.06em;
     margin-bottom: 0.8rem;
     font-weight: 500;
@@ -327,7 +483,7 @@ flex-shrink: 0;
   }
 
   .lineage-tagline {
-    font-size: 1.2rem;
+    font-size: 1.2rem;     /* TWEAK THIS – tagline size */
     letter-spacing: 0.12em;
     color: var(--text-accent);
     opacity: 0.85;
@@ -336,14 +492,14 @@ flex-shrink: 0;
     line-height: 1.4;
   }
 
-  /* C.02.05 – Subpage container */
+  /* C.04.05 – Subpage container */
   .lineage-subpages {
     position: relative;
-    padding: 3rem 4rem 4rem 12rem;
+    padding: 3rem 4rem 4rem 12rem; /* TWEAK THIS – top / right / bottom / left */
     margin: 0;
   }
 
-  /* C.02.06 – Individual subpage */
+  /* C.04.06 – Individual subpage */
   .lineage-subpage {
     position: relative;
     display: none;
@@ -360,101 +516,129 @@ flex-shrink: 0;
     font-size: var(--body-size-desktop);
     line-height: var(--body-line-desktop);
     letter-spacing: var(--body-letter-desktop);
-    font-style: REGULAR;
+    font-style: normal;    /* BUG FIX: was "REGULAR" – invalid value */
     font-weight: 400;
     color: var(--text-secondary);
     margin: 0 0 2.5rem 0;
     padding: 0;
-    max-width: 84ch;
+    max-width: 54ch;       /* TWEAK THIS – characters per line */
   }
 
-  /* C.02.07 – Navigation buttons */
+  /* C.04.07 – Desktop subpage nav buttons */
 
+  .lineage-nav-btn {
+    position: fixed;
+   
+top: calc(var(--content-top) + 24px); /* TWEAK THIS – 24px gap below nav bar, top of hero */
+    transform: none;
 
-.lineage-nav-btn {
-  position: fixed;
-  top: 140px;
-  transform: none;
-  width: 42px;  /* TWEAK THIS – Larger for prominence. Try 42px, 44px, 46px */
-  height: 42px;
-  border-radius: 50%;
-  border: 2px solid #8B4513;  /* Maroon border */
-  background: rgba(139,69,19,0.15);  /* Light maroon background */
-  font-size: 24px;  /* TWEAK THIS – Larger arrow. Try 24px, 26px */
-  font-weight: 600;
-  line-height: 1;
-  color: #7a1f1f;  /* Maroon arrow */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(139,69,19,0.2);
-  transition: all 0.3s ease;
-  z-index: 50;
-  opacity: 0.85;  /* TWEAK THIS – More visible at rest */
-}
-
-.lineage-nav-btn:hover {
-  opacity: 1;
-  background: rgba(139,69,19,0.3);
-  border-color: #7a1f1f;
-  box-shadow: 0 4px 16px rgba(139,69,19,0.4);
-  transform: scale(1.15) translateY(-2px);  /* Lift up slightly on hover */
-}
-
-/* Gentle breathing animation */
-@keyframes gentleBreath {
-  0%, 100% { 
-    box-shadow: 0 2px 8px rgba(139,69,19,0.2);
-    transform: scale(1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;              /* TWEAK THIS – gap between arrow and label */
+    width: 52px;           /* TWEAK THIS – button width */
+    height: 64px;          /* TWEAK THIS – button height */
+    background: rgba(255,255,240,0.7);
+    border: 1px solid rgba(196,155,58,0.35); /* TWEAK THIS – border opacity */
+    border-radius: 2px;    /* TWEAK THIS – 0 = sharp, higher = rounder */
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    z-index: 50;
+    animation: btnGoldPulse 3s ease-in-out infinite; /* TWEAK THIS – 3s = pulse speed */
+    transition: background 0.3s ease, border-color 0.3s ease;
   }
-  50% { 
-    box-shadow: 0 3px 10px rgba(139,69,19,0.3);
-    transform: scale(1.03);
+
+  .lineage-nav-btn:hover {
+    background: rgba(255,255,240,0.95);
+    border-color: rgba(196,155,58,0.75);
+    animation: none;
   }
-}
 
-.lineage-nav-btn {
-  animation: gentleBreath 3s ease-in-out infinite;  /* TWEAK THIS – Breathing effect. Change 3s to speed up/slow down */
-}
+  /* Arrow SVG line inside button */
+  .lineage-nav-btn .btn-arrow {
+    display: block;
+    width: 20px;           /* TWEAK THIS – arrow width */
+    height: 12px;          /* TWEAK THIS – arrow height */
+    margin: 0;
+    padding: 0;
+  }
 
-.lineage-nav-btn:hover {
-  animation: none;  /* Stop breathing on hover */
-}
+  /* Label below arrow */
+  .lineage-nav-btn .btn-label {
+    display: block;
+    font-family: var(--font-base);
+    font-size: 0.6rem;     /* TWEAK THIS – label size */
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--nav-active);
+    opacity: 0.75;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    transition: opacity 0.3s ease;
+  }
 
+  .lineage-nav-btn:hover .btn-label {
+    opacity: 1;
+  }
+
+  /* Animate arrow on idle */
+  #prevBtn:not(:hover) .btn-arrow {
+    animation: arrowSlideLeft 2.5s ease-in-out infinite; /* TWEAK THIS – 2.5s = idle speed */
+  }
+
+  #nextBtn:not(:hover) .btn-arrow {
+    animation: arrowSlideRight 2.5s ease-in-out infinite; /* TWEAK THIS – 2.5s = idle speed */
+  }
+
+  /* Stop animation on hover and slide arrow */
+  #prevBtn:hover .btn-arrow {
+    animation: none;
+    transform: translateX(-3px); /* TWEAK THIS – hover shift distance */
+    transition: transform 0.2s ease;
+  }
+
+  #nextBtn:hover .btn-arrow {
+    animation: none;
+    transform: translateX(3px);  /* TWEAK THIS – hover shift distance */
+    transition: transform 0.2s ease;
+  }
 
   .lineage-nav-btn.hidden {
     display: none;
   }
 
   #prevBtn {
-    left: 2vw;  /* TWEAK THIS – Distance from left edge */
+    left: 2vw;             /* TWEAK THIS – distance from left edge */
   }
 
   #nextBtn {
-    left: calc(32vw - 2vw);  /* TWEAK THIS – Positioned near text column start */
+    left: calc(32vw - 60px); /* TWEAK THIS – positioned near text column start */
   }
+
 }
 
 
-
-
 /* ═══════════════════════════════════════════════════════════════
-   C.03.00 – MOBILE LAYOUT (max-width: 900px)
+   C.05.00 – MOBILE LAYOUT (max-width: 900px)
    ═══════════════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
 
-  /* C.03.01 – Hide desktop hero */
+  /* C.05.01 – Hide desktop hero */
   .lineage-hero {
     display: none;
   }
 
-  /* C.03.02 – Mobile hero display */
+  /* C.05.02 – Mobile hero display */
   .lineage-mobile-hero {
     display: block;
     width: 100%;
-    height: 100vh;
+    height: 100vh;         /* TWEAK THIS – full screen hero height */
     overflow: hidden;
     position: relative;
   }
@@ -479,7 +663,7 @@ flex-shrink: 0;
     opacity: 1;
   }
 
-  /* C.03.03 – Mobile text column */
+  /* C.05.03 – Mobile text column */
   .lineage-text-column {
     position: relative;
     margin: 0;
@@ -487,7 +671,7 @@ flex-shrink: 0;
     background: var(--bg-layer-3);
   }
 
-  /* C.03.04 – Mobile header */
+  /* C.05.04 – Mobile header */
   .lineage-header {
     position: relative;
     padding: 2.5rem 1.5rem 2rem 1.5rem;
@@ -496,7 +680,7 @@ flex-shrink: 0;
   }
 
   .lineage-title {
-    font-size: 2.2rem;
+    font-size: 2.2rem;     /* TWEAK THIS – mobile title size */
     letter-spacing: 0.05em;
     margin-bottom: 0.8rem;
     font-weight: 500;
@@ -506,7 +690,7 @@ flex-shrink: 0;
   }
 
   .lineage-tagline {
-    font-size: 1.05rem;
+    font-size: 1.05rem;    /* TWEAK THIS – mobile tagline size */
     letter-spacing: 0.1em;
     color: var(--text-accent);
     opacity: 0.85;
@@ -515,9 +699,10 @@ flex-shrink: 0;
     line-height: 1.4;
   }
 
-  /* C.03.05 – Mobile subpages */
+  /* C.05.05 – Mobile subpages */
   .lineage-subpages {
-    padding: 2rem 1.5rem 4rem;
+    padding: 2rem 1.5rem 6rem; /* TWEAK THIS – extra bottom for mobile nav buttons */
+    margin: 0;
   }
 
   .lineage-subpage {
@@ -542,25 +727,49 @@ flex-shrink: 0;
     padding: 0;
   }
 
-  /* C.03.06 – Mobile navigation buttons */
+  /* C.05.06 – Mobile subpage nav buttons */
+
   .lineage-nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid rgba(154,123,47,0.3);
-    background: rgba(255,255,240,0.9);
-    font-size: 20px;
-    line-height: 1;
-    color: #9a7b2f;
+    position: fixed;
+    bottom: 24px;          /* TWEAK THIS – distance from bottom of screen */
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 5px;
+    width: 48px;           /* TWEAK THIS – mobile button width */
+    height: 56px;          /* TWEAK THIS – mobile button height */
+    background: rgba(255,255,240,0.88);
+    border: 1px solid rgba(196,155,58,0.4);
+    border-radius: 2px;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(154,123,47,0.15);
+    padding: 0;
+    margin: 0;
     z-index: 50;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .lineage-nav-btn .btn-arrow {
+    display: block;
+    width: 18px;
+    height: 10px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .lineage-nav-btn .btn-label {
+    display: block;
+    font-family: var(--font-base);
+    font-size: 0.55rem;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--nav-active);
+    opacity: 0.75;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
   }
 
   .lineage-nav-btn.hidden {
@@ -568,12 +777,13 @@ flex-shrink: 0;
   }
 
   #prevBtn {
-    left: 12px;
+    left: 20px;            /* TWEAK THIS – distance from left edge */
   }
 
   #nextBtn {
-    right: 12px;
+    right: 20px;           /* TWEAK THIS – distance from right edge */
   }
+
 }
 
 </style>
@@ -588,7 +798,6 @@ flex-shrink: 0;
   <div class="nav-logo">
     <img src="images/logo-db.png" alt="D. Balakrishna">
   </div>
-
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="artist.html">Artist</a>
@@ -601,7 +810,27 @@ flex-shrink: 0;
     <a href="gallery.html">Gallery</a>
     <a href="contact.html">Contact</a>
   </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <div class="nav-hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
 </div>
+
+<nav class="nav-drawer" id="navDrawer">
+  <a href="index.html">Home</a>
+  <a href="artist.html">Artist</a>
+  <a href="about.html">About</a>
+  <a href="lineage.html" class="active">Lineage</a>
+  <a href="international.html">International</a>
+  <a href="media.html">Media</a>
+  <a href="mysore-bani.html">Mysore Bani</a>
+  <a href="awards.html">Awards</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
 
 <!-- ═══════════════════════════════════════════════════════════════
@@ -612,11 +841,11 @@ flex-shrink: 0;
 
   <!-- H.01.01 – Mobile hero -->
   <div class="lineage-mobile-hero">
-  <img src="images/lineage-intro.png" class="active" alt="The Lineage">
-  <img src="images/guru1.png" alt="Vīṇe Śeṣanna">
-  <img src="images/guru2.png" alt="Vīṇe Venkatagiriyappa">
-  <img src="images/guru3.png" alt="Mysore V. Doreswamy Iyengar">
-</div>
+    <img src="images/lineage-intro.png" class="active" alt="The Lineage">
+    <img src="images/guru1.png" alt="Vīṇe Śeṣanna">
+    <img src="images/guru2.png" alt="Vīṇe Venkatagiriyappa">
+    <img src="images/guru3.png" alt="Mysore V. Doreswamy Iyengar">
+  </div>
 
   <!-- H.01.02 – Desktop fixed hero -->
   <div class="lineage-hero">
@@ -626,20 +855,36 @@ flex-shrink: 0;
     <img src="images/guru3.png" alt="Mysore V. Doreswamy Iyengar">
   </div>
 
-  <!-- Desktop navigation buttons -->
-  <button class="lineage-nav-btn" id="prevBtn">‹</button>
-  <button class="lineage-nav-btn" id="nextBtn">›</button>
+  <!-- H.01.03 – Subpage navigation buttons -->
 
-  <!-- H.01.03 – Text column -->
+  <!-- H.01.03a – Prev button -->
+  <button class="lineage-nav-btn hidden" id="prevBtn" aria-label="Previous">
+    <svg class="btn-arrow" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="20" y1="6" x2="1" y2="6" stroke="#7a1f1f" stroke-width="2"/>
+<polyline points="7,1 1,6 7,11" fill="none" stroke="#7a1f1f" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    <span class="btn-label">prev</span>
+  </button>
+
+  <!-- H.01.03b – Next button -->
+  <button class="lineage-nav-btn" id="nextBtn" aria-label="Next">
+    <svg class="btn-arrow" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="6" x2="19" y2="6" stroke="#7a1f1f" stroke-width="2"/>
+<polyline points="13,1 19,6 13,11" fill="none" stroke="#7a1f1f" stroke-width="2" stroke-linejoin="round"/>
+    </svg>
+    <span class="btn-label">next</span>
+  </button>
+
+  <!-- H.01.04 – Text column -->
   <div class="lineage-text-column">
 
-    <!-- H.01.04 – Header (title + tagline) -->
+    <!-- H.01.05 – Header -->
     <div class="lineage-header">
       <h1 class="lineage-title">The Lineage</h1>
       <div class="lineage-tagline">— where sound finds its shape through touch</div>
     </div>
 
-    <!-- H.01.05 – Subpages -->
+    <!-- H.01.06 – Subpages -->
     <div class="lineage-subpages">
 
       <!-- Subpage 1: The Lineage -->
@@ -647,19 +892,15 @@ flex-shrink: 0;
         <p>
           The vīṇā tradition of Mysore is rooted in a deeper Carnatic continuum that flows from Pacchimiriam Adiappayya, the eighteenth-century composer whose work shaped the grammar of South Indian classical music. Remembered most widely for the Bhairavi āṭa tāḷa varṇam Viriboni, which remains foundational to Carnatic pedagogy, Adiappayya stands at the source of a lineage marked by clarity, proportion, and architectural balance.
         </p>
-
         <p>
           Vīṇe Śeṣanna, one of the foremost figures in the history of the vīṇā, belonged to this lineage as a descendant of Pacchimiriam Adiappayya. His musical formation was further shaped through formal vocal training under Mysore Sadāśiva Rao, a distinguished musician of the Tyāgarāja tradition, descending through Walajapet Venkataramana Bhagavatar, the foremost disciple and chronicler of Tyāgarāja's musical legacy.
         </p>
-
         <p>
           In Śeṣanna, what had long lived in the human voice found a new and unforced channel in strings—not as an echo of the vocal cords, but as a thoughtful emulation by the vīṇā strings, singing within their own vādyā dharma, while preserving the grace of the voice. Through him, the Mysore bāṇi of vīṇā playing took its definitive shape.
         </p>
-
         <p>
           The style that emerged was marked by repose rather than urgency, proportion rather than emphasis, and clarity rather than display. Sound was allowed to unfold at its own pace, shaped by restraint and inner balance. This was not a tradition preserved through doctrine or notation, but one sustained through touch, repetition, and time.
         </p>
-
         <p>
           From Śeṣanna, the lineage flowed through Veene Venkatagiriyappa, to Mysore V. Doreswamy Iyengar, and onward to Vidvān D. Balakrishna. Across generations, the essence has remained intact—not as a fixed form, but as a living continuity, sustained by practice rather than proclamation.
         </p>
@@ -670,11 +911,9 @@ flex-shrink: 0;
         <p>
           Born in Mysore in 1852 into a lineage descending from Pachimiriam Adiappaiah, Veene Seshanna grew in a world where music was discipline, craft, and daily breath. Trained by his father and senior vidwans of the Tyagaraja lineage, he served as Asthāna Vidwān to three generations of Wodeyar rulers and was honoured by Nalvadi Krishnaraja Wodeyar IV with the title Vainika Śikhāmaṇi.
         </p>
-
         <p>
           He gave the veena its now-familiar horizontal repose, opening the way for deeper resonance, rich gamaka, and unhurried raga development—hallmarks of the Mysore bāṇi. His compositions, especially the tillānās, and his teaching shaped a living tradition carried forward through Venkatagiriyappa, Mysore V. Doreswamy Iyengar, and today, Vidwan D. Balakrishna.
         </p>
-
         <p>
           This music, firm in structure yet gentle in touch, steadies the listener and refines attention. In that quiet authority, the lineage continues—not as preserved form alone, but as a cultivated way of hearing and being.
         </p>
@@ -685,11 +924,9 @@ flex-shrink: 0;
         <p>
           Born in 1887 in the Mysore region and trained first within his family, Veene Venkatagiriyappa came under the direct tutelage of Veene Seshanna, from whom he absorbed the full depth and discipline of the Mysore veena tradition. Rising to serve as Asthāna Vidwān in the Wodeyar court, he combined rigorous classical grounding with wide musical exposure, and became a central figure in both performance and pedagogy within Mysore's cultural life.
         </p>
-
         <p>
           His playing preserved the unhurried raga development, firm left-hand clarity, and balanced right-hand articulation that define the Mysore bāṇi, while his curiosity led him to explore new forms, including instrumental naghmas and compositions shaped by broader musical contact. As a teacher of rare patience and precision, he shaped a generation of eminent vainikas, foremost among them Mysore V. Doreswamy Iyengar, through whom the lineage flows today to Vidwan D. Balakrishna.
         </p>
-
         <p>
           In Venkatagiriyappa's music, tradition and openness moved together—rooted, yet never rigid—leaving behind a style that refines the ear, steadies the mind, and keeps the veena both dignified and alive.
         </p>
@@ -700,11 +937,9 @@ flex-shrink: 0;
         <p>
           Born in 1920 into a family steeped in devotional and instrumental music, Mysore V. Doreswamy Iyengar received his earliest training from his father and later became the foremost disciple of Veene Venkatagiriyappa, inheriting the full classical discipline of the Mysore veena tradition. A prodigy who debuted at the Mysore Palace in childhood, he was appointed Asthāna Vidwān at a remarkably young age, and soon came to represent the very sound of the courtly Mysore style on national and international stages.
         </p>
-
         <p>
           His playing was marked by unamplified purity of tone, deep raga immersion, and seamless left-hand continuity, allowing the veena to speak with instrumental clarity and architectural poise. While rooted firmly in tradition, he remained open to thoughtful exploration—collaborating across systems, composing for dance and theatre, and shaping broadcast formats that brought classical music to wider audiences, without ever compromising raga dignity.
         </p>
-
         <p>
           As a teacher, he passed the Mysore bāṇi to his son D. Balakrishna with the same rigor and patience he had received, ensuring that lineage remained not a relic of the past but a living presence—refined, unhurried, and architecturally sound.
         </p>
@@ -752,68 +987,97 @@ const subpageData = [
 ];
 
 /* J.00.02 – DOM elements */
-const subpages = document.querySelectorAll('.lineage-subpage');
+const subpages          = document.querySelectorAll('.lineage-subpage');
 const desktopHeroImages = document.querySelectorAll('.lineage-hero img');
-const mobileHeroImages = document.querySelectorAll('.lineage-mobile-hero img');
-const titleEl = document.querySelector('.lineage-title');
-const taglineEl = document.querySelector('.lineage-tagline');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
+const mobileHeroImages  = document.querySelectorAll('.lineage-mobile-hero img');
+const titleEl           = document.querySelector('.lineage-title');
+const taglineEl         = document.querySelector('.lineage-tagline');
+const prevBtn           = document.getElementById('prevBtn');
+const nextBtn           = document.getElementById('nextBtn');
 
 let currentIndex = 0;
 
-/* J.00.03 – Show subpage function */
+/* J.00.03 – Show subpage */
 function showSubpage(index) {
-  
-  /* Hide all subpages */
-  subpages.forEach(page => page.classList.remove('active'));
-  desktopHeroImages.forEach(img => img.classList.remove('active'));
-  mobileHeroImages.forEach(img => img.classList.remove('active'));
 
-  /* Reset scroll position */
+  subpages.forEach(function (page) { page.classList.remove('active'); });
+  desktopHeroImages.forEach(function (img) { img.classList.remove('active'); });
+  mobileHeroImages.forEach(function (img) { img.classList.remove('active'); });
+
   document.getElementById('content').scrollTop = 0;
 
-  
-  /* Show current subpage */
   subpages[index].classList.add('active');
   desktopHeroImages[index].classList.add('active');
   mobileHeroImages[index].classList.add('active');
-  
-  /* Update title and tagline */
-  titleEl.textContent = subpageData[index].title;
+
+  titleEl.textContent   = subpageData[index].title;
   taglineEl.textContent = subpageData[index].tagline;
-  
-  /* Show/hide navigation buttons */
+
   if (index === 0) {
     prevBtn.classList.add('hidden');
   } else {
     prevBtn.classList.remove('hidden');
   }
-  
+
   if (index === subpages.length - 1) {
     nextBtn.classList.add('hidden');
   } else {
     nextBtn.classList.remove('hidden');
   }
-  
+
   currentIndex = index;
 }
 
-/* J.00.04 – Navigation button handlers */
-prevBtn.addEventListener('click', () => {
-  if (currentIndex > 0) {
-    showSubpage(currentIndex - 1);
-  }
+/* J.00.04 – Button handlers */
+prevBtn.addEventListener('click', function () {
+  if (currentIndex > 0) { showSubpage(currentIndex - 1); }
 });
 
-nextBtn.addEventListener('click', () => {
-  if (currentIndex < subpages.length - 1) {
-    showSubpage(currentIndex + 1);
-  }
+nextBtn.addEventListener('click', function () {
+  if (currentIndex < subpages.length - 1) { showSubpage(currentIndex + 1); }
 });
 
 /* J.00.05 – Initialize */
 showSubpage(0);
+
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.01.00 – HAMBURGER TOGGLE
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+(function () {
+
+  var btn    = document.getElementById('navHamburger');
+  var drawer = document.getElementById('navDrawer');
+
+  if (!btn || !drawer) { return; }
+
+  btn.addEventListener('click', function () {
+    var isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      drawer.classList.remove('open');
+    } else {
+      drawer.classList.add('open');
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      drawer.classList.remove('open');
+    }
+  });
+
+}());
 
 </script>
 
