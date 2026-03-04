@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Vainika's Voice</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global-variables.css">
+<style>
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.00 – BASE (All Devices)
+   ═══════════════════════════════════════════════════════════ */
+
+
+/* ───────── C.00.01 – PAGE WRAPPER ───────── */
+
+.vv-page {
+  display: block;
+  max-width: 820px;               /* TWEAK – overall page column width */
+  margin: 0 auto;
+  padding: 0 2.4rem 6rem;        /* TWEAK – side and bottom padding */
+  box-sizing: border-box;
+}
+
+
+/* ───────── C.00.02 – MASTHEAD ───────── */
+
+.vv-masthead {
+  display: block;
+  text-align: center;
+  padding: 4rem 0 0;             /* TWEAK – space above masthead */
+  margin: 0 0 3rem 0;
+}
+
+.vv-masthead-eyebrow {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.66rem;             /* TWEAK – eyebrow size */
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  margin: 0 0 1.2rem 0;
+  padding: 0;
+}
+
+.vv-masthead-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 3.4rem;              /* TWEAK – page title size */
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text-primary);
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  margin: 0 0 1.2rem 0;
+  padding: 0;
+}
+
+.vv-masthead-attribution {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.8rem;              /* TWEAK – attribution size */
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+  margin: 0 0 1.8rem 0;
+  padding: 0;
+}
+
+.vv-masthead-attribution strong {
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: 0.07em;
+}
+
+.vv-masthead-statement {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.12rem;             /* TWEAK – opening statement size */
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  max-width: 580px;               /* TWEAK – statement column width */
+  margin: 0 auto 0;
+  padding: 0;
+}
+
+.vv-masthead-rule {
+  display: block;
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 2.6rem 0 0;
+  padding: 0;
+  position: relative;
+}
+
+.vv-masthead-rule::before {
+  content: '◆';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f5e9d0;
+  padding: 0 1rem;
+  font-size: 0.4rem;
+  color: var(--nav-active);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+
+/* ───────── C.00.03 – TAB BUTTONS ───────── */
+
+.vv-tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;                         /* TWEAK – gap between buttons */
+  margin: 3rem 0 0 0;
+  padding: 0 0 0 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.vv-tab {
+  display: inline-block;
+  font-family: var(--font-base);
+  font-size: 0.7rem;              /* TWEAK – tab label size */
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-secondary);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0 0 0.9rem 0;         /* TWEAK – space below tab label */
+  margin: 0 2.4rem 0 0;          /* TWEAK – space between tabs */
+  cursor: pointer;
+  position: relative;
+  bottom: -1px;                   /* overlaps the container border-bottom */
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.vv-tab:hover {
+  color: var(--text-primary);
+}
+
+.vv-tab.active {
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--nav-underline); /* TWEAK – active tab underline color */
+}
+
+
+/* ───────── C.00.04 – CATEGORY PANELS ───────── */
+
+.vv-panel {
+  display: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vv-panel.active {
+  display: block;
+}
+
+
+/* ───────── C.00.05 – ENTRY LIST ───────── */
+
+a.vv-entry {
+  display: block;
+  padding: 2.2rem 0;                   /* TWEAK – entry top/bottom padding */
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+a.vv-entry:first-child {
+  border-top: 1px solid var(--border-color);
+}
+
+a.vv-entry:hover {
+  background: rgba(154,123,47,0.03);
+}
+
+a.vv-entry:hover .vv-entry-title {
+  color: var(--nav-active);
+}
+
+.vv-entry-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.55rem;             /* TWEAK – entry title size */
+  font-weight: 500;
+  font-style: normal;
+  color: #2a1a1a;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  margin: 0 0 0.3rem 0;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.vv-entry-tagline {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.9rem;              /* TWEAK – tagline size */
+  font-weight: 400;
+  font-style: italic;
+  color: #7a5c3a;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.8rem 0;
+  padding: 0;
+}
+
+.vv-entry-desc {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.92rem;             /* TWEAK – description size */
+  font-weight: 400;
+  font-style: normal;
+  color: #3d2b1f;
+  letter-spacing: 0.01em;
+  line-height: 1.8;
+  margin: 0 0 1rem 0;
+  padding: 0;
+  max-width: 560px;               /* TWEAK – description line width */
+}
+
+.vv-entry-cta {
+  display: inline-block;
+  font-family: var(--font-base);
+  font-size: 0.66rem;             /* TWEAK – read/watch link size */
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid rgba(154,123,47,0.3);
+  transition: border-color 0.2s ease;
+}
+
+a.vv-entry:hover .vv-entry-cta {
+  border-bottom-color: var(--nav-active);
+}
+
+.vv-entry-upcoming {
+  cursor: default;
+  opacity: 0.7;                   /* TWEAK – dimness of upcoming entries */
+}
+
+.vv-entry-status {
+  display: inline-block;
+  font-family: var(--font-base);
+  font-size: 0.64rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-secondary);
+  letter-spacing: 0.14em;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – DESKTOP MODE (min-width: 901px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 901px) {
+
+  .vv-masthead-title {
+    font-size: 3.4rem;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.00 – MOBILE MODE (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  .vv-page {
+    padding: 0 1.4rem 5rem;
+  }
+
+  .vv-masthead {
+    padding: 2.6rem 0 0;
+  }
+
+  .vv-masthead-title {
+    font-size: 2.2rem;            /* TWEAK – mobile title */
+  }
+
+  .vv-masthead-statement {
+    font-size: 1rem;
+  }
+
+  .vv-entry-title {
+    font-size: 1.2rem;
+  }
+
+}
+
+
+</style>
+</head>
+<body>
+
+
+<!-- H.00.00 – NAVIGATION -->
+<div class="nav-panel">
+  <div class="nav-logo">
+    <img src="images/logo-db.png" alt="D. Balakrishna">
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="artist.html">Artist</a>
+    <a href="about.html">About</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="international.html">International</a>
+    <a href="media.html">Media</a>
+    <a href="mysore-bani.html">Mysore Bāṇi</a>
+    <a href="vainika-voice.html" class="active">Vainika's Voice</a>
+    <a href="awards.html">Awards</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <div class="nav-hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+</div>
+
+<nav class="nav-drawer" id="navDrawer">
+  <a href="index.html">Home</a>
+  <a href="artist.html">Artist</a>
+  <a href="about.html">About</a>
+  <a href="lineage.html">Lineage</a>
+  <a href="international.html">International</a>
+  <a href="media.html">Media</a>
+  <a href="mysore-bani.html">Mysore Bāṇi</a>
+    <a href="vainika-voice.html">Vainika's Voice</a>
+  <a href="awards.html">Awards</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+<div class="vv-page">
+
+
+  <!-- H.01.01 – MASTHEAD -->
+  <div class="vv-masthead">
+
+    <span class="vv-masthead-eyebrow">Vainika's Voice</span>
+
+    <h1 class="vv-masthead-title">On Music and Its Making</h1>
+
+    <span class="vv-masthead-attribution">
+      Essays and spoken reflections by <strong>D. Balakrishna</strong>
+    </span>
+
+    <p class="vv-masthead-statement">
+      In these pages, D. Balakrishna speaks and writes from inside the tradition —
+      not as a commentator, but as a musician who has spent a lifetime
+      in the company of the veena and its lineage. What follows are essays,
+      spoken reflections, and conversations on music, aesthetics,
+      and the nature of the Mysore Bāṇi.
+    </p>
+
+    <hr class="vv-masthead-rule">
+
+  </div>
+
+
+  <!-- H.01.02 – TAB BUTTONS -->
+  <div class="vv-tabs">
+    <button class="vv-tab active" id="tab-essays" onclick="switchTab('essays')">Essays</button>
+    <button class="vv-tab"        id="tab-videos" onclick="switchTab('videos')">Videos</button>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       H.02.00 – ESSAYS PANEL
+       ═══════════════════════════════════════════════════════ -->
+
+  <div class="vv-panel active" id="panel-essays">
+
+
+    <!-- H.02.01 – Essay 01 -->
+    <a class="vv-entry" href="essay-01.html">
+      <div class="vv-entry-title">The Garden and the Forest</div>
+      <div class="vv-entry-tagline">On the Two Currents of Carnatic Music</div>
+      <div class="vv-entry-desc">A close examination of the two fundamental expressive modes in Carnatic music — the veena style of deliberate phrase-shaping, and the nadaswara style of continuous unfolding motion.</div>
+      <span class="vv-entry-cta">Read Essay →</span>
+    </a>
+
+    
+
+  </div><!-- end #panel-essays -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       H.03.00 – VIDEOS PANEL
+       ═══════════════════════════════════════════════════════ -->
+
+  <div class="vv-panel" id="panel-videos">
+
+
+    <!-- H.03.01 – Video 01 -->
+    <div class="vv-entry vv-entry-upcoming">
+      <div class="vv-entry-title">I Wish to Sing Like the Veeṇā</div>
+      <div class="vv-entry-tagline">A Reflection by D. Balakrishna</div>
+      <div class="vv-entry-desc">Sri Balakrishna speaks on a remark made by Madurai Mani Iyer to his father — and what it reveals about the veena's singular capacity for whole-phrase expression.</div>
+      <span class="vv-entry-status">In Preparation</span>
+    </div>
+
+  
+
+  </div><!-- end #panel-videos -->
+
+
+</div><!-- end .vv-page -->
+</div><!-- end #content -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.01.00 – HAMBURGER
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+(function () {
+  var btn    = document.getElementById('navHamburger');
+  var drawer = document.getElementById('navDrawer');
+  if (!btn || !drawer) { return; }
+  btn.addEventListener('click', function () { drawer.classList.toggle('open'); });
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+    }
+  });
+}());
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.02.00 – TAB SWITCHING
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+function switchTab (id) {
+
+  /* J.02.01 – Deactivate all tabs and panels */
+  var tabs   = document.querySelectorAll('.vv-tab');
+  var panels = document.querySelectorAll('.vv-panel');
+  for (var i = 0; i < tabs.length;   i++) { tabs[i].classList.remove('active'); }
+  for (var i = 0; i < panels.length; i++) { panels[i].classList.remove('active'); }
+
+  /* J.02.02 – Activate selected tab and panel */
+  document.getElementById('tab-'   + id).classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+
+}
+
+</script>
+
+
+</body>
+</html>
