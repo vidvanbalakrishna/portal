@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="global-variables.css">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – HOME PAGE TYPOGRAPHY BASE
+   ═══════════════════════════════════════════════════════════ */
+
+.home-name,
+.home-subtitle,
+.home-honorific {
+  font-family: var(--font-display);
+  margin: 0;
+  padding: 0;
+}
+
+.home-honorific {
+  font-size: var(--honorific-size);
+  letter-spacing: var(--honorific-letter);
+  
+  opacity: var(--honorific-opacity);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.2;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – DESKTOP LAYOUT (min-width: 901px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 901px) {
+
+  /* C.03.01 – Hide mobile hero */
+  .mobile-hero {
+    display: none;
+  }
+
+  /* C.03.02 – Desktop hero container */
+  .home-hero {
+    position: fixed;
+    top: var(--content-top);
+    right: 4vw;            /* TWEAK THIS – smaller = closer to right edge */
+    width: 54vw;           /* TWEAK THIS – larger = wider image */
+    height: calc(100vh - var(--content-top));
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  /* C.03.03 – Individual slide images */
+  .home-slide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-size: contain;
+    background-position: right center;
+    background-repeat: no-repeat;
+    filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+    opacity: 0;
+    z-index: 1;
+    transition: opacity var(--fade-transition);
+  }
+
+  .home-slide.active {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .home-slide.outgoing {
+    opacity: 0;
+    z-index: 2;
+    transition: opacity var(--fade-transition);
+  }
+
+  /* C.03.04 – Desktop text positioning */
+  .home-text {
+    position: absolute;
+    top: 48%;              /* TWEAK THIS – 50% = vertical center, lower = more down */
+    left: 6vw;             /* TWEAK THIS – larger = more right */
+    transform: translateY(-50%);
+    max-width: 540px;      /* TWEAK THIS – maximum text block width */
+    padding-left: 2rem;
+    z-index: 2;
+  }
+
+  /* C.03.05 – Desktop name styling */
+  .home-name {
+    font-size: var(--h1-size-desktop);
+    margin-bottom: var(--text-gap-small);
+    letter-spacing: var(--h1-letter-desktop);
+    line-height: var(--h1-line-desktop);
+    font-weight: 500;
+    font-style: normal;
+    color: var(--text-primary);
+  }
+
+  /* C.03.06 – Desktop subtitle styling */
+  .home-subtitle {
+    font-size: var(--subtitle-size-desktop);
+    letter-spacing: var(--subtitle-letter-desktop);
+    margin-bottom: var(--text-gap-large);
+    color: var(--text-accent);
+    opacity: 0.85;
+    font-weight: 400;
+    font-style: normal;
+    line-height: var(--subtitle-line-desktop);
+  }
+
+  /* C.03.07 – Desktop body text styling */
+  .home-body {
+    font-size: var(--body-size-desktop);
+    letter-spacing: var(--body-letter-desktop);
+    font-style: normal;
+    font-weight: 400;
+    max-width: 36ch;       /* TWEAK THIS – characters per line */
+    margin-bottom: 2.4rem;
+    line-height: var(--body-line-desktop);
+    color: var(--text-secondary);
+  }
+
+  /* C.03.08 – Desktop closing text styling */
+  .home-closing {
+    font-size: var(--closing-size);
+    letter-spacing: var(--closing-letter);
+    
+    opacity: var(--closing-opacity);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--text-primary);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – MOBILE LAYOUT (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  /* C.04.01 – Hide desktop hero */
+  .home-hero {
+    display: none;
+  }
+
+  /* C.04.02 – Mobile hero display */
+  .mobile-hero {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: calc(76svh - var(--content-top)); /* TWEAK THIS – full screen minus nav bar */
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* C.04.02a – Mobile slide images */
+  .mobile-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 3.0s ease-in-out; /* TWEAK THIS – larger = slower mobile fade */
+  }
+
+  .mobile-slide.active {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .mobile-slide.outgoing {
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 3.0s ease-in-out;
+  }
+
+  /* C.04.03 – Mobile text positioning */
+  .home-text {
+    position: relative;
+    max-width: 100%;
+    padding: var(--text-gap-xlarge) 1.5rem 4rem;
+    text-align: center;
+    z-index: 2;
+  }
+
+  /* C.04.04 – Mobile name styling */
+  .home-name {
+    font-size: var(--h1-size-mobile);
+    letter-spacing: var(--h1-letter-mobile);
+    margin-bottom: var(--text-gap-small);
+    font-weight: 500;
+    font-style: normal;
+    line-height: var(--h1-line-mobile);
+    color: var(--text-primary);
+  }
+
+  /* C.04.05 – Mobile subtitle styling */
+  .home-subtitle {
+    font-size: var(--subtitle-size-mobile);
+    margin-bottom: 1.8rem;
+    letter-spacing: var(--subtitle-letter-mobile);
+    font-weight: 400;
+    font-style: normal;
+    line-height: var(--subtitle-line-mobile);
+    color: var(--text-accent);
+    opacity: 0.85;
+  }
+
+  /* C.04.06 – Mobile body text styling */
+  .home-body {
+    font-size: var(--body-size-mobile);
+    margin-bottom: 2rem;
+    line-height: var(--body-line-mobile);
+    letter-spacing: var(--body-letter-mobile);
+    font-weight: 400;
+    font-style: normal;
+    color: var(--text-secondary);
+  }
+
+  /* C.04.07 – Mobile closing text styling */
+  .home-closing {
+    font-size: var(--closing-size);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.75;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.4;
+    color: var(--text-primary);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.05.00 – TEXT FADE-IN ANIMATION
+   ═══════════════════════════════════════════════════════════ */
+
+.home-text > * {
+  opacity: 0;
+  transform: translateY(18px); /* TWEAK THIS – larger = more upward movement */
+  animation: fadeUp var(--text-fade-duration) ease forwards;
+}
+
+.home-text > *:nth-child(1) { animation-delay: 0.2s; }   /* TWEAK THIS – honorific delay */
+.home-text > *:nth-child(2) { animation-delay: 0.35s; }  /* TWEAK THIS – name delay */
+.home-text > *:nth-child(3) { animation-delay: 0.5s; }   /* TWEAK THIS – subtitle delay */
+.home-text > *:nth-child(4) { animation-delay: 0.65s; }  /* TWEAK THIS – body delay */
+.home-text > *:nth-child(5) { animation-delay: 0.8s; }   /* TWEAK THIS – closing delay */
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.00.00 – NAVIGATION PANEL
+     ═══════════════════════════════════════════════════════════ -->
+
+<div class="nav-panel">
+  <div class="nav-logo">
+    <img src="images/logo-db.png" alt="D. Balakrishna">
+  </div>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="artist.html">Artist</a>
+    <a href="about.html">About</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="international.html">International</a>
+    <a href="media.html">Media</a>
+    <a href="mysore-bani.html">Mysore Bāṇi</a>
+    <a href="vainika-voice.html">Vainika's Voice</a>
+    <a href="awards.html">Awards</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <div class="nav-hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+</div>
+
+<nav class="nav-drawer" id="navDrawer">
+  <a href="index.html" class="active">Home</a>
+  <a href="artist.html">Artist</a>
+  <a href="about.html">About</a>
+  <a href="lineage.html">Lineage</a>
+  <a href="international.html">International</a>
+  <a href="media.html">Media</a>
+  <a href="mysore-bani.html">Mysore Bāṇi</a>
+  <a href="awards.html">Awards</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+
+  <!-- H.01.01 – Mobile hero slideshow -->
+  <div class="mobile-hero">
+    <div class="mobile-slide active"
+         style="background-image:url('images/home-hero.png');"></div>
+    <div class="mobile-slide"
+         style="background-image:url('images/home-hero-2.png');"></div>
+    <div class="mobile-slide"
+         style="background-image:url('images/home-hero-3.png');"></div>
+  </div>
+
+  <!-- H.01.02 – Desktop hero slideshow -->
+  <div class="home-hero">
+    <div class="home-slide active"
+         style="background-image:url('images/home-hero.png')"></div>
+    <div class="home-slide"
+         style="background-image:url('images/home-hero-2.png')"></div>
+    <div class="home-slide"
+         style="background-image:url('images/home-hero-3.png')"></div>
+  </div>
+
+  <!-- H.01.03 – Text content -->
+  <div class="home-text">
+    <div class="home-honorific">vidvān</div>
+
+    <h1 class="home-name">D. Balakrishna</h1>
+
+    <div class="home-subtitle">
+      Vīṇa Virtuoso · Mysore Bāṇi
+    </div>
+
+    <p class="home-body">
+      Carrying forward a lineage of repose,
+      depth & uncompromising classicism.
+    </p>
+
+    <div class="home-closing">
+      Sustaining the Tradition . . .
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.00.00 – SLIDESHOW ROTATION SCRIPT
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+/* J.00.01 – Desktop slideshow */
+if (window.matchMedia('(min-width: 901px)').matches) {
+  const slides = document.querySelectorAll('.home-slide');
+  let index = 0;
+
+  setInterval(() => {
+    slides[index].classList.add('outgoing');
+    slides[index].classList.remove('active');
+    const prev = index;
+    index = (index + 1) % slides.length;
+    slides[index].classList.add('active');
+    setTimeout(() => {
+      slides[prev].classList.remove('outgoing');
+    }, 3500);  /* TWEAK THIS – Must match --fade-transition in milliseconds */
+  }, 6000);  /* TWEAK THIS – Desktop: milliseconds per slide (10000 = 10 seconds) */
+}
+
+/* J.00.02 – Mobile slideshow */
+if (window.matchMedia('(max-width: 900px)').matches) {
+  const mSlides = document.querySelectorAll('.mobile-slide');
+  let mIndex = 0;
+
+  setInterval(() => {
+    mSlides[mIndex].classList.add('outgoing');
+    mSlides[mIndex].classList.remove('active');
+    const prev = mIndex;
+    mIndex = (mIndex + 1) % mSlides.length;
+    mSlides[mIndex].classList.add('active');
+    setTimeout(() => {
+      mSlides[prev].classList.remove('outgoing');
+    }, 3000);  /* TWEAK THIS – Must match mobile transition in milliseconds */
+  }, 8000);  /* TWEAK THIS – Mobile: milliseconds per slide (8000 = 8 seconds) */
+}
+
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.01.00 – HAMBURGER TOGGLE
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+(function () {
+
+  var btn    = document.getElementById('navHamburger');
+  var drawer = document.getElementById('navDrawer');
+
+  if (!btn || !drawer) { return; }
+
+  btn.addEventListener('click', function () {
+    var isOpen = drawer.classList.contains('open');
+    if (isOpen) {
+      drawer.classList.remove('open');
+    } else {
+      drawer.classList.add('open');
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      drawer.classList.remove('open');
+    }
+  });
+
+}());
+
+</script>
+
+</body>
+</html>
