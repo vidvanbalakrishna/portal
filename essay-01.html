@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | The Garden and the Forest</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global-variables.css">
+<style>
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.00 – BASE (All Devices)
+   ═══════════════════════════════════════════════════════════ */
+
+
+/* ───────── C.00.01 – BACK BAR ───────── */
+
+.vv-back {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2.4rem;       /* TWEAK – back bar padding */
+  background: rgba(245,233,208,0.97);
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  text-decoration: none;
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 10;
+  margin: 0;
+}
+
+.vv-back-arrow {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--nav-active);
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.vv-back-label {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.66rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ───────── C.00.02 – ARTICLE WRAPPER ───────── */
+
+.vv-article-wrap {
+  display: block;
+  max-width: 640px;               /* TWEAK – reading column width */
+  margin: 0 auto;
+  padding: 4.5rem 2.4rem 7rem;   /* TWEAK – top / side / bottom */
+  box-sizing: border-box;
+}
+
+
+/* ───────── C.00.03 – ARTICLE HEADER ───────── */
+
+.vv-article-kicker {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.66rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+.vv-article-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.8rem;              /* TWEAK – article title size */
+  font-weight: 500;
+  font-style: normal;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-align: center;
+  margin: 0 0 0.6rem 0;
+  padding: 0;
+}
+
+.vv-article-tagline {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  text-align: center;
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+}
+
+.vv-article-byline {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.72rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 0 0;
+  padding: 0;
+}
+
+.vv-article-rule {
+  display: block;
+  width: 44px;
+  height: 1px;
+  background: var(--nav-underline);
+  border: none;
+  margin: 2.4rem auto 3rem;
+  padding: 0;
+}
+
+
+/* ───────── C.00.04 – BODY TEXT ───────── */
+
+.vv-article-body p {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 1.1rem;              /* TWEAK – body text size */
+  font-weight: 400;
+  font-style: normal;
+  line-height: 2.05;              /* TWEAK – line height */
+  letter-spacing: 0.015em;
+  color: var(--text-primary);
+  text-align: justify;
+  text-indent: 2em;               /* TWEAK – paragraph indent */
+  hyphens: auto;
+  margin: 0;
+  padding: 0;
+}
+
+/* C.00.04a – No indent after heading */
+.vv-article-body h3 + p {
+  text-indent: 0;
+}
+
+/* C.00.04b – Drop cap */
+.vv-article-body p.drop-cap {
+  text-indent: 0;
+}
+
+.vv-article-body p.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 4.6rem;              /* TWEAK – drop cap size */
+  font-weight: 500;
+  font-style: normal;
+  line-height: 0.76;              /* TWEAK – drop cap baseline */
+  color: var(--text-accent);
+  margin: 0.14em 0.1em 0 0;
+  padding: 0;
+}
+
+/* C.00.04c – Section headings */
+.vv-article-body h3 {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.08rem;             /* TWEAK – heading size */
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text-primary);
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin: 3.4rem 0 0 0;
+  padding: 0 0 0.9rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+
+/* ───────── C.00.05 – REFLECTION ───────── */
+
+.vv-reflection {
+  display: block;
+  margin: 4.5rem 0 0 0;
+  padding: 2.4rem 0 0 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.vv-reflection-label {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.64rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 1.8rem 0;
+  padding: 0;
+}
+
+.vv-reflection-responses {
+  display: block;
+  list-style: none;
+  margin: 0 0 1.6rem 0;
+  padding: 0;
+}
+
+.vv-reflection-item {
+  display: block;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(154,123,47,0.08);
+  margin: 0;
+}
+
+.vv-reflection-name {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.76rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.06em;
+  margin: 0 0 0.3rem 0;
+  padding: 0;
+}
+
+.vv-reflection-text {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.92rem;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0;
+  padding: 0;
+}
+
+.vv-reflection-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+}
+
+.vv-field {
+  display: block;
+  width: 100%;
+  font-family: var(--font-base);
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-primary);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.6rem 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+  resize: none;
+  transition: border-color 0.2s ease;
+}
+
+.vv-field:focus {
+  border-bottom-color: rgba(154,123,47,0.5);
+}
+
+.vv-submit {
+  display: inline-block;
+  align-self: flex-end;
+  font-family: var(--font-base);
+  font-size: 0.66rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(154,123,47,0.35);
+  padding: 0.3rem 0;
+  margin: 0;
+  cursor: pointer;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.vv-submit:hover {
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – MOBILE MODE (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  .vv-back {
+    padding: 0.85rem 1.4rem;
+  }
+
+  .vv-article-wrap {
+    padding: 3rem 1.4rem 5rem;
+  }
+
+  .vv-article-title {
+    font-size: 2rem;
+  }
+
+  .vv-article-body p {
+    font-size: 1rem;
+    line-height: 1.95;
+    text-align: left;
+    text-indent: 0;
+  }
+
+  .vv-article-body p.drop-cap::first-letter {
+    font-size: 3.6rem;
+  }
+
+}
+
+
+</style>
+</head>
+<body>
+
+
+<!-- H.00.00 – NAVIGATION -->
+<div class="nav-panel">
+  <div class="nav-logo">
+    <img src="images/logo-db.png" alt="D. Balakrishna">
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="artist.html">Artist</a>
+    <a href="about.html">About</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="international.html">International</a>
+    <a href="media.html">Media</a>
+    <a href="mysore-bani.html">Mysore Bāṇi</a>
+    <a href="vainika-voice.html">Vainika's Voice</a>
+    <a href="awards.html">Awards</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <div class="nav-hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+</div>
+
+<nav class="nav-drawer" id="navDrawer">
+  <a href="index.html">Home</a>
+  <a href="artist.html">Artist</a>
+  <a href="about.html">About</a>
+  <a href="lineage.html">Lineage</a>
+  <a href="international.html">International</a>
+  <a href="media.html">Media</a>
+  <a href="mysore-bani.html">Mysore Bāṇi</a>
+    <a href="vainika-voice.html">Vainika's Voice</a>
+  <a href="awards.html">Awards</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+
+
+  <!-- H.01.01 – BACK BAR -->
+  <a class="vv-back" href="vainika-voice.html">
+    <span class="vv-back-arrow">←</span>
+    <span class="vv-back-label">Vainika's Voice</span>
+  </a>
+
+
+  <!-- H.01.02 – ARTICLE -->
+  <div class="vv-article-wrap">
+
+    <span class="vv-article-kicker">Essay · 01</span>
+    <h1 class="vv-article-title">The Garden and the Forest</h1>
+    <div class="vv-article-tagline">On the Two Currents of Carnatic Music</div>
+    <div class="vv-article-byline">D. Balakrishna</div>
+    <hr class="vv-article-rule">
+
+    <!-- H.01.03 – BODY -->
+    <div class="vv-article-body">
+
+      <p class="drop-cap">In the vast and layered tradition of Carnatic music, stylistic differences are often described through lineage, bani, or repertoire. Yet beneath these variations lies a more fundamental distinction — one that concerns not the medium of expression, but the architecture of musical thought itself.</p>
+
+      <p>At heart, there are two enduring expressive currents.</p>
+
+      <p>One may be understood as the Veena style. The other as the Nadaswara style.</p>
+
+      <p>This distinction applies equally to vocal and instrumental music alike. It rests on how melodic thought is shaped and allowed to unfold.</p>
+
+      <h3>Veena Style — A Garden of Deliberate Bloom</h3>
+
+      <p>In this mode, melodic thought unfolds in compact, carefully shaped phrases (sangatis), each allowed to settle into its own balance before yielding onward. The movement from one idea to the next is measured, so that articulation itself becomes part of the design. Like a well-tended garden, each phrase stands distinct, yet contributes to an ordered and deliberate whole.</p>
+
+      <p>The raga emerges through many such shaped phrases, each placed with intention and proportion. No phrase stands in isolation; each prepares the ground for what follows. The points of articulation are not breaks, but thresholds — moments from which the unfolding gathers fresh strength.</p>
+
+      <p>This mode may be likened to a temple gopuram, rising tier upon tier, each carved panel distinct, yet aligned within a larger and harmonious design.</p>
+
+      <h3>Nadaswara Style — A Forest in Unbroken Motion</h3>
+
+      <p>In contrast, melodic thought here unfolds in extended and continuous movement. Rather than resting in clearly shaped segments, it advances in widening arcs, each idea carried forward into the next. The shaping is not lost, but it is absorbed into motion; articulation yields to continuity.</p>
+
+      <p>Like a forest path stretching beyond immediate sight, the phrase does not pause to be examined. It gathers and travels, drawing strength from its own progression. What begins as a phrase grows into a current.</p>
+
+      <p>If the veena mode rises like a gopuram, this moves like a temple procession. One does not isolate a single step of the procession and call it complete. Its meaning lies in collective advance — in sustained motion, shared energy, and cumulative presence.</p>
+
+      <p>Here, wholeness is not assembled tier upon tier; it arises through continuity itself.</p>
+
+      <h3>Two Ways of Revealing Wholeness</h3>
+
+      <p>In both approaches, beauty resides ultimately in the whole.</p>
+
+      <p>But the means differ.</p>
+
+      <p>In the veena mode, wholeness is shaped through clearly formed phrases, each aligned with intention and repose. The design is revealed through articulation.</p>
+
+      <p>In the nadaswara mode, wholeness emerges through sustained continuity, where movement itself sustains coherence. The design is revealed through expansion.</p>
+
+      <p>One clarifies by shaping. The other by advancing.</p>
+
+      <p>Both have intrinsic beauty &amp; are foundational to Carnatic aesthetics. Every musician — whether vocalist or instrumentalist — consciously or intuitively leans towards either of these depending on his personality.</p>
+
+      <p>A matured artist does not choose any one exclusively, but understands when to let the form stand in quiet balance, and when to allow it to widen and gather.</p>
+
+      <p>Carnatic music is vast and inexhaustible. Yet its expressive life often rests upon these two enduring images — the garden and the forest.</p>
+
+      <p>In every alapana, the raga either rises in deliberate form - like a carved tower, or advances in living motion - like a procession through open space.</p>
+
+      <p>And in that quiet distinction, an aesthetic world reveals itself.</p>
+
+    </div><!-- end .vv-article-body -->
+
+
+    <!-- H.01.04 – REFLECTION -->
+    <div class="vv-reflection">
+      <span class="vv-reflection-label">Share your reflection</span>
+      <ul class="vv-reflection-responses" id="ref-list"></ul>
+      <div class="vv-reflection-form">
+        <input class="vv-field" type="text" id="ref-name" placeholder="Your name" autocomplete="off">
+        <textarea class="vv-field" id="ref-text" rows="3" placeholder="Your reflection…"></textarea>
+        <button class="vv-submit" onclick="submitReflection()">Submit</button>
+      </div>
+    </div>
+
+
+  </div><!-- end .vv-article-wrap -->
+
+
+</div><!-- end #content -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.01.00 – HAMBURGER
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+(function () {
+  var btn    = document.getElementById('navHamburger');
+  var drawer = document.getElementById('navDrawer');
+  if (!btn || !drawer) { return; }
+  btn.addEventListener('click', function () { drawer.classList.toggle('open'); });
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+    }
+  });
+}());
+</script>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.02.00 – REFLECTION SUBMISSION
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+function submitReflection () {
+
+  var nameEl = document.getElementById('ref-name');
+  var textEl = document.getElementById('ref-text');
+  var listEl = document.getElementById('ref-list');
+
+  var name = nameEl ? nameEl.value.trim() : '';
+  var text = textEl ? textEl.value.trim() : '';
+
+  if (!text) { return; }
+
+  var item           = document.createElement('li');
+  item.className     = 'vv-reflection-item';
+
+  var nameSpan       = document.createElement('span');
+  nameSpan.className = 'vv-reflection-name';
+  nameSpan.textContent = name || 'Anonymous';
+
+  var textSpan       = document.createElement('span');
+  textSpan.className = 'vv-reflection-text';
+  textSpan.textContent = text;
+
+  item.appendChild(nameSpan);
+  item.appendChild(textSpan);
+
+  if (listEl) { listEl.appendChild(item); }
+
+  if (nameEl) { nameEl.value = ''; }
+  if (textEl) { textEl.value = ''; }
+
+}
+
+</script>
+
+
+</body>
+</html>
