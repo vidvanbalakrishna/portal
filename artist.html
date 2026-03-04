@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Artist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="global-variables.css">
+<style>
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – ARTIST PAGE TYPOGRAPHY BASE
+   ═══════════════════════════════════════════════════════════ */
+
+.artist-title,
+.artist-tagline {
+  font-family: var(--font-display);
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – DESKTOP LAYOUT (min-width: 901px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 901px) {
+
+  /* C.03.01 – Hide mobile hero */
+  .artist-mobile-hero {
+    display: none;
+  }
+
+  /* C.03.02 – Fixed hero container left */
+  .artist-hero {
+    position: fixed;
+    top: var(--content-top);
+    left: 0;
+    bottom: 0;
+    width: 47vw;           /* TWEAK THIS – wider extends further left off edge */
+    transform: translateX(-8vw); /* TWEAK THIS – more negative moves further left */
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .artist-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* C.03.03 – Text column right */
+  .artist-text-column {
+    position: relative;
+    margin-left: 32vw;     /* TWEAK THIS – must match hero width */
+    min-height: 100vh;
+    padding: 0;
+    z-index: 2;
+  }
+
+  /* C.03.04 – Header block */
+  .artist-header {
+    position: relative;
+    top: auto;
+    background: none;
+    padding: 3rem 4rem 2rem 12rem; /* TWEAK THIS – top / right / bottom / left */
+    max-width: none;
+    z-index: auto;
+    border-bottom: none;
+  }
+
+  .artist-title {
+    font-size: 3rem;       /* TWEAK THIS – title size */
+    letter-spacing: 0.06em;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.1;
+    color: var(--text-primary);
+  }
+
+  .artist-tagline {
+    font-size: 1.2rem;     /* TWEAK THIS – tagline size */
+    letter-spacing: 0.12em;
+    color: var(--text-accent);
+    opacity: 0.85;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.4;
+  }
+
+  /* C.03.05 – Card container */
+  .artist-cards {
+    position: relative;
+    padding: 3rem 4rem 4rem 12rem; /* TWEAK THIS – top / right / bottom / left */
+    margin: 0;
+  }
+
+  /* C.03.06 – Individual card */
+  .artist-card {
+    position: relative;
+    min-height: auto;
+    display: block;
+    padding: 0;
+    margin-bottom: 2.5rem; /* TWEAK THIS – space between paragraphs */
+    opacity: 1;
+    transition: none;
+  }
+
+  .artist-card p {
+    font-size: var(--body-size-desktop);
+    line-height: var(--body-line-desktop);
+    letter-spacing: var(--body-letter-desktop);
+    font-style: normal;    /* BUG FIX: was "REGULAR" – invalid value */
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin: 0;
+    padding: 0;
+    max-width: 84ch;       /* TWEAK THIS – characters per line */
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – MOBILE LAYOUT (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  /* C.04.01 – Hide desktop hero */
+  .artist-hero {
+    display: none;
+  }
+
+  /* C.04.02 – Mobile hero display */
+  .artist-mobile-hero {
+    display: block;
+    width: 100%;
+    height: 100vh;         /* TWEAK THIS – full screen hero height */
+    overflow: hidden;
+  }
+
+  .artist-mobile-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* C.04.03 – Mobile text column */
+  .artist-text-column {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    background: var(--bg-layer-3);
+  }
+
+  /* C.04.04 – Mobile header */
+  .artist-header {
+    position: relative;
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .artist-title {
+    font-size: 2.2rem;     /* TWEAK THIS – mobile title size */
+    letter-spacing: 0.05em;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+
+  .artist-tagline {
+    font-size: 1.05rem;    /* TWEAK THIS – mobile tagline size */
+    letter-spacing: 0.1em;
+    color: var(--text-accent);
+    opacity: 0.85;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.4;
+  }
+
+  /* C.04.05 – Mobile card container */
+  .artist-cards {
+    padding: 2rem 1.5rem 4rem;
+    margin: 0;
+  }
+
+  /* C.04.06 – Individual card */
+  .artist-card {
+    position: relative;
+    min-height: auto;
+    display: block;
+    padding: 0;
+    margin-bottom: 2rem;   /* TWEAK THIS – space between paragraphs */
+    opacity: 1;
+  }
+
+  .artist-card p {
+    font-size: var(--body-size-mobile);
+    line-height: var(--body-line-mobile);
+    letter-spacing: var(--body-letter-mobile);
+    font-style: normal;    /* BUG FIX: was "regular" – invalid value */
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin: 0;
+    padding: 0;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.00.00 – NAVIGATION PANEL
+<!-- H.00.00 – NAVIGATION (injected by nav.js) -->
+<div id="nav-placeholder"></div>
+<script src="nav.js"></script>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+
+  <!-- H.01.01 – Mobile hero -->
+  <div class="artist-mobile-hero">
+    <img src="images/artist-hero.png" alt="D. Balakrishna">
+  </div>
+
+  <!-- H.01.02 – Desktop fixed hero -->
+  <div class="artist-hero">
+    <img src="images/artist-hero.png" alt="D. Balakrishna">
+  </div>
+
+  <!-- H.01.03 – Text column -->
+  <div class="artist-text-column">
+
+    <!-- H.01.04 – Header -->
+    <div class="artist-header">
+      <h1 class="artist-title">The Vidvān</h1>
+      <div class="artist-tagline">Rooted in lineage · Shaped by Sādhanā</div>
+    </div>
+
+    <!-- H.01.05 – Cards -->
+    <div class="artist-cards">
+
+      <div class="artist-card" data-card="1">
+        <p>
+          Son and disciple of Sangeetha Kalanidhi Dr. Mysore V. Doreswamy Iyengar, D. Balakrishna grew in a household where music was absorbed quietly, corrected in silence, and refined without haste. Tradition was not introduced through instruction alone; it was lived as daily presence—through routine, listening, and example—until discipline became instinct and refinement followed naturally.
+        </p>
+      </div>
+
+      <div class="artist-card" data-card="2">
+        <p>
+          He stands firmly within the Mysore bāṇi as a natural bearer. Descending from the legacy of Veena Sheshanna, this tradition values clarity over display, repose over urgency, and balance over outward flourish. It is a school where sound is shaped by proportion and restraint, and where form reveals itself without insistence.
+        </p>
+      </div>
+
+      <div class="artist-card" data-card="3">
+        <p>
+          In Balakrishna's hands, the veena speaks with quiet assurance. Notes are placed with care; phrases unfold unhurried, without excess or strain. What is heard is steadiness and proportion—an unforced sense of form that holds its shape without contrivance.
+        </p>
+      </div>
+
+      <div class="artist-card" data-card="4">
+        <p>
+          The refinement of laya that marks his veena did not arise incidentally. His earliest musical training was in mridangam, where time is learned through discipline rather than display. Years spent within rhythmic structure refined an instinct for balance and anticipation—qualities that later found natural expression in melodic form. When he returned fully to the veena under his father's guidance, rhythm was no longer an accompaniment to melody, but an inner order—present, steady, and unannounced.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+</body>
+</html>
