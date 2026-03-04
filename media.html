@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="global-variables.css">
+<style>
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – MOBILE HAMBURGER BUTTON
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-hamburger {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;           /* TWEAK THIS – button hit area width */
+  height: var(--nav-height);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.nav-hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-hamburger-icon span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--nav-link);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.01 – MOBILE NAV DRAWER
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+  margin: 0;
+  z-index: 150;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-drawer.open {
+  display: flex;
+}
+
+.nav-drawer a {
+  display: block;
+  width: 100%;
+  padding: 12px 28px;
+  margin: 0;
+  text-decoration: none;
+  color: var(--nav-link);
+  font-family: var(--font-base);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  border: none;
+  background: transparent;
+  transition: color var(--hover-transition);
+  box-sizing: border-box;
+}
+
+.nav-drawer a:hover,
+.nav-drawer a.active {
+  color: var(--nav-active);
+  background: transparent;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.02 – MOBILE MODE (max-width: 1100px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+
+  .nav-panel {
+    position: fixed;
+    overflow: hidden;
+    padding-right: 68px;
+  }
+
+  .nav-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 60px;
+    width: 60px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(255,255,240,0) 0%,
+      var(--nav-bg) 100%
+    );
+    z-index: 101;
+  }
+
+  .nav-links {
+    display: flex;
+    overflow: hidden;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.03 – DESKTOP MODE (min-width: 1101px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 1101px) {
+
+  .nav-hamburger {
+    display: none;
+  }
+
+  .nav-drawer {
+    display: none !important;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.00 – MEDIA PAGE HEADER
+   ═══════════════════════════════════════════════════════════ */
+
+.media-header {
+  text-align: center;
+  padding: 4rem 2rem 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.media-title {
+  font-family: var(--font-display);
+  font-size: 3rem;       /* TWEAK THIS – title size */
+  letter-spacing: 0.06em;
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.media-tagline {
+  font-family: var(--font-display);
+  font-size: 1.2rem;     /* TWEAK THIS – tagline size */
+  letter-spacing: 0.12em;
+  color: var(--text-accent);
+  opacity: 0.85;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.4;
+  margin: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – ACCORDION ANIMATIONS
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes iconBob {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(3px); } /* TWEAK THIS – 3px = bob distance */
+}
+
+@keyframes scrollPulse {
+  0%, 100% {
+    box-shadow:
+      0 3px 10px rgba(122,31,31,0.2),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    box-shadow:
+      0 4px 14px rgba(154,123,47,0.3),
+      inset 0 1px 0 rgba(255,255,255,0.8);
+    transform: translateY(-50%) scale(1.05);
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – ACCORDION SECTIONS
+   ═══════════════════════════════════════════════════════════ */
+
+.media-container {
+  max-width: 1000px;     /* TWEAK THIS – content max width */
+  margin: 0 auto;
+  padding: 0 2rem 5rem;
+}
+
+.accordion-section {
+  margin-bottom: 2rem;   /* TWEAK THIS – space between sections */
+  border: 1px solid rgba(154,123,47,0.2);
+  border-radius: 8px;
+  background: rgba(255,255,240,0.4);
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.accordion-section:hover {
+  border-color: rgba(154,123,47,0.4);
+  box-shadow: 0 2px 12px rgba(122,31,31,0.08);
+}
+
+/* Closed header – lift on hover to invite click */
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;  /* TWEAK THIS – header padding */
+  cursor: pointer;
+  background: rgba(255,252,240,0.6);
+  transition: background 0.3s ease, transform 0.2s ease;
+  user-select: none;
+  position: relative;
+}
+
+.accordion-header:hover {
+  background: rgba(255,252,240,0.92);
+  transform: translateY(-1px); /* TWEAK THIS – lift on hover, signals clickability */
+}
+
+/* Active header – no lift, settled */
+.accordion-section.active .accordion-header {
+  background: rgba(255,252,235,0.95);
+  border-bottom: 1px solid rgba(154,123,47,0.18);
+  transform: none;
+}
+
+.accordion-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;     /* TWEAK THIS – category title size */
+  font-weight: 500;
+  font-style: normal;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.accordion-count {
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--text-accent);
+  opacity: 0.7;
+  margin-left: 0.8rem;
+}
+
+/* ─── Dropdown prompt icon ─────────────────────────────────── */
+
+.accordion-icon-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;              /* TWEAK THIS – gap between icon and hint text */
+  flex-shrink: 0;
+}
+
+/* Hint text below icon – only on closed sections */
+.accordion-hint {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.55rem;    /* TWEAK THIS – hint label size */
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--nav-active);
+  opacity: 0.6;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Hide hint when open */
+.accordion-section.active .accordion-hint {
+  opacity: 0;
+}
+
+.accordion-icon {
+  display: block;
+  font-size: 1rem;       /* TWEAK THIS – chevron size */
+  color: #9a7b2f;
+  transition: transform 0.35s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+/* Bob when closed */
+.accordion-section:not(.active) .accordion-icon {
+  animation: iconBob 2s ease-in-out infinite; /* TWEAK THIS – 2s = bob speed */
+}
+
+/* Rotate when open */
+.accordion-section.active .accordion-icon {
+  transform: rotate(180deg);
+  animation: none;
+  color: var(--text-accent);
+}
+
+
+/* ─── Accordion content ─────────────────────────────────────── */
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s ease;
+}
+
+.accordion-section.active .accordion-content {
+  max-height: 10000px;   /* large enough for all content */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.05.00 – VIDEO GRID & SCROLL BUTTONS
+   ═══════════════════════════════════════════════════════════ */
+
+.video-grid-wrapper {
+  position: relative;
+  padding: 2rem;
+}
+
+.video-grid {
+  display: flex;
+  gap: 1.5rem;           /* TWEAK THIS – space between cards */
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 0;
+  scrollbar-width: none;
+}
+
+.video-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.video-grid .video-card {
+  flex: 0 0 320px;       /* TWEAK THIS – card width */
+  max-width: 320px;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;           /* TWEAK THIS – scroll button size */
+  height: 44px;
+  background: rgba(255,248,235,0.85);
+  border: 1px solid rgba(122,31,31,0.35);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  z-index: 10;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  animation: scrollPulse 3s ease-in-out infinite; /* TWEAK THIS – 3s = pulse speed */
+}
+
+.scroll-btn:hover {
+  background: rgba(255,252,240,1);
+  border-color: rgba(122,31,31,0.65);
+  animation: none;
+  transform: translateY(-50%);
+}
+
+.scroll-btn:active {
+  transform: translateY(-50%) scale(0.97);
+}
+
+/* SVG arrow inside scroll button */
+.scroll-btn svg {
+  display: block;
+  width: 18px;           /* TWEAK THIS – arrow width */
+  height: 11px;          /* TWEAK THIS – arrow height */
+  margin: 0;
+  padding: 0;
+}
+
+.scroll-btn.left {
+  left: 0.5rem;          /* TWEAK THIS – distance from left edge */
+}
+
+.scroll-btn.right {
+  right: 0.5rem;         /* TWEAK THIS – distance from right edge */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.06.00 – VIDEO CARDS
+   ═══════════════════════════════════════════════════════════ */
+
+.video-card {
+  background: rgba(255,255,240,0.8);
+  border: 1px solid rgba(154,123,47,0.15);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.video-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(122,31,31,0.15);
+  border-color: rgba(154,123,47,0.3);
+}
+
+.video-thumbnail {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;   /* 16:9 aspect ratio */
+  background: #e0e0e0;
+  overflow: hidden;
+}
+
+.video-thumbnail img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(154,123,47,0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.video-card:hover .video-play-icon {
+  background: rgba(122,31,31,0.95);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.video-play-icon::after {
+  content: '▶';
+  color: white;
+  font-size: 24px;
+  margin-left: 4px;
+}
+
+.video-info {
+  padding: 1.2rem;
+}
+
+.video-title {
+  font-size: 1.05rem;
+  font-style: normal;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin: 0 0 0.6rem 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;   /* TWEAK THIS – max lines for title */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.video-synopsis {
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;   /* TWEAK THIS – max lines for synopsis */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  opacity: 0.85;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.07.00 – VIDEO MODAL
+   ═══════════════════════════════════════════════════════════ */
+
+.video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.video-modal.active {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;     /* TWEAK THIS – max video width */
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.modal-close:hover {
+  color: #9a7b2f;
+  transform: scale(1.1);
+}
+
+.video-player {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;   /* 16:9 */
+}
+
+.video-player iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.08.00 – MOBILE LAYOUT (max-width: 1100px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+
+  .media-header {
+    padding: 2.5rem 1.5rem 2rem;
+  }
+
+  .media-title {
+    font-size: 2.2rem;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .media-tagline {
+    font-size: 1.05rem;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .media-container {
+    padding: 0 1rem 4rem;
+  }
+
+  .accordion-header {
+    padding: 1.2rem 1.5rem;
+  }
+
+  .accordion-title {
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .video-grid {
+    gap: 1.2rem;
+    padding: 1rem 0.5rem;
+  }
+
+  .modal-close {
+    top: -35px;
+    font-size: 1.8rem;
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.00.00 – NAVIGATION PANEL
+<!-- H.00.00 – NAVIGATION (injected by nav.js) -->
+<div id="nav-placeholder"></div>
+<script src="nav.js"></script>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+
+  <!-- H.01.01 – Header -->
+  <div class="media-header">
+    <h1 class="media-title">Listen & Watch</h1>
+    <div class="media-tagline">Immerse yourself in the elegance of the Mysore Bāṇi</div>
+  </div>
+
+  <!-- H.01.02 – Accordion container -->
+  <div class="media-container">
+
+    <!-- H.01.03 – Category 1: Live Concerts -->
+    <div class="accordion-section" data-section="live">
+      <div class="accordion-header">
+        <div>
+          <span class="accordion-title">Live Concerts</span>
+          <span class="accordion-count">(18)</span>
+        </div>
+        <div class="accordion-icon-wrap">
+          <span class="accordion-icon">▾</span>
+          <span class="accordion-hint">open</span>
+        </div>
+      </div>
+      <div class="accordion-content">
+        <div class="video-grid-wrapper">
+          <button class="scroll-btn left" onclick="scrollVideos('live-concerts-grid', -1)" aria-label="Scroll left">
+            <svg viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="18" y1="5.5" x2="1" y2="5.5" stroke="#7a1f1f" stroke-width="1.5"/>
+              <polyline points="6,1 1,5.5 6,10" fill="none" stroke="#7a1f1f" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="video-grid" id="live-concerts-grid"></div>
+          <button class="scroll-btn right" onclick="scrollVideos('live-concerts-grid', 1)" aria-label="Scroll right">
+            <svg viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="5.5" x2="17" y2="5.5" stroke="#7a1f1f" stroke-width="1.5"/>
+              <polyline points="12,1 17,5.5 12,10" fill="none" stroke="#7a1f1f" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- H.01.04 – Category 2: Thematic Presentations -->
+    <div class="accordion-section" data-section="thematic">
+      <div class="accordion-header">
+        <div>
+          <span class="accordion-title">Thematic Presentations</span>
+          <span class="accordion-count">(4)</span>
+        </div>
+        <div class="accordion-icon-wrap">
+          <span class="accordion-icon">▾</span>
+          <span class="accordion-hint">open</span>
+        </div>
+      </div>
+      <div class="accordion-content">
+        <div class="video-grid-wrapper">
+          <button class="scroll-btn left" onclick="scrollVideos('thematic-grid', -1)" aria-label="Scroll left">
+            <svg viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="18" y1="5.5" x2="1" y2="5.5" stroke="#7a1f1f" stroke-width="1.5"/>
+              <polyline points="6,1 1,5.5 6,10" fill="none" stroke="#7a1f1f" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="video-grid" id="thematic-grid"></div>
+          <button class="scroll-btn right" onclick="scrollVideos('thematic-grid', 1)" aria-label="Scroll right">
+            <svg viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="5.5" x2="17" y2="5.5" stroke="#7a1f1f" stroke-width="1.5"/>
+              <polyline points="12,1 17,5.5 12,10" fill="none" stroke="#7a1f1f" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- H.01.05 – Category 3: Special Projects -->
+    <div class="accordion-section" data-section="special">
+      <div class="accordion-header">
+        <div>
+          <span class="accordion-title">Special Projects</span>
+          <span class="accordion-count">(3)</span>
+        </div>
+        <div class="accordion-icon-wrap">
+          <span class="accordion-icon">▾</span>
+          <span class="accordion-hint">open</span>
+        </div>
+      </div>
+      <div class="accordion-content">
+        <div class="video-grid-wrapper">
+          <button class="scroll-btn left" onclick="scrollVideos('special-projects-grid', -1)" aria-label="Scroll left">
+            <svg viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="18" y1="5.5" x2="1" y2="5.5" stroke="#7a1f1f" stroke-width="1.5"/>
+              <polyline points="6,1 1,5.5 6,10" fill="none" stroke="#7a1f1f" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="video-grid" id="special-projects-grid"></div>
+          <button class="scroll-btn right" onclick="scrollVideos('special-projects-grid', 1)" aria-label="Scroll right">
+            <svg viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="5.5" x2="17" y2="5.5" stroke="#7a1f1f" stroke-width="1.5"/>
+              <polyline points="12,1 17,5.5 12,10" fill="none" stroke="#7a1f1f" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- H.01.06 – Category 4: Individual Pieces -->
+    <div class="accordion-section" data-section="individual">
+      <div class="accordion-header">
+        <div>
+          <span class="accordion-title">Individual Pieces</span>
+          <span class="accordion-count">(13)</span>
+        </div>
+        <div class="accordion-icon-wrap">
+          <span class="accordion-icon">▾</span>
+          <span class="accordion-hint">open</span>
+        </div>
+      </div>
+      <div class="accordion-content">
+        <div class="video-grid-wrapper">
+          <button class="scroll-btn left" onclick="scrollVideos('individual-pieces-grid', -1)" aria-label="Scroll left">
+            <svg viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="18" y1="5.5" x2="1" y2="5.5" stroke="#7a1f1f" stroke-width="1.5"/>
+              <polyline points="6,1 1,5.5 6,10" fill="none" stroke="#7a1f1f" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div class="video-grid" id="individual-pieces-grid"></div>
+          <button class="scroll-btn right" onclick="scrollVideos('individual-pieces-grid', 1)" aria-label="Scroll right">
+            <svg viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" y1="5.5" x2="17" y2="5.5" stroke="#7a1f1f" stroke-width="1.5"/>
+              <polyline points="12,1 17,5.5 12,10" fill="none" stroke="#7a1f1f" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.02.00 – VIDEO MODAL
+     ═══════════════════════════════════════════════════════════ -->
+
+<div class="video-modal" id="videoModal">
+  <button class="modal-close" id="modalClose">×</button>
+  <div class="modal-content">
+    <div class="video-player" id="videoPlayer"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.00.00 – VIDEO DATA & RENDERING
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+
+/* J.00.01 – Video data */
+var videoData = {
+  liveConcerts: [
+    { title: "Vidwan D. Balakrishna II Veena Recital", url: "https://www.youtube.com/watch?v=cDb4RjyxWYM", synopsis: "A full veena recital by Vidwan D. Balakrishna, streamed on AIR Raagam, India's 24/7 classical music channel featuring archival recordings from All India Radio, highlighting his renditions of Carnatic classics." },
+    { title: "Sangeet Nritya Utsav - Veena Concert", url: "https://www.youtube.com/watch?v=_X4RxI6h75s", synopsis: "Part of the Sangeet Nritya Utsav festival celebrating South and North Indian classical traditions; this concert features D. Balakrishna's veena performance, emphasizing the richness of Carnatic music in a month-long event." },
+    { title: "Veena Concert by Vidwan Sri.D.Balakrishna", url: "https://www.youtube.com/watch?v=ZZMIT5rny9w", synopsis: "A complete veena concert by D. Balakrishna, accompanied by Sudarshan Chakravarthy on mridangam and Prahlad Chakravarthy on kanjira, recorded on June 24, 2023." },
+    { title: "Veena-Venu Duet - Part 2", url: "https://www.youtube.com/watch?v=sf8_9Utc__Q", synopsis: "Part 2 of a duet concert at Nadabrahma Sangeetha Sabha, Mysore, featuring D. Balakrishna on veena and V. Vamshidhar on venu, with engaging live Carnatic performance." },
+    { title: "Grand Veena Recital - Guruguhaamrta", url: "https://www.youtube.com/watch?v=e45pVIugoEk", synopsis: "A grand veena recital by Sangeet Natak Akademi Awardee D. Balakrishna, accompanied by K. Arun Prakash and N. Guruprasad, presented by Guruguhaamrta on July 5, 2024." },
+    { title: "KFAC - Purandara Darshana", url: "https://www.youtube.com/watch?v=woszILdZgAo", synopsis: "Carnatic veena music performance by D. Balakrishna and his disciples at Karanji Anjaneya Swamy Temple, Bengaluru, on July 9, 2017." },
+    { title: "Atlanta Concert 2023 - Part 3", url: "https://www.youtube.com/watch?v=UbY3olpeb9w", synopsis: "Third part of a veena concert in Atlanta, accompanied by Balamurali on mridangam and Thejas on ghatam; includes seven compositions with extended musical segments." },
+    { title: "Nadasurabhi – March 2024", url: "https://www.youtube.com/watch?v=y0N1jtCx8pw", synopsis: "A Carnatic veena concert by Sri. D. Balakrishna, accompanied by Sri. V. Praveen on mridangam and Sri. Giridhar Udupa on ghatam, recorded on March 30, 2024." },
+    { title: "MRT Music Series - Veena Concert", url: "https://www.youtube.com/watch?v=IpNb8iN9g3A", synopsis: "A Carnatic classical instrumental veena concert by D. Balakrishna, part of the MRT Music series, showcasing various compositions in a live setting." },
+    { title: "Sri Vani Kalakendra Concert", url: "https://www.youtube.com/watch?v=I1OEOgYc5wA", synopsis: "A veena concert accompanied by V. Vamshidhar on flute, B.R. Srinivas on mridangam, and Raghavendra Prakash on ghatam, held at Sri Vani Kalakendra during Sri Ramanavami." },
+    { title: "Sri Yadugiri Yatiraja Matha", url: "https://www.youtube.com/watch?v=avG2-2wI34s", synopsis: "A veena recital accompanied by Sri Anirudh Bhat on mridangam and Sri Raghavendra Prakash on ghatam, performed in August 2022." },
+    { title: "Thillaisthanam Foundation Concert", url: "https://www.youtube.com/watch?v=Rt2epZ7fa3U", synopsis: "Carnatic music concert featuring D. Balakrishna on veena, held on March 24, 2024, with compositions primarily by Thyagaraja." },
+    { title: "Naada Sangama - Part 1", url: "https://www.youtube.com/watch?v=pVqv56419Is", synopsis: "Part 1 of a veena recital as part of the Naada Sangama series, presenting classical music with continuous performances and audience applause." },
+    { title: "Bangalore Concert 2011 - Part 2.1", url: "https://www.youtube.com/watch?v=2yqkmWTcgBs", synopsis: "Part 2.1 of a veena concert in Bangalore on September 5, 2011, featuring Raga Kamas and 'Seethapathe Naa Manasuna' by Tyagaraja." },
+    { title: "Bangalore Concert 2011 - Part 2.2", url: "https://www.youtube.com/watch?v=Kmo6z8bDJ14", synopsis: "Part 2.2 continuing with Raga Kamas and 'Seethapathe' in Adi tala by Tyagaraja." },
+    { title: "Veena Recital by Vid. D. Balakrishna", url: "https://www.youtube.com/watch?v=mS5ZgIp1iTM", synopsis: "A veena recital showcasing his mastery in Carnatic music, likely from a festival or special event." },
+    { title: "YaarAnād Virtual Baithak Mālā 64", url: "https://www.youtube.com/watch?v=cy50xj580g0", synopsis: "A virtual concert featuring VidwĀn D. Balakrishna on Saraswati veena, exponent of the Mysore school, held on June 13, 2020." },
+    { title: "D Balakrishna Veena Live", url: "https://www.youtube.com/watch?v=UK90QF4e8-k", synopsis: "A live veena performance capturing his solo artistry in a concise session." }
+  ],
+  thematic: [
+    { title: "Navaratri 2013 Day 3", url: "https://www.youtube.com/watch?v=lVTSIvCGYxQ", synopsis: "A live veena performance during Day 3 of Navaratri 2013 at Isha Yoga Center, presenting traditional repertoire with the unhurried clarity of the Mysore bāṇi. Duration: 1 hour 35 minutes." },
+    { title: "Devi Navaratri 2013", url: "https://www.youtube.com/watch?v=2dDoshXIuP4", synopsis: "A Carnatic veena concert during Devi Navaratri at Avadhoota Datta Peetham, Mysore, featuring 'Tripure Trigune' in Raga Naata, performed on Shashthi (October 10, 2013)." },
+    { title: "Saint Tyagaraja Pancharatna Krithis", url: "https://www.youtube.com/watch?v=sTUURX8MzAo", synopsis: "Veena ensemble led by Vid. D. Balakrishna with students performing the Pancharatna Krithis. Ten vainikas unite in a rare collective expression. Duration: 28 minutes." },
+    { title: "Vainika Shikhamani Veene Sheshanna Day", url: "https://www.youtube.com/watch?v=kyWAW26_dAc", synopsis: "A concert devoted entirely to compositions by Veene Sheshanna, tracing the roots of the Mysore tradition, at Gana Bharathi, Bangalore. Duration: 55 minutes." }
+  ],
+  specialProjects: [
+    { title: "Melbourne Veena Festival 2024", url: "https://www.youtube.com/watch?v=rL5uoikCp_8", synopsis: "Live recording from the Melbourne Veena Festival at Box Hill Community Arts Centre, Australia, showcasing his Mysore style with 10 compositions including an RTP in Nataikurinji." },
+    { title: "Vipanchika Mahotsavam 2024 - Day 1", url: "https://www.youtube.com/watch?v=uOrcxswMQq8", synopsis: "A Carnatic veena concert as part of Day 1 of Vipanchika Mahotsavam 2024, a festival dedicated to the veena, featuring compositions by Swati Tirunal and Thyagaraja on Vasant Panchami." },
+    { title: "Aikyamrutam - A Musical Tribute to Mother India", url: "https://www.youtube.com/watch?v=3uF-E9z8FyQ", synopsis: "A curated musical video tribute to commemorate India's 75th year of Independence, featuring songs from various states on veena. Duration: 28 minutes." }
+  ],
+  individualPieces: [
+    { title: "Janani Ninnuvina - Reetigowla", url: "https://www.youtube.com/watch?v=LT7UmDfXyys", synopsis: "Instrumental rendition of Subbaraya Sastri's devotional kriti in Raga Reetigowla and Misra Chapu tala, evoking serenity and devotion." },
+    { title: "Thillana - Veena Seshanna", url: "https://www.youtube.com/watch?v=vLyHVp8xbMM", synopsis: "Performance of a thillana composed by Mysore Veena Seshanna, part of the International Music Premier League." },
+    { title: "Thillana - Sringara Lahari", url: "https://www.youtube.com/watch?v=NhlCRKioMaQ", synopsis: "A thillana from the album 'Sringara Lahari (Veena Delights)' highlighting intricate Carnatic instrumental veena work." },
+    { title: "Bhavanutha - Mohanam", url: "https://www.youtube.com/watch?v=ApXq-7OpYi8", synopsis: "Instrumental rendition of Thyagaraja's 'Bhavanutha' in Raga Mohanam and Adi tala from the album 'Veena Swara Ranjani'." },
+    { title: "Nambi Kettavarillavo - Kalyani", url: "https://www.youtube.com/watch?v=IpNb8iN9g3A", synopsis: "An instrumental rendition in Raaga Kalyani and Taala Misrachapu, performed on the veena as part of the Veena Swara Ranjani album." },
+    { title: "Thillana - Kapi", url: "https://www.youtube.com/watch?v=SBslNX1Tv50", synopsis: "A Thillana in Raga Kapi composed by Veena Seshanna, performed in Misra Chapu Tala, blending rhythmic and melodic elements." },
+    { title: "Karuninchitaku - Sindhumandari", url: "https://www.youtube.com/watch?v=MQZAun8wogA", synopsis: "An instrumental rendition in Sindhumandari raga and Adi tala, from the Veena Swara Ranjani album." },
+    { title: "Srinarada - Kanada", url: "https://www.youtube.com/watch?v=nCOwJxbFr5c", synopsis: "A performance of 'Srinarada' in Kanada raga by Thyagaraja, accompanied by A V Anand on mridangam and Vyasavittala on kanjira." },
+    { title: "Bhajare re maanasa - Abheri", url: "https://www.youtube.com/watch?v=c3yT46Hs_YQ", synopsis: "Veena performance of 'Bhajare re maanasa' in Abheri raga, recorded in 2011." },
+    { title: "Naa Jeevadhara - Bilahari", url: "https://www.youtube.com/watch?v=p2ZDlU3U4ss", synopsis: "A rendition of 'Naa Jeevadhara' in Bilahari raga, played using the Mysore split fingering style." },
+    { title: "Saragunapa - Kedaragowla", url: "https://www.youtube.com/watch?v=R_kkPcdEEyY", synopsis: "Veena rendition of 'Saragunapa' in Kedaragowla raga, composed by Ramanathapuram Srinivasa Iyengar." },
+    { title: "Junjhooti Thillana", url: "https://www.youtube.com/watch?v=yxukax0RDns", synopsis: "A thillana in Junjhooti raga performed on Mysore veena, showcasing rhythmic complexity." },
+    { title: "Koluvamaregada - Thodi", url: "https://www.youtube.com/watch?v=InAwSHw9DJg", synopsis: "Veena performance of Thyagaraja's 'Koluvamaregada' in Thodi raga." }
+  ]
+};
+
+/* J.00.02 – Extract YouTube ID */
+function getYouTubeID(url) {
+  var regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
+  var match = url.match(regex);
+  return match ? match[1] : null;
+}
+
+/* J.00.03 – Get thumbnail */
+function getThumbnail(videoID) {
+  return 'https://img.youtube.com/vi/' + videoID + '/hqdefault.jpg';
+}
+
+/* J.00.04 – Create card */
+function createVideoCard(video) {
+  var videoID = getYouTubeID(video.url);
+  var thumbnail = getThumbnail(videoID);
+  return '<div class="video-card" onclick="openVideo(\'' + videoID + '\')">'
+    + '<div class="video-thumbnail">'
+    + '<img src="' + thumbnail + '" alt="' + video.title + '">'
+    + '<div class="video-play-icon"></div>'
+    + '</div>'
+    + '<div class="video-info">'
+    + '<h3 class="video-title">' + video.title + '</h3>'
+    + '<p class="video-synopsis">' + video.synopsis + '</p>'
+    + '</div>'
+    + '</div>';
+}
+
+/* J.00.05 – Populate grids */
+function populateVideos() {
+  document.getElementById('live-concerts-grid').innerHTML =
+    videoData.liveConcerts.map(createVideoCard).join('');
+  document.getElementById('thematic-grid').innerHTML =
+    videoData.thematic.map(createVideoCard).join('');
+  document.getElementById('special-projects-grid').innerHTML =
+    videoData.specialProjects.map(createVideoCard).join('');
+  document.getElementById('individual-pieces-grid').innerHTML =
+    videoData.individualPieces.map(createVideoCard).join('');
+}
+
+/* J.00.06 – Scroll function */
+function scrollVideos(gridId, direction) {
+  var grid = document.getElementById(gridId);
+  grid.scrollLeft += direction * 340; /* TWEAK THIS – scroll distance per click */
+}
+
+/* J.00.07 – Exclusive accordion (one open at a time) */
+var accordionSections = document.querySelectorAll('.accordion-section');
+
+accordionSections.forEach(function (section) {
+  section.querySelector('.accordion-header').addEventListener('click', function () {
+    var isAlreadyOpen = section.classList.contains('active');
+
+    /* Close all sections */
+    accordionSections.forEach(function (s) {
+      s.classList.remove('active');
+    });
+
+    /* If it was closed, open it. If it was open, leave closed. */
+    if (!isAlreadyOpen) {
+      section.classList.add('active');
+    }
+  });
+});
+
+/* J.00.08 – Open video modal */
+function openVideo(videoID) {
+  var modal  = document.getElementById('videoModal');
+  var player = document.getElementById('videoPlayer');
+  player.innerHTML = '<iframe src="https://www.youtube.com/embed/'
+    + videoID + '?autoplay=1" '
+    + 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" '
+    + 'allowfullscreen></iframe>';
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+/* J.00.09 – Close modal */
+document.getElementById('modalClose').addEventListener('click', function () {
+  var modal  = document.getElementById('videoModal');
+  var player = document.getElementById('videoPlayer');
+  modal.classList.remove('active');
+  player.innerHTML = '';
+  document.body.style.overflow = 'auto';
+});
+
+document.getElementById('videoModal').addEventListener('click', function (e) {
+  if (e.target.id === 'videoModal') {
+    document.getElementById('modalClose').click();
+  }
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    var modal = document.getElementById('videoModal');
+    if (modal.classList.contains('active')) {
+      document.getElementById('modalClose').click();
+    }
+  }
+});
+
+/* J.00.10 – Initialize */
+window.addEventListener('DOMContentLoaded', function () {
+  populateVideos();
+});
+
+</script>
+
+
+
+</body>
+</html>
