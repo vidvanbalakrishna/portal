@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Awards & Honors</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="global-variables.css">
+<style>
+
+/* ─────────────────────────────────────────────────────────────
+   C.00.10 – AWARDS PAGE: TYPOGRAPHY SCALE OVERRIDES
+   Awards page uses larger heading than the portal base values.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --h1-size-desktop:   3.8rem;   /* TWEAK THIS – More rem = larger heading. Global base = 3.6rem. */
+  --h1-letter-desktop: 0.06em;   /* TWEAK THIS – More em = wider spacing. Global base = 0.04em. */
+  --h1-line-desktop:   1.05;
+  --h1-size-mobile:    2.4rem;   /* TWEAK THIS – Global base = 2.0rem. */
+  --h1-letter-mobile:  0.05em;
+  --h1-line-mobile:    1.1;
+  --subtitle-size-desktop:   1.15rem;
+  --subtitle-letter-desktop: 0.16em;
+  --subtitle-size-mobile:    1.05rem;
+  --subtitle-letter-mobile:  0.12em;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – MOBILE HAMBURGER BUTTON
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-hamburger {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;           /* TWEAK THIS – button hit area width */
+  height: var(--nav-height);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.nav-hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-hamburger-icon span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--nav-link);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.01 – MOBILE NAV DRAWER
+   ═══════════════════════════════════════════════════════════ */
+
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+  margin: 0;
+  z-index: 150;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-drawer.open {
+  display: flex;
+}
+
+.nav-drawer a {
+  display: block;
+  width: 100%;
+  padding: 12px 28px;
+  margin: 0;
+  text-decoration: none;
+  color: var(--nav-link);
+  font-family: var(--font-base);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  border: none;
+  background: transparent;
+  transition: color var(--hover-transition);
+  box-sizing: border-box;
+}
+
+.nav-drawer a:hover,
+.nav-drawer a.active {
+  color: var(--nav-active);
+  background: transparent;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.02 – MOBILE MODE (max-width: 1100px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+
+  .nav-panel {
+    position: fixed;
+    overflow: hidden;
+    padding-right: 68px;
+  }
+
+  .nav-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 60px;
+    width: 60px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(255,255,240,0) 0%,
+      var(--nav-bg) 100%
+    );
+    z-index: 101;
+  }
+
+  .nav-links {
+    display: flex;
+    overflow: hidden;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.03 – DESKTOP MODE (min-width: 1101px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 1101px) {
+
+  .nav-hamburger {
+    display: none;
+  }
+
+  .nav-drawer {
+    display: none !important;
+  }
+
+}
+
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.00 – AWARDS SPLIT LAYOUT
+   ═══════════════════════════════════════════════════════════ */
+
+/* C.02.01 – Page wrapper */
+
+#awards-page {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* C.02.02 – Fixed hero (left side) */
+
+.awards-hero {
+  position: fixed;
+  top: var(--content-top);
+  left: 0;
+  width: 40vw;           /* TWEAK THIS – hero width */
+  height: calc(100vh - var(--content-top));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem 2rem 0;
+  z-index: 1;
+}
+
+.awards-hero img {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+/* C.02.03 – Right content column */
+
+.awards-content {
+  margin-left: 42vw;     /* TWEAK THIS – must be slightly more than hero width */
+  max-width: 50vw;       /* TWEAK THIS – text column width */
+  padding: 3rem 3rem 5rem 1rem;
+}
+
+.awards-title {
+  font-family: var(--font-display);
+  font-size: var(--h1-size-desktop);
+  letter-spacing: var(--h1-letter-desktop);
+  line-height: var(--h1-line-desktop);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--nav-active);
+  text-align: center;
+  margin: 0 0 1.2rem 0;
+  padding: 0;
+}
+
+.awards-tagline {
+  font-family: var(--font-display);
+  font-size: var(--subtitle-size-desktop);
+  letter-spacing: var(--subtitle-letter-desktop);
+  color: var(--text-accent);
+  opacity: 0.85;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
+  margin: 0 0 4rem 0; /* TWEAK THIS – space before timeline */
+  padding: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – TIMELINE
+   ═══════════════════════════════════════════════════════════ */
+
+.awards-timeline {
+  position: relative;
+  padding-left: 4rem;    /* TWEAK THIS – space for vertical line */
+}
+
+/* Vertical gold line */
+
+.awards-timeline::before {
+  content: '';
+  position: absolute;
+  left: 1.6rem;          /* TWEAK THIS – line horizontal position */
+  top: 2rem;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--nav-active) 5%,
+    var(--nav-active) 95%,
+    transparent 100%
+  );
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – INDIVIDUAL AWARD
+   ═══════════════════════════════════════════════════════════ */
+
+.award-item {
+  position: relative;
+  margin-bottom: 4rem;   /* TWEAK THIS – space between awards */
+}
+
+.award-logo {
+  position: absolute;
+  left: -2.6rem;         /* TWEAK THIS – icon offset from line */
+  top: 0.4rem;
+  width: 38px;           /* TWEAK THIS – icon size */
+  height: 38px;
+  opacity: 0.85;
+  transition: opacity var(--hover-transition), transform var(--hover-transition);
+}
+
+.award-item:hover .award-logo {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.award-year {
+  font-family: var(--font-display);
+  font-size: 2.6rem;     /* TWEAK THIS – year number size */
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.02em;
+  color: #7f6921;        /* TWEAK THIS – classical gold tone */
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+}
+
+.award-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;     /* TWEAK THIS – award title size */
+  font-style: normal;
+  font-weight: 600;
+  color: var(--nav-active);
+  margin: 0 0 0.5rem 0;
+  padding: 0;
+}
+
+.award-organization {
+  font-family: var(--font-base);
+  font-style: italic;
+  font-size: 1rem;       /* TWEAK THIS – organisation name size */
+  font-weight: 400;
+  color: var(--text-secondary);
+  opacity: 0.75;
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+.award-description {
+  font-family: var(--font-base);
+  font-size: var(--body-size-desktop);
+  line-height: var(--body-line-desktop);
+  letter-spacing: var(--body-letter-desktop);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.05.00 – MOBILE LAYOUT (max-width: 1100px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+
+  /* Stack layout – hero above content */
+
+  .awards-hero {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    padding: 2rem 1.5rem;
+  }
+
+  .awards-hero img {
+    max-height: 60vh;      /* TWEAK THIS – hero image height on mobile */
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .awards-content {
+    margin-left: 0;
+    max-width: 100%;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .awards-title {
+    font-size: var(--h1-size-mobile);
+    letter-spacing: var(--h1-letter-mobile);
+    line-height: var(--h1-line-mobile);
+  }
+
+  .awards-tagline {
+    font-size: var(--subtitle-size-mobile);
+    letter-spacing: var(--subtitle-letter-mobile);
+    margin-bottom: 3rem;
+  }
+
+  .award-description {
+    font-size: var(--body-size-mobile);
+    line-height: var(--body-line-mobile);
+    letter-spacing: var(--body-letter-mobile);
+  }
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.00.00 – NAVIGATION PANEL
+<!-- H.00.00 – NAVIGATION (injected by nav.js) -->
+<div id="nav-placeholder"></div>
+<script src="nav.js"></script>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+<div id="awards-page">
+
+  <!-- H.01.01 – Left fixed hero -->
+  <div class="awards-hero">
+    <img src="images/awards-hero.png" alt="Vidvān D. Balakrishna">
+  </div>
+
+  <!-- H.01.02 – Right content -->
+  <div class="awards-content">
+
+    <h1 class="awards-title">Awards & Honors</h1>
+    <div class="awards-tagline">
+      Celebrating excellence and dedication to preserving the Mysore tradition
+    </div>
+
+    <!-- H.01.03 – Timeline -->
+    <div class="awards-timeline">
+
+      <!-- H.01.03a -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2025</div>
+        <div class="award-title">Nada Vallabha</div>
+        <div class="award-organization">Nada Sudha, Chennai</div>
+      </div>
+
+      <!-- H.01.03b -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2024</div>
+        <div class="award-title">Picchumani Iyer Centenary Award</div>
+        <div class="award-organization">Parthasarathi Swami Sabha, Chennai</div>
+      </div>
+
+      <!-- H.01.03c -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2023</div>
+        <div class="award-title">Central Sangeet Natak Akademi Award</div>
+        <div class="award-organization">Government of India</div>
+        <p class="award-description">
+          India's highest national recognition for performing artists, honoring sustained contribution to Carnatic music and the Mysore Veena tradition.
+        </p>
+      </div>
+
+      <!-- H.01.03d -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2022</div>
+        <div class="award-title">Sangeeta Kala Ratna</div>
+        <div class="award-organization">Bangalore Gayana Samaja</div>
+      </div>
+
+      <!-- H.01.03e -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2019</div>
+        <div class="award-title">Veena Nadamani</div>
+        <div class="award-organization">Charubala Trust, Chennai</div>
+      </div>
+
+      <!-- H.01.03f -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2018</div>
+        <div class="award-title">Parampara Pradheepanacharya – Lifetime Achievement</div>
+        <div class="award-organization">Chintalapalli Parampara Trust</div>
+      </div>
+
+      <!-- H.01.03g -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2016</div>
+        <div class="award-title">Veena Sheshanna Memorial National Award</div>
+        <div class="award-organization">Swaramurthy V. N. Rao Trust</div>
+      </div>
+
+      <!-- H.01.03h -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2014</div>
+        <div class="award-title">Karnataka Kalashree</div>
+        <div class="award-organization">Karnataka Sangeetha Nrithya Academy</div>
+      </div>
+
+      <!-- H.01.03i -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2013</div>
+        <div class="award-title">Veena Brahma</div>
+        <div class="award-organization">Nada Brahma Sangeetha Sabha, Mysore</div>
+      </div>
+
+      <!-- H.01.03j -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">2009</div>
+        <div class="award-title">Asthāna Vidvān</div>
+        <div class="award-organization">Sri Kamakoti Peetham, Kanchi</div>
+      </div>
+
+      <!-- H.01.03k -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">1997</div>
+        <div class="award-title">Ganakalashri</div>
+        <div class="award-organization">Karnataka Gana Kala Parishat</div>
+      </div>
+
+      <!-- H.01.03l -->
+      <div class="award-item">
+        <img src="images/logo-db.png" class="award-logo" alt="">
+        <div class="award-year">1979 · 1991 · 1996 · 2006 · 2008</div>
+        <div class="award-title">Best Veena Player (Five Times)</div>
+        <div class="award-organization">The Music Academy, Madras</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+
+
+</body>
+</html>
