@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | Contact</title>
+
+<link rel="stylesheet" href="global-variables.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – PAGE HEADER
+   ═══════════════════════════════════════════════════════════ */
+
+.contact-header {
+  text-align: center;
+  padding: 3rem 1rem 0;           /* TWEAK THIS – top space above title */
+  margin: 0;
+}
+
+.contact-title {
+  font-family: var(--font-display);
+  font-size: var(--h1-size-desktop);
+  letter-spacing: var(--h1-letter-desktop);
+  line-height: var(--h1-line-desktop);
+  font-weight: 500;
+  font-style: normal;
+  color: var(--text-primary);
+  margin: 0 0 var(--text-gap-small) 0;
+  padding: 0;
+}
+
+.contact-subtitle {
+  font-family: var(--font-display);
+  font-size: var(--subtitle-size-desktop);
+  letter-spacing: var(--subtitle-letter-desktop);
+  line-height: var(--subtitle-line-desktop);
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-accent);
+  opacity: 0.85;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.00 – CONTACT BODY
+   ═══════════════════════════════════════════════════════════ */
+
+.contact-body {
+  max-width: 860px;            /* TWEAK THIS – wider = more spread; narrower = more focused */
+  margin: 0 auto;
+  padding: 2.5rem 2rem 3rem;      /* TWEAK THIS – body top / sides / bottom */
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.01 – THIN RULE DIVIDER
+   ═══════════════════════════════════════════════════════════ */
+
+.contact-rule {
+  width: 48px;               /* TWEAK THIS – wider = longer rule line */
+  height: 1px;
+  background: var(--nav-underline);
+  opacity: 0.5;
+  margin: 0 auto 2rem auto;       /* TWEAK THIS – space below rule */
+  display: block;
+  border: none;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – EMAIL BLOCK
+   ═══════════════════════════════════════════════════════════ */
+
+.contact-email-block {
+  text-align: center;
+  margin: 0 0 2rem 0;             /* TWEAK THIS – space below email block */
+  padding: 0;
+}
+
+.contact-email-label {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.78rem;          /* TWEAK THIS – smaller = more discreet label */
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  opacity: 0.45;
+  margin: 0 0 0.7rem 0;
+  padding: 0;
+}
+
+.contact-email-address {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.45rem;          /* TWEAK THIS – larger = more prominent email */
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+  text-decoration: none;
+  position: relative;
+  margin: 0;
+  padding: 0 0 4px 0;
+  transition: color var(--hover-transition);
+}
+
+.contact-email-address::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--nav-underline);
+  transition: width 0.4s ease;  /* TWEAK THIS – larger = slower underline reveal */
+}
+
+.contact-email-address:hover {
+  color: var(--nav-active);
+}
+
+.contact-email-address:hover::after {
+  width: 100%;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – CHANNELS GRID
+   ═══════════════════════════════════════════════════════════ */
+
+.contact-channels {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* TWEAK THIS – 4 = four columns */
+  gap: 1.5rem;                     /* TWEAK THIS – space between cards */
+  margin: 0;
+  padding: 0;
+}
+
+.contact-channel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  gap: 0.7rem;                /* TWEAK THIS – space between icon and label */
+  padding: 1.2rem 0.8rem;     /* TWEAK THIS – inner padding of each card */
+  border: 1px solid var(--border-color);
+  transition: border-color var(--hover-transition),
+              transform var(--hover-transition);
+  position: relative;
+}
+
+.contact-channel:hover {
+  border-color: rgba(154,123,47,0.35);
+  transform: translateY(-4px);  /* TWEAK THIS – lift amount on hover */
+}
+
+.contact-channel img {
+  width: 52px;                /* TWEAK THIS – icon size */
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+  filter: saturate(var(--img-saturate)) contrast(var(--img-contrast));
+}
+
+.contact-channel-name {
+  font-family: var(--font-base);
+  font-size: 0.78rem;          /* TWEAK THIS – label size */
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  margin: 0;
+  padding: 0;
+}
+
+
+.contact-channel-handle {
+  font-family: var(--font-display);
+  font-size: 0.88rem;          /* TWEAK THIS – handle text size */
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  opacity: 0.55;
+  margin: 0;
+  padding: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   C.05.00 – CLOSING LINE
+   ═══════════════════════════════════════════════════════════ */
+
+.contact-closing {
+  text-align: center;
+  margin: 2rem 0 0 0;         /* TWEAK THIS – space above closing line */
+  padding: 0 0 2rem 0;         /* TWEAK THIS – space below closing line */
+}
+
+.contact-closing-text {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  opacity: 0.4;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.06.00 – MOBILE (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  .contact-header {
+    padding-top: var(--section-gap-mobile);
+  }
+
+  .contact-title {
+    font-size: var(--h1-size-mobile);
+    letter-spacing: var(--h1-letter-mobile);
+    line-height: var(--h1-line-mobile);
+  }
+
+  .contact-subtitle {
+    font-size: var(--subtitle-size-mobile);
+    letter-spacing: var(--subtitle-letter-mobile);
+  }
+
+  .contact-body {
+    padding: var(--section-gap-mobile) 1.5rem var(--section-gap-mobile);
+  }
+
+  .contact-rule {
+    margin-bottom: var(--section-gap-mobile);
+  }
+
+  .contact-email-block {
+    margin-bottom: var(--section-gap-mobile);
+  }
+
+  .contact-email-address {
+    font-size: 1.15rem;        /* TWEAK THIS – mobile email size */
+  }
+
+  .contact-channels {
+    grid-template-columns: repeat(2, 1fr);  /* TWEAK THIS – 2 columns on mobile */
+    gap: 1rem;                 /* TWEAK THIS – tighter on mobile */
+  }
+
+  .contact-channel {
+    padding: 1.4rem 0.5rem;
+  }
+
+  .contact-channel img {
+    width: 38px;               /* TWEAK THIS – smaller icon on mobile */
+  }
+
+  .contact-channel-name {
+    font-size: 0.68rem;
+  }
+
+}
+
+
+</style>
+</head>
+<body>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.00.00 – NAVIGATION PANEL
+<!-- H.00.00 – NAVIGATION (injected by nav.js) -->
+<div id="nav-placeholder"></div>
+<script src="nav.js"></script>
+
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+
+  <!-- H.01.01 – Page header -->
+  <div class="contact-header">
+    <h1 class="contact-title">Connect</h1>
+    <div class="contact-subtitle">For concert bookings and inquiries</div>
+  </div>
+
+  <div class="contact-body">
+
+    <!-- H.01.02 – Rule -->
+    <hr class="contact-rule">
+
+    <!-- H.01.03 – Email address in text -->
+    <div class="contact-email-block">
+      <span class="contact-email-label">Write directly</span>
+      <a href="mailto:vidvanbalakrishna@gmail.com" class="contact-email-address">
+        vidvanbalakrishna@gmail.com
+      </a>
+    </div>
+
+    <!-- H.01.04 – Social channels -->
+    <div class="contact-channels">
+
+      <a href="mailto:vidvanbalakrishna@gmail.com" class="contact-channel">
+        <img src="images/contact_gmail.png" alt="Email">
+        <span class="contact-channel-name">Email</span>
+        <span class="contact-channel-handle">vidvanbalakrishna@gmail.com</span>
+      </a>
+
+      <a href="https://www.youtube.com/@VidvanDBalakrishna" target="_blank" class="contact-channel">
+        <img src="images/contact_youtube.png" alt="YouTube">
+        <span class="contact-channel-name">YouTube</span>
+        <span class="contact-channel-handle">@VidvanDBalakrishna</span>
+      </a>
+
+      <a href="https://facebook.com/balakrishna.d.7967" target="_blank" class="contact-channel">
+        <img src="images/contact_FB.png" alt="Facebook">
+        <span class="contact-channel-name">Facebook</span>
+        <span class="contact-channel-handle">balakrishna.d.7967</span>
+      </a>
+
+      <a href="https://instagram.com/balakrishna.d.7967" target="_blank" class="contact-channel">
+        <img src="images/contact_instagram.png" alt="Instagram">
+        <span class="contact-channel-name">Instagram</span>
+        <span class="contact-channel-handle">@balakrishna.d.7967</span>
+      </a>
+
+    </div>
+
+    <!-- H.01.05 – Closing line -->
+    <div class="contact-closing">
+      <p class="contact-closing-text">Sustaining the Tradition . . .</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+
+</body>
+</html>
