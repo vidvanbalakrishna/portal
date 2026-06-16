@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D. Balakrishna | The Source and the Spread</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="global-variables.css">
+<style>
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.00.00 – BASE (All Devices)
+   ═══════════════════════════════════════════════════════════ */
+
+
+/* ───────── C.00.01 – NAV HAMBURGER BUTTON (shared portal nav) ───────── */
+
+.nav-hamburger {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;                    /* TWEAK – button hit-area width */
+  height: var(--nav-height);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.nav-hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-hamburger-icon span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: var(--nav-link);
+  margin: 0;
+  padding: 0;
+  transition: background 0.3s ease;
+}
+
+
+/* ───────── C.00.02 – NAV DRAWER (shared portal nav) ───────── */
+
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 0;
+  margin: 0;
+  z-index: 150;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-drawer.open {
+  display: flex;
+}
+
+.nav-drawer a {
+  display: block;
+  width: 100%;
+  padding: 12px 28px;
+  margin: 0;
+  text-decoration: none;
+  color: var(--nav-link);
+  font-family: var(--font-base);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  border: none;
+  background: transparent;
+  transition: color var(--hover-transition);
+  box-sizing: border-box;
+}
+
+.nav-drawer a:hover,
+.nav-drawer a.active {
+  color: var(--nav-active);
+  background: transparent;
+}
+
+
+/* ───────── C.00.03 – ARTICLE PAGE COLUMN ───────── */
+
+.av-page {
+  display: block;
+  max-width: 720px;               /* TWEAK – reading column width (larger = wider lines) */
+  margin: 0 auto;
+  padding: 0 2.4rem 6rem;         /* TWEAK – side and bottom padding */
+  box-sizing: border-box;
+}
+
+
+/* ───────── C.00.04 – BACK LINK ───────── */
+
+.av-back {
+  display: inline-block;
+  font-family: var(--font-base);
+  font-size: 0.7rem;              /* TWEAK – back-link size */
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 3.4rem 0 0 0;           /* TWEAK – space above back link */
+  padding: 0;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.av-back:hover {
+  border-bottom-color: var(--nav-active);
+}
+
+
+/* ───────── C.00.05 – ARTICLE HEADER ───────── */
+
+.av-header {
+  display: block;
+  text-align: center;
+  margin: 3rem 0 0 0;             /* TWEAK – space above header */
+  padding: 0;
+}
+
+.av-eyebrow {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.66rem;             /* TWEAK – "Article · 02" size */
+  font-weight: 400;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  margin: 0 0 1.4rem 0;
+  padding: 0;
+}
+
+.av-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2.9rem;              /* TWEAK – article title size */
+  font-weight: 500;
+  font-style: normal;
+  color: var(--text-primary);
+  letter-spacing: 0.015em;
+  line-height: 1.12;
+  margin: 0 0 1rem 0;
+  padding: 0;
+}
+
+.av-subtitle {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;             /* TWEAK – subtitle size */
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  margin: 0 0 1.6rem 0;
+  padding: 0;
+}
+
+.av-attribution {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 0.8rem;              /* TWEAK – author line size */
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-secondary);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ───────── C.00.06 – HEADER RULE (◆) ───────── */
+
+.av-header-rule {
+  display: block;
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 2.8rem 0 3.4rem 0;      /* TWEAK – space above / below header rule */
+  padding: 0;
+  position: relative;
+}
+
+.av-header-rule::before {
+  content: '◆';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f5e9d0;            /* matches page parchment so the line "breaks" cleanly */
+  padding: 0 1rem;
+  font-size: 0.4rem;
+  color: var(--nav-active);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+
+/* ───────── C.00.07 – SECTION DIVIDER (◆ between movements) ───────── */
+
+.av-divider {
+  display: block;
+  width: 100%;
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 3rem 0 3rem 0;          /* TWEAK – breathing space around each divider */
+  padding: 0;
+  position: relative;
+}
+
+.av-divider::before {
+  content: '◆';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f5e9d0;            /* matches page parchment so the line "breaks" cleanly */
+  padding: 0 1rem;
+  font-size: 0.36rem;            /* TWEAK – diamond size */
+  color: var(--nav-active);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+
+/* ───────── C.00.08 – BODY LINE (one sentence, or one grouped pair, per line) ───────── */
+
+.av-line {
+  display: block;
+  font-family: var(--font-base);
+  font-size: 1.15rem;             /* TWEAK – body reading size */
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  line-height: 1.85;
+  text-align: left;
+  margin: 0 0 1.4rem 0;           /* TWEAK – breathing space below each line */
+  padding: 0;
+}
+
+
+/* ───────── C.00.09 – CLOSING WORD ("Restraint.") ───────── */
+
+.av-closing {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.8rem;              /* TWEAK – closing word size */
+  font-weight: 600;
+  font-style: normal;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+  text-align: left;
+  margin: 0.6rem 0 0 0;           /* TWEAK – space above closing word */
+  padding: 0;
+}
+
+
+/* ───────── C.00.10 – REFLECTION FOOTER ───────── */
+
+.av-reflect {
+  display: block;
+  text-align: center;
+  margin: 4.5rem 0 0 0;           /* TWEAK – space above reflection block */
+  padding: 3rem 0 0 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.av-reflect-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.4rem;              /* TWEAK – "Share your reflection" size */
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  margin: 0 0 1.6rem 0;
+  padding: 0;
+}
+
+.av-reflect-input {
+  display: block;
+  width: 100%;
+  height: 120px;                  /* TWEAK – text box height */
+  font-family: var(--font-base);
+  font-size: 1rem;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-primary);
+  line-height: 1.7;
+  background: rgba(255,255,255,0.45);
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  padding: 0.9rem 1rem;
+  margin: 0 0 1.4rem 0;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.av-reflect-input:focus {
+  outline: none;
+  border-color: var(--nav-active);
+}
+
+.av-reflect-btn {
+  display: inline-block;
+  font-family: var(--font-base);
+  font-size: 0.72rem;             /* TWEAK – submit button text size */
+  font-weight: 600;
+  font-style: normal;
+  color: var(--nav-active);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(154,123,47,0.08);
+  border: 2px solid rgba(154,123,47,0.4);
+  border-radius: 4px;
+  padding: 0.7rem 1.8rem;         /* TWEAK – button size */
+  cursor: pointer;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.av-reflect-btn:hover {
+  background: rgba(154,123,47,0.18);
+  border-color: rgba(154,123,47,0.7);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.01.00 – SHARED NAVIGATION · MOBILE COLLAPSE (max-width: 1100px)
+   (matches every other portal page – leave as is)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 1100px) {
+
+  .nav-panel {
+    position: fixed;
+    overflow: hidden;
+    padding-right: 68px;
+  }
+
+  .nav-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 60px;
+    width: 60px;
+    height: 100%;
+    pointer-events: none;
+    background: linear-gradient(
+      to right,
+      rgba(255,255,240,0) 0%,
+      var(--nav-bg) 100%
+    );
+    z-index: 101;
+  }
+
+  .nav-links {
+    display: flex;
+    overflow: hidden;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.02.00 – SHARED NAVIGATION · DESKTOP (min-width: 1101px)
+   (matches every other portal page – leave as is)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 1101px) {
+
+  .nav-hamburger {
+    display: none;
+  }
+
+  .nav-drawer {
+    display: none !important;
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.03.00 – ARTICLE · DESKTOP (min-width: 901px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (min-width: 901px) {
+
+  .av-title {
+    font-size: 2.9rem;            /* TWEAK – desktop title */
+  }
+
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   C.04.00 – ARTICLE · MOBILE (max-width: 900px)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+
+  .av-page {
+    padding: 0 1.4rem 5rem;       /* TWEAK – mobile side padding */
+  }
+
+  .av-title {
+    font-size: 2rem;              /* TWEAK – mobile title */
+  }
+
+  .av-subtitle {
+    font-size: 1.08rem;           /* TWEAK – mobile subtitle */
+  }
+
+  .av-line {
+    font-size: 1rem;              /* TWEAK – mobile body size */
+    line-height: 1.8;
+    margin: 0 0 1.15rem 0;        /* TWEAK – mobile breathing between lines */
+  }
+
+  .av-closing {
+    font-size: 1.5rem;            /* TWEAK – mobile closing word */
+  }
+
+}
+
+
+</style>
+</head>
+<body>
+
+
+<!-- H.00.00 – NAVIGATION (shared portal nav) -->
+<div class="nav-panel">
+  <div class="nav-logo">
+    <img src="images/logo-db.png" alt="D. Balakrishna">
+  </div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="artist.html">Artist</a>
+    <a href="about.html">About</a>
+    <a href="lineage.html">Lineage</a>
+    <a href="international.html">International</a>
+    <a href="media.html">Media</a>
+    <a href="mysore-bani.html">Mysore Bāṇi</a>
+    <a href="vainika-voice.html" class="active">Vainika's Voice</a>
+    <a href="awards.html">Awards</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <div class="nav-hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+</div>
+
+<nav class="nav-drawer" id="navDrawer">
+  <a href="index.html">Home</a>
+  <a href="artist.html">Artist</a>
+  <a href="about.html">About</a>
+  <a href="lineage.html">Lineage</a>
+  <a href="international.html">International</a>
+  <a href="media.html">Media</a>
+  <a href="mysore-bani.html">Mysore Bāṇi</a>
+  <a href="vainika-voice.html" class="active">Vainika's Voice</a>
+  <a href="awards.html">Awards</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     H.01.00 – CONTENT WRAPPER
+     ═══════════════════════════════════════════════════════════ -->
+
+<div id="content">
+<div class="av-page">
+
+
+  <!-- H.01.01 – BACK LINK -->
+  <a class="av-back" href="vainika-voice.html">← Vainika's Voice</a>
+
+
+  <!-- H.01.02 – ARTICLE HEADER -->
+  <div class="av-header">
+    <span class="av-eyebrow">Article · 02</span>
+    <h1 class="av-title">The Source and the Spread</h1>
+    <p class="av-subtitle">On Essence, Elaboration, and Restraint in Carnatic Music</p>
+    <p class="av-attribution">D. Balakrishna</p>
+  </div>
+
+  <hr class="av-header-rule">
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       H.02.00 – ARTICLE BODY
+       Each line = one sentence. Grouped pairs share one line.
+       Movements are separated by <hr class="av-divider">.
+       ═══════════════════════════════════════════════════════ -->
+
+
+  <!-- H.02.01 – Movement: The Gathering -->
+  <p class="av-line">At the heart of the temple lies the garbhagṛha (inner sanctum).</p>
+  <p class="av-line">Here, everything gathers.</p>
+  <p class="av-line">The space is small, yet something within it is immense.</p>
+  <p class="av-line">The mind does not wander. It rests — held, without effort.</p>
+  <p class="av-line">Moving outward, the surroundings begin to open.</p>
+  <p class="av-line">In the maṇḍapa (pillared hall), people sit, rest, speak softly, or simply remain.</p>
+  <p class="av-line">In the prākāra, there is movement — gathered still, as though it remembers where it has come from.</p>
+  <p class="av-line">Beyond the prākāra, life opens out.</p>
+  <p class="av-line">Pilgrims receive prasāda.</p>
+  <p class="av-line">Flower sellers and book stalls line the way.</p>
+  <p class="av-line">People come and go, pausing for a moment before moving on.</p>
+  <p class="av-line">Further out, along the streets around the temple, ordinary life resumes its course.</p>
+  <p class="av-line">Shops stand open.</p>
+  <p class="av-line">Children are drawn towards toys.</p>
+  <p class="av-line">One may stop for a plate of hot idli before continuing on.</p>
+  <p class="av-line">Nothing breaks, nothing falls away — yet the nearness that held everything begins to loosen.</p>
+  <p class="av-line">The same place remains — but not in the same way.</p>
+  <p class="av-line">The stillness of the garbhagṛha, which once held everything, begins to thin.</p>
+  <p class="av-line">Movement returns, voices rise, the mind resumes its wandering.</p>
+  <p class="av-line">The temple does not end.</p>
+  <p class="av-line">But what gathers in the garbhagṛha does not travel outward.</p>
+  <p class="av-line">Its essence remains at the centre.</p>
+
+  <hr class="av-divider">
+
+  <!-- H.02.02 – Movement: The Pattern -->
+  <p class="av-line">This pattern does not belong to the temple alone.</p>
+  <p class="av-line">It is there wherever form gathers.</p>
+  <p class="av-line">A painting, worked too far from its first clarity, no longer holds what was there at the beginning.</p>
+  <p class="av-line">A flame, steady and bright when close to its wick, wavers and dims as it moves away.</p>
+  <p class="av-line">All that gathers holds its fullness at the source.</p>
+  <p class="av-line">Moving away from it, that fullness begins to spread.</p>
+  <p class="av-line">In music, this is heard most clearly.</p>
+  <p class="av-line">A rāga carries the same essence.</p>
+  <p class="av-line">Wherever its character gathers most fully, its presence is most deeply felt.</p>
+
+  <hr class="av-divider">
+
+  <!-- H.02.03 – Movement: Recognising the Fullness -->
+  <p class="av-line">In a rāga, this fullness has its own name.</p>
+  <p class="av-line">There is a density of presence, an intensity of character — sāndrate (density) and tīvṛate (intensity).</p>
+  <p class="av-line">Where these gather, the rāga is most itself — complete, held, alive.</p>
+  <p class="av-line">This is seen most clearly in the works of the great composers — Tyāgarāja, Muthuswāmi Dīkṣitar, and Śyāmā Śāstri.</p>
+  <p class="av-line">In their kṛtis, the rāga gathers into such compactness that it lives within the phrases themselves.</p>
+
+  <hr class="av-divider">
+
+  <!-- H.02.04 – Movement: Movement -->
+  <p class="av-line">In performance, this fullness does not remain confined.</p>
+  <p class="av-line">The rāga moves, extends, takes on new turns.</p>
+  <p class="av-line">Within this movement, its bhāva — its chhāyā — remains.</p>
+  <p class="av-line">The music continues to hold its shape and identity, even as it extends.</p>
+
+  <hr class="av-divider">
+
+  <!-- H.02.05 – Movement: The Demand to Continue -->
+  <p class="av-line">This movement often extends further.</p>
+  <p class="av-line">Elaboration becomes central — not by accident, but by professional necessity.</p>
+  <p class="av-line">The music is asked to continue — to fill the space performance opens.</p>
+  <p class="av-line">With this extension, something shifts.</p>
+  <p class="av-line">The phrases move further from that original compactness.</p>
+  <p class="av-line">The rāga remains — its outline intact — but not with the same density.</p>
+  <p class="av-line">Its fullness begins to thin.</p>
+  <p class="av-line">What was once held in concentrated form begins to spread.</p>
+
+  <hr class="av-divider">
+
+  <!-- H.02.06 – Movement: Acceptance -->
+  <p class="av-line">Musicians are not unaware of this.</p>
+  <p class="av-line">There is, as performers sometimes say with a quiet smile, an “emergency to elaborate” — a pull that accompanies performance.</p>
+  <p class="av-line">Listeners accept it readily, often with enjoyment.</p>
+  <p class="av-line">The elaboration feels natural. The performance feels whole.</p>
+  <p class="av-line">The rāga continues — and for the ear, that is often sufficient.</p>
+  <p class="av-line">And yet, what is accepted by listeners is not always what is essential.</p>
+  <p class="av-line">Whether it has remained close to its source is another matter.</p>
+
+  <hr class="av-divider">
+
+  <!-- H.02.07 – Movement: The Thinning -->
+  <p class="av-line">As elaboration continues, the rāga moves away from the nearness where its essence is most fully felt.</p>
+  <p class="av-line">It still moves, still speaks, still holds together. But something within it loosens.</p>
+  <p class="av-line">The phrases extend, connect, unfold — yet they no longer carry the same inner weight.</p>
+  <p class="av-line">The rāga bhāva begins to thin.</p>
+  <p class="av-line">Its chhāyā — its distinctive shade — once unmistakable, grows less certain.</p>
+  <p class="av-line">What was earlier felt in every phrase now appears only in moments.</p>
+  <p class="av-line">The music continues — but no longer from that same centre of fullness.</p>
+  <p class="av-line">But that concentrated life — what gave it its depth — no longer holds with the same force.</p>
+
+  <hr class="av-divider">
+
+  <!-- H.02.08 – Movement: Remaining Close -->
+  <p class="av-line">And yet, the rāga can remain close to its source, even as it expands.</p>
+  <p class="av-line">In the Harikathā tradition, one hears this clearly — the rāga is held wherever its life resides.</p>
+  <p class="av-line">It does not extend; what is held there is sufficient.</p>
+  <p class="av-line">Among performers, this reveals itself as restraint.</p>
+  <p class="av-line">A musician like G. N. Balasubramaniam or Madurai Mani Iyer could elaborate a rāga and yet remain close to its source.</p>
+  <p class="av-line">They knew where to stop — not for want of ideas, but to avoid what did not carry the same inner weight.</p>
+  <p class="av-line">To expand without drifting from that source demands a rare koushalya, a prathibhā.</p>
+  <p class="av-line">As in a painting, to work beyond a certain point is to disturb what was already alive.</p>
+  <p class="av-line">To leave it too slight is to withhold its fullness.</p>
+  <p class="av-line">Between these lies not compromise, but measure.</p>
+
+  <hr class="av-divider">
+
+  <!-- H.02.09 – Movement: The Moment -->
+  <p class="av-line">There are moments when a single phrase holds the entire rāga.</p>
+  <p class="av-line">Not in suggestion — but in fullness, complete and unhurried.</p>
+  <p class="av-line">It has said what must be said.</p>
+  <p class="av-line">Beyond that lies elaboration — what can be said.</p>
+  <p class="av-line">The music may continue, extend, unfold.</p>
+  <p class="av-line">And yet, where the essence gathers, the rāga comes into its own.</p>
+  <p class="av-line">Where it moves beyond its natural measure, that gathering begins to yield — not as failure, but as the nature of spread.</p>
+  <p class="av-line">To recognise that moment, and to remain with it, is</p>
+  <p class="av-closing">Restraint.</p>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       H.03.00 – REFLECTION FOOTER
+       NOTE: point the form action below to the SAME destination
+       used by the form in article-01.html, then this will submit.
+       ═══════════════════════════════════════════════════════ -->
+
+  <div class="av-reflect">
+    <span class="av-reflect-title">Share your reflection</span>
+    <form action="#" method="post">
+      <textarea class="av-reflect-input" name="reflection" placeholder="Write your reflection…"></textarea>
+      <button type="submit" class="av-reflect-btn">Submit</button>
+    </form>
+  </div>
+
+
+</div><!-- end .av-page -->
+</div><!-- end #content -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     J.01.00 – HAMBURGER TOGGLE (shared portal nav)
+     ═══════════════════════════════════════════════════════════ -->
+
+<script>
+(function () {
+  var btn    = document.getElementById('navHamburger');
+  var drawer = document.getElementById('navDrawer');
+  if (!btn || !drawer) { return; }
+  btn.addEventListener('click', function () {
+    drawer.classList.toggle('open');
+  });
+  document.addEventListener('click', function (e) {
+    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+      drawer.classList.remove('open');
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { drawer.classList.remove('open'); }
+  });
+}());
+</script>
+
+
+</body>
+</html>
